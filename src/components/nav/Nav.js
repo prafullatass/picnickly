@@ -6,23 +6,24 @@ class NavBar extends Component {
     logout = () => {
         sessionStorage.clear("credentials")
         this.props.setAuth()
-      }
+    }
 
     render() {
         return (
-
-        <Nav>
-          <NavItem>
-            <NavLink href="#">Link</NavLink>
-          </NavItem>
-                <a className="nav-link">Aloha {this.props.activeUser.username}</a>
-                <button
-                    type="button"
-                    className="btn btn-outline-info"
-                    onClick={this.logout}>
-                    Logout
+            <div id="app" className="container">
+                <Nav color="light flexContainer" light expand="md">
+                    <NavItem>
+                        <NavLink tag={Link} to="/picnic">Picnic</NavLink>
+                    </NavItem>
+                    <a className="nav-link">Aloha {this.props.activeUser.username}</a>
+                    <button
+                        type="button"
+                        className="btn btn-outline-info"
+                        onClick={this.logout}>
+                        Logout
                     </button>
-            </Nav>
+                </Nav>
+            </div>
         )
     }
 }

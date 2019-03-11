@@ -1,21 +1,21 @@
-import Settings from "./UrlLink"
+import UrlLink from "./UrlLink"
 
 export default Object.create(null, {
     GET: {
         value: function (id) {
-            return fetch(`${Settings.url}/${this.DBname}/${id}`)
+            return fetch(`${UrlLink.url}/${this.DBname}/${id}`)
                 .then(r => r.json())
         }
     },
     GETALL: {
         value: function () {
-            return fetch(`${Settings.url}/${this.DBname}`)
+            return fetch(`${UrlLink.url}/${this.DBname}`)
                 .then(r => r.json())
         }
     },
     DELETE: {
         value: function (id) {
-            return fetch(`${Settings.url}/${this.DBname}/${id}`,
+            return fetch(`${UrlLink.url}/${this.DBname}/${id}`,
                 {
                     method: "DELETE"
                 })
@@ -23,7 +23,7 @@ export default Object.create(null, {
     },
     POST: {
         value: function (obj) {
-            return fetch(`${Settings.url}/${this.DBname}`, {
+            return fetch(`${UrlLink.url}/${this.DBname}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -34,7 +34,7 @@ export default Object.create(null, {
     },
     PUT: {
         value: function (obj) {
-            return fetch(`${Settings.url}/${this.DBname}/${obj.id}`, {
+            return fetch(`${UrlLink.url}/${this.DBname}/${obj.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -45,7 +45,7 @@ export default Object.create(null, {
     },
     PATCH: {
         value: function (obj) {
-            return fetch(`${Settings.url}/${this.DBname}/${obj.id}`, {
+            return fetch(`${UrlLink.url}/${this.DBname}/${obj.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
