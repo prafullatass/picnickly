@@ -6,6 +6,8 @@ import GamesManager from "../ResourceManager/GamesManager";
 import FoodItemsManager from "../ResourceManager/FoodItemsManager";
 import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
+import ItemsListManager from "../ResourceManager/ItemListManager";
+import PicnicForm from "./picnic/NewPicnic";
 
 class ApplicationViews extends Component {
     state = {
@@ -42,6 +44,11 @@ class ApplicationViews extends Component {
             )
         )
         promises.push(
+            ItemsListManager.GETALL().then(itemList =>
+                new_state.itemList = itemList
+            )
+        )
+        promises.push(
             MyGamesManger.GETALL().then(myGames =>
                 new_state.myGames = myGames
             )
@@ -54,8 +61,8 @@ class ApplicationViews extends Component {
     render() {
         console.log(this.state)
         return (
-            <Route exact path="/picnic" render={(props) => {
-                return <Picnic picnicData={this.state.picnic} />
+            <Route exact path="/new" render={(props) => {
+                return <PicnicForm picnicData={this.state.picnic} />
             }} />
         )
     }

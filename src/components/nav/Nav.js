@@ -13,7 +13,7 @@ class NavBar extends Component {
             <div id="app" className="container">
                 <Nav color="light flexContainer" light expand="md">
                     <NavItem>
-                        <NavLink tag={Link} to="/picnic">Picnic</NavLink>
+                        <NavLink tag={Link} to="/new">New Picnic</NavLink>
                     </NavItem>
                     <a className="nav-link">Aloha {this.props.activeUser.username}</a>
                     <button
