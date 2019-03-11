@@ -1,0 +1,57 @@
+{
+    "picnic": [
+        {
+            "id": 1,
+            "userId": 1,
+            "parkName": "PinkerTon Park",
+            "address": "Murfreesboro Rd",
+            "picnicDate": "2019/08/01"
+        }
+    ],
+    "user": [
+        {
+            "id": 1,
+            "name": "Praful",
+            "pwd": "pass"
+        }
+    ],
+    "Games": [
+        {
+            "id": 1,
+            "picnicId": 1,
+            "gameId": 1,
+            "packed": false
+        }
+    ],
+    "myGames" : [
+        {
+            "id": 1,
+            "gameName": "MonoPoly",
+            "userId": 1
+        }
+    ],
+    "items" : [
+        {
+
+            "id": 1,
+            "picnicId": 1,
+            "itemId": 1,
+            "packed": false
+        }
+    ],
+    "itemList" : [
+        {
+            "id": 1,
+            "itemName": "Blanket"
+        }
+    ],
+    "Fooditems" : [
+        {
+
+            "id": 1,
+            "picnicId": 1,
+            "foodItemId": 1,
+            "packed": false
+        }
+    ]
+}
