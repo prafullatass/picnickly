@@ -5,7 +5,7 @@
       "userId": 1,
       "parkName": "PinkerTon Park",
       "address": "Murfreesboro Rd",
-      "picnicDate": "2019/08/01"
+      "picnicDate": "2019-08-01"
     }
   ],
   "users": [
@@ -33,6 +33,16 @@
       "id": 1,
       "gameName": "MonoPoly",
       "userId": 1
+    },
+    {
+      "id": 2,
+      "gameName": "MonoPoly",
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "gameName": "Ball",
+      "userId": 2
     }
   ],
   "items": [
@@ -43,7 +53,7 @@
       "packed": false
     }
   ],
-  "itemList": [
+  "itemsList": [
     {
       "id": 1,
       "itemName": "Blanket"
