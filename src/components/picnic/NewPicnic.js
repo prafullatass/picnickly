@@ -54,11 +54,13 @@ export default class PicnicForm extends Component {
     })
   }
 
-  handleCheckBoxChangeChange = evt => {
-    this.state.selectedGames.push(evt.target.id)
-    evt.target.checked = true
-    this.setState()
-    console.log(evt.target.checked)
+  handleCheckBoxChangeChange = (id, status) => {
+    if(status)
+      this.state.selectedGames.push(id)
+    else
+      (this.state.selectedGames.find(gameId => gameId === id))
+        
+    console.log(this.state.selectedGames)
   }
 
   render() {
