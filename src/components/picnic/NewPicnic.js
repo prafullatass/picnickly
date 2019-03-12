@@ -2,30 +2,40 @@ import React, { Component } from "react";
 import ParkData from "../../ResourceManager/ParkDataManager";
 
 export default class PicnicForm extends Component {
+  getfeatures(obj) {
+    return Object.keys(obj).filter(key => obj[key] === "Yes")
+        .map(key => key.replace("_", " "));
+  }
   // Set initial state
   state = {
-    "picnicId": "",
-    "userId": "",
-    "ParkName": "",
-    "Address": "",
-    parks : []
+    picnicId: "",
+    userId: "",
+    ParkName: "",
+    Address: "",
+    parks: []
   };
 
   componentDidMount() {
     ParkData.GETALL()
-    .then(parkdata =>
-      parkdata.filter(park => park.picnic_shelters="yes"))
-      this.setstate(parks : parkdata)
-    }
+      .then(parkdata => {
+        const parks = parkdata.filter(park => park.picnic_shelters === "Yes")
+          .sort((a, b) => a.park_name > b.park_name ? 1 :-1)
+          .map(park => {
+                  return {name:park.park_name,
+                  address:park.mapped_location_address,
+                     features: this.getfeatures(park)}})
+        this.setState({ parks: parks })
+      })
+  }
 
-    handleFieldChange = evt => {
-      const stateToChange = {};
-      stateToChange[evt.target.id] = evt.target.value;
-      this.setState(stateToChange);
-    };
+  handleFieldChange = evt => {
+    const stateToChange = {};
+    stateToChange[evt.target.id] = evt.target.value;
+    this.setState(stateToChange);
+  };
 
-    render() {
-      console.log(parkdata)
+  render() {
+    console.log(this.state.parks)
     return (
       <React.Fragment>
         <form className="picnicForm">
