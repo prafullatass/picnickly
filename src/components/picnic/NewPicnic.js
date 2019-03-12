@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 import Input from "../reusableComponents/Input";
+import SelectPark from "../parks/SelectPark";
 
 export default class PicnicForm extends Component {
   getfeatures(obj) {
@@ -18,7 +19,8 @@ export default class PicnicForm extends Component {
     picnicDate: "",
     parks: [],
     dropdownOpen: false,
-    selectedGames: []
+    selectedGames: [],
+    selectedItem:[]
   };
 
   componentDidMount() {
@@ -57,18 +59,18 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-        this.state[selectedArray].push(id)
+      this.state[selectedArray].push(id)
     else {
-        const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
-        if (idx !== -1)
-            this.state[selectedArray].splice(idx, 1)
+      const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
+      if (idx !== -1)
+        this.state[selectedArray].splice(idx, 1)
     }
 
-}
+  }
 
   handleCheckBoxChangeChange = (id, status) => {
     console.log(status)
-    this.AddIdToSelectedArray(id,status,"selectedGames")
+    this.AddIdToSelectedArray(id, status, "selectedGames")
     console.log(this.state.selectedGames)
   }
 
@@ -77,46 +79,34 @@ export default class PicnicForm extends Component {
     return (
       <React.Fragment>
         <form className="picnicForm">
-          <div className="form-group">
-            <label htmlFor="parkName">Select Park</label>
-            <select
-              defaultValue=""
-              name="parkName"
-              id="parkName"
-              onChange={this.handleParkNameChange} >
-              <option value="">-- Select an park --</option>
-              {this.state.parks.map(e => (
-                <option key={e.id} id={e.id} value={e.parkName}>
-                  {e.parkName}
-                </option>
-              ))}
-            </select>
 
-          </div>
-
-          <Input  id="address" type="text"  value={this.state.address}
-          label="Address : " />
-
-          <div className="form-group">
-            <label htmlFor="parkDetails">Park Details : </label>
-            <textarea
-              className="form-control"
-              id="parkDetails"
-              placeholder="parkDetails"
-              value={this.state.parkDetails}
-            />
-          </div>
+          <SelectPark handleParkNameChange={this.handleParkNameChange}
+            parks={this.state.parks}
+            address={this.state.address}
+            parkDetails={this.state.parkDetails} />
 
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
-          type="date" label="Picnic Date :" />
+            type="date"
+            label="Picnic Date :" />
 
           <div className="form-group">
             <label htmlFor="games">Select Games</label>
             <div>
               {this.props.myGames.filter(game =>
-                  game.userId === parseInt(sessionStorage.getItem("credentials"))
+                game.userId === parseInt(sessionStorage.getItem("credentials"))
               ).map(game => (
-                <Checkbox id={game.id} displayName ={game.gameName} checked={false}
+                <Checkbox id={game.id} displayName={game.gameName} checked={false}
+                  onChange={this.handleCheckBoxChangeChange} />
+              ))}
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="items">Select items</label>
+            <div>
+              {this.props.items.filter(item =>
+                item.userId === parseInt(sessionStorage.getItem("credentials"))
+              ).map(item => (
+                <Checkbox id={item.id} displayName={item.itemName} checked={false}
                   onChange={this.handleCheckBoxChangeChange} />
               ))}
             </div>

@@ -64,7 +64,9 @@ class ApplicationViews extends Component {
             <Route exact path="/new" render={(props) => {
                 return <PicnicForm picnicData={this.state.picnic}
                 myGames={this.state.myGames}
-                games={this.state.games} />
+                games={this.state.games}
+                itemList={this.state.itemList}
+                items={this.state.items} />
             }} />
         )
     }
