@@ -13,6 +13,7 @@ class Input extends Component {
                     id={this.props.id}
                     onChange={this.props.handleFieldChange}
                     value={this.props.value}
+                    onKeyDown={this.props.onKeyPressEvent}
                 />
             </div>
         )

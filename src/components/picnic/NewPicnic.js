@@ -20,7 +20,8 @@ export default class PicnicForm extends Component {
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
-    selectedItems:[]
+    selectedItems:[],
+    selectedFoodItems:[]
   };
 
   componentDidMount() {
@@ -80,6 +81,13 @@ export default class PicnicForm extends Component {
     console.log(this.state.selectedItems)
   }
 
+  onKeyPressEvent =(event) => {
+    if(event.keyCode === 13){
+      this.state.selectedFoodItems.push(event.target.value)
+      event.target.value=""}
+      console.log(this.state.selectedFoodItems)
+  }
+
   render() {
     console.log("render", this.state)
     return (
@@ -115,6 +123,9 @@ export default class PicnicForm extends Component {
               ))}
             </div>
           </div>
+          <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+            type="text"
+            label="Food Items :" />
         </form>
       </React.Fragment>
     )
