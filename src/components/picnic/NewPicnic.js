@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 
-
 export default class PicnicForm extends Component {
   getfeatures(obj) {
     return Object.keys(obj).filter(key => obj[key] === "Yes")
@@ -54,16 +53,21 @@ export default class PicnicForm extends Component {
     })
   }
 
-  handleCheckBoxChangeChange = (id, status) => {
-    console.log(status)
-    if(status)
-      this.state.selectedGames.push(id)
-    else{
-      const idx = this.state.selectedGames.findIndex(gameId => gameId === id)
-      if (idx !== -1)
-        this.state.selectedGames.splice(idx,1)
+  //add or delete id from given array
+  AddIdToSelectedArray = (id, status, selectedArray) => {
+    if (status)
+        this.state[selectedArray].push(id)
+    else {
+        const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
+        if (idx !== -1)
+            this.state[selectedArray].splice(idx, 1)
     }
 
+}
+
+  handleCheckBoxChangeChange = (id, status) => {
+    console.log(status)
+    this.AddIdToSelectedArray(id,status,"selectedGames")
     console.log(this.state.selectedGames)
   }
 
