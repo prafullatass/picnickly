@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
+import Input from "../reusableComponents/Input";
 
 export default class PicnicForm extends Component {
   getfeatures(obj) {
@@ -92,17 +93,10 @@ export default class PicnicForm extends Component {
             </select>
 
           </div>
-          <div className="form-group">
-            <label htmlFor="address">Address : </label>
-            <textarea
-              type="text"
-              required
-              className="form-control"
-              id="address"
-              placeholder="address"
-              value={this.state.address}
-            />
-          </div>
+
+          <Input  id="address" type="text"  value={this.state.address}
+          label="Address : " />
+
           <div className="form-group">
             <label htmlFor="parkDetails">Park Details : </label>
             <textarea
@@ -112,16 +106,10 @@ export default class PicnicForm extends Component {
               value={this.state.parkDetails}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="picnicDate">Picnic Date : </label>
-            <input
-              defaultValue=""
-              type="date"
-              name="picnicDate"
-              id="picnicDate"
-              onChange={this.handleFieldChange}
-            />
-          </div>
+
+          <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
+          type="date" label="Picnic Date :" />
+
           <div className="form-group">
             <label htmlFor="games">Select Games</label>
             <div>
