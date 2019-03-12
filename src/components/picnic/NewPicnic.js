@@ -20,7 +20,7 @@ export default class PicnicForm extends Component {
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
-    selectedItem:[]
+    selectedItems:[]
   };
 
   componentDidMount() {
@@ -68,10 +68,16 @@ export default class PicnicForm extends Component {
 
   }
 
-  handleCheckBoxChangeChange = (id, status) => {
+  handleCheckBoxChangeGames = (id, status) => {
     console.log(status)
     this.AddIdToSelectedArray(id, status, "selectedGames")
     console.log(this.state.selectedGames)
+  }
+
+  handleCheckBoxChangeItems = (id, status) => {
+    console.log(status)
+    this.AddIdToSelectedArray(id, status, "selectedItems")
+    console.log(this.state.selectedItems)
   }
 
   render() {
@@ -96,18 +102,16 @@ export default class PicnicForm extends Component {
                 game.userId === parseInt(sessionStorage.getItem("credentials"))
               ).map(game => (
                 <Checkbox id={game.id} displayName={game.gameName} checked={false}
-                  onChange={this.handleCheckBoxChangeChange} />
+                  onChange={this.handleCheckBoxChangeGames} />
               ))}
             </div>
           </div>
           <div className="form-group">
             <label htmlFor="items">Select items</label>
             <div>
-              {this.props.items.filter(item =>
-                item.userId === parseInt(sessionStorage.getItem("credentials"))
-              ).map(item => (
+              {this.props.itemList.map(item => (
                 <Checkbox id={item.id} displayName={item.itemName} checked={false}
-                  onChange={this.handleCheckBoxChangeChange} />
+                  onChange={this.handleCheckBoxChangeItems} />
               ))}
             </div>
           </div>
