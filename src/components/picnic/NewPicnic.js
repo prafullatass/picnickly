@@ -1,29 +1,40 @@
 import React, { Component } from "react";
 import ParkData from "../../ResourceManager/ParkDataManager";
+import Checkbox from "../reusableComponents/checkBox";
+
 
 export default class PicnicForm extends Component {
   getfeatures(obj) {
     return Object.keys(obj).filter(key => obj[key] === "Yes")
-        .map(key => key.replace("_", " "));
+      .map(key => key.replace("_", " "));
   }
   // Set initial state
   state = {
     picnicId: "",
     userId: "",
-    ParkName: "",
-    Address: "",
-    parks: []
+    parkName: "",
+    address: "",
+    parkDetails: "",
+    picnicDate: "",
+    parks: [],
+    dropdownOpen: false,
+    selectedGames: []
   };
 
   componentDidMount() {
     ParkData.GETALL()
       .then(parkdata => {
         const parks = parkdata.filter(park => park.picnic_shelters === "Yes")
-          .sort((a, b) => a.park_name > b.park_name ? 1 :-1)
-          .map(park => {
-                  return {name:park.park_name,
-                  address:park.mapped_location_address,
-                     features: this.getfeatures(park)}})
+          .sort((a, b) => a.park_name > b.park_name ? 1 : -1)
+          .map((park, index) => {
+            return {
+              id: index,
+              parkName: park.park_name,
+              address: park.mapped_location_address,
+              address2: park.mapped_location_city + " " + park.mapped_location_state,
+              features: this.getfeatures(park)
+            }
+          })
         this.setState({ parks: parks })
       })
   }
@@ -34,52 +45,87 @@ export default class PicnicForm extends Component {
     this.setState(stateToChange);
   };
 
+  handleParkNameChange = evt => {
+    const selectedPark = this.state.parks.find(park => park.parkName === evt.target.value)
+    this.setState({
+      address: selectedPark.address + ", " + selectedPark.address2,
+      parkName: selectedPark.parkName,
+      parkDetails: selectedPark.features.join(",\r\n ")
+    })
+  }
+
+  handleCheckBoxChangeChange = evt => {
+    this.state.selectedGames.push(evt.target.id)
+    evt.target.checked = true
+    this.setState()
+    console.log(evt.target.checked)
+  }
+
   render() {
-    console.log(this.state.parks)
+    console.log("render", this.state)
     return (
       <React.Fragment>
         <form className="picnicForm">
           <div className="form-group">
-            <label htmlFor="parkName">Park name</label>
-            <input
+            <label htmlFor="parkName">Select Park</label>
+            <select
+              defaultValue=""
+              name="parkName"
+              id="parkName"
+              onChange={this.handleParkNameChange} >
+              <option value="">-- Select an park --</option>
+              {this.state.parks.map(e => (
+                <option key={e.id} id={e.id} value={e.parkName}>
+                  {e.parkName}
+                </option>
+              ))}
+            </select>
+
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address : </label>
+            <textarea
               type="text"
               required
               className="form-control"
-              onChange={this.handleFieldChange}
-              id="eventName"
-              placeholder="Event name"
+              id="address"
+              placeholder="address"
+              value={this.state.address}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="eventLocation">Location</label>
-            <input
-              type="text"
-              required
+            <label htmlFor="parkDetails">Park Details : </label>
+            <textarea
               className="form-control"
-              onChange={this.handleFieldChange}
-              id="eventLocation"
-              placeholder="Location"
+              id="parkDetails"
+              placeholder="parkDetails"
+              value={this.state.parkDetails}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="eventDate">Assign to caretaker</label>
+            <label htmlFor="picnicDate">Picnic Date : </label>
             <input
               defaultValue=""
               type="date"
-              name="eventDate"
-              id="eventDate"
+              name="picnicDate"
+              id="picnicDate"
               onChange={this.handleFieldChange}
             />
           </div>
-          <button
-            type="submit"
-            onClick={this.NewEvent}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
+          <div className="form-group">
+            <label htmlFor="games">Select Games</label>
+            <div>
+              {this.props.myGames.filter(game =>
+                  game.userId === parseInt(sessionStorage.getItem("credentials"))
+              ).map(game => (
+                <Checkbox id={game.id} displayName ={game.gameName} checked={false}
+                  onChange={this.handleCheckBoxChangeChange} />
+              ))}
+            </div>
+          </div>
         </form>
       </React.Fragment>
-    );
+    )
   }
 }
+

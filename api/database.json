@@ -33,6 +33,16 @@
       "id": 1,
       "gameName": "MonoPoly",
       "userId": 1
+    },
+    {
+      "id": 2,
+      "gameName": "MonoPoly",
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "gameName": "Ball",
+      "userId": 2
     }
   ],
   "items": [
