@@ -3,6 +3,7 @@ import Input from "../reusableComponents/Input";
 import TextArea from "../reusableComponents/TextArea";
 
 class SelectPark extends Component {
+
     render() {
         return (
             <React.Fragment>
@@ -25,18 +26,7 @@ class SelectPark extends Component {
                 <Input id="address" type="text" value={this.props.address}
                     label="Address : " />
 
-                <TextArea id="parkDetails" value={this.props.parkDetails}
-                />
-
-                {/* <div className="form-group">
-                    <label htmlFor="parkDetails">Park Details : </label>
-                    <textarea
-                        className="form-control"
-                        id="parkDetails"
-                        placeholder="parkDetails"
-                        value={this.props.parkDetails}
-                    />
-                </div> */}
+                <TextArea id="parkDetails" value={this.props.parkDetails} />
             </React.Fragment>
         )
     }

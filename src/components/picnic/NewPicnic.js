@@ -61,11 +61,11 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-      this.setState({selectedArray : selectedArray.push(id)})
+      this.setState({selectedArray : this.state[selectedArray].push(id)})
     else {
       const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
       if (idx !== -1)
-        this.setState({selectedArray : selectedArray.splice(idx, 1)})
+        this.setState({selectedArray : this.state[selectedArray].splice(idx, 1)})
     }
 
   }
@@ -90,21 +90,28 @@ export default class PicnicForm extends Component {
     console.log(this.state.selectedFoodItems)
   }
 
-  SubmitForm (evt) {
+  SubmitForm = (evt) => {
+
     evt.preventDefault();
-    const uid = sessionStorage.getItem("credentials")
+    let promises = []
+    const uid = parseInt(sessionStorage.getItem("credentials"))
+
     let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
     this.props.createPicnic(obj).then(
       e => {
         this.state.selectedGames.forEach(game => {
-          this.props.createGames(CreateObject.GamesObj(sessionStorage.getItem("picnic"), game, false))
+          promises.push(this.props.createGames(
+            CreateObject.GamesObj(parseInt(sessionStorage.getItem("picnic")), parseInt(game), false)))
         });
         this.state.selectedItems.forEach(items => {
-          this.props.createItems(CreateObject.ItemsObj(sessionStorage.getItem("picnic"), items, false))
+          promises.push(this.props.createItems(
+            CreateObject.ItemsObj(parseInt(sessionStorage.getItem("picnic")), parseInt(items), false)))
         });
         this.state.selectedFoodItems.forEach(foodItem => {
-          this.props.createFoodItems(CreateObject.FoodItemsObj(sessionStorage.getItem("picnic"), foodItem, false))
+          promises.push(this.props.createFoodItems(
+            CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
         });
+        Promise.all(promises).then(this.props.setStateOfAll)
       }
     )
   }
@@ -114,7 +121,6 @@ export default class PicnicForm extends Component {
     return (
       <React.Fragment>
         <form className="picnicForm">
-
           <SelectPark handleParkNameChange={this.handleParkNameChange}
             parks={this.state.parks}
             address={this.state.address}
@@ -145,9 +151,10 @@ export default class PicnicForm extends Component {
               ))}
             </div>
           </div>
+
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
             type="text"
-            label="Food Items :" />
+            label="Food Items " />
             <Button caption = "Submit"
             onClickFunction={this.SubmitForm} />
         </form>

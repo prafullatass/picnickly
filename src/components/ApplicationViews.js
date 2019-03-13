@@ -20,6 +20,26 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
+
+        let promises = []
+        let new_state = {}
+        promises.push(
+            ItemsListManager.GETALL().then(itemList =>
+                new_state.itemList = itemList
+            )
+        )
+        promises.push(
+            MyGamesManger.GETALL().then(myGames =>
+                new_state.myGames = myGames
+            )
+        )
+        Promise.all(promises)
+            .then(() =>
+                this.setState(new_state))
+        this.setStateOfAll()
+    }
+    setStateOfAll = () => {
+
         let promises = []
         let new_state = {}
 
@@ -43,21 +63,10 @@ class ApplicationViews extends Component {
                 new_state.items = items
             )
         )
-        promises.push(
-            ItemsListManager.GETALL().then(itemList =>
-                new_state.itemList = itemList
-            )
-        )
-        promises.push(
-            MyGamesManger.GETALL().then(myGames =>
-                new_state.myGames = myGames
-            )
-        )
         Promise.all(promises)
             .then(() =>
                 this.setState(new_state))
     }
-
     createPicnic = (picObj) => {
         return PicnicManager.POST(picObj)
             .then(res => sessionStorage.setItem("picnic", res.id))
@@ -74,14 +83,20 @@ class ApplicationViews extends Component {
 
     render() {
         console.log(this.state)
+
         return (
             <Route exact path="/new" render={(props) => {
                 return <PicnicForm picnicData={this.state.picnic}
-                myGames={this.state.myGames}
-                games={this.state.games}
-                itemList={this.state.itemList}
-                items={this.state.items}
-                createPicnic = {this.createPicnic} />
+                    myGames={this.state.myGames}
+                    games={this.state.games}
+                    itemList={this.state.itemList}
+                    items={this.state.items}
+                    createPicnic={this.createPicnic}
+                    createItems={this.createItems}
+                    createFoodItems={this.createFoodItems}
+                    createGames={this.createGames}
+                    setStateOfAll={this.setStateOfAll}
+                />
             }} />
         )
     }

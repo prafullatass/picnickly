@@ -4,9 +4,9 @@ import React, { Component } from "react"
 class TextArea extends Component {
      render() {
         return (
-            <div className="form-group">
+            <div>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
-                <TextArea
+                <textarea
                     defaultValue=""
                     type={this.props.type}
                     name={this.props.id}

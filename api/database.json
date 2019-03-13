@@ -6,6 +6,13 @@
       "parkName": "PinkerTon Park",
       "address": "Murfreesboro Rd",
       "picnicDate": "2019-08-01"
+    },
+    {
+      "userId": 2,
+      "parkName": "Centennial Park",
+      "address": "2500 West End Ave, Nashville TN",
+      "picnicDate": "2019-03-15",
+      "id": 2
     }
   ],
   "users": [
@@ -26,6 +33,18 @@
       "picnicId": 1,
       "gameId": 1,
       "packed": false
+    },
+    {
+      "picnicId": 2,
+      "gameId": 2,
+      "packed": false,
+      "id": 2
+    },
+    {
+      "picnicId": 2,
+      "gameId": 3,
+      "packed": false,
+      "id": 3
     }
   ],
   "myGames": [
@@ -51,6 +70,12 @@
       "picnicId": 1,
       "itemId": 1,
       "packed": false
+    },
+    {
+      "picnicId": 2,
+      "itemId": 1,
+      "packed": false,
+      "id": 2
     }
   ],
   "itemsList": [
@@ -65,6 +90,12 @@
       "picnicId": 1,
       "foodItemName": "Chips",
       "packed": false
+    },
+    {
+      "picnicId": 2,
+      "foodItemName": "sdsad",
+      "packed": false,
+      "id": 2
     }
   ]
 }
