@@ -63,7 +63,7 @@
     {
       "id": 1,
       "picnicId": 1,
-      "foodItemId": 1,
+      "foodItemName": "Chips",
       "packed": false
     }
   ]

@@ -58,6 +58,20 @@ class ApplicationViews extends Component {
                 this.setState(new_state))
     }
 
+    createPicnic = (picObj) => {
+        return PicnicManager.POST(picObj)
+            .then(res => sessionStorage.setItem("picnic", res.id))
+    }
+    createGames = (gamesObj) => {
+        GamesManager.POST(gamesObj)
+    }
+    createItems = (itemsObj) => {
+        ItemsManager.POST(itemsObj)
+    }
+    createFoodItems = (foodObj) => {
+        FoodItemsManager.POST(foodObj)
+    }
+
     render() {
         console.log(this.state)
         return (
@@ -66,7 +80,8 @@ class ApplicationViews extends Component {
                 myGames={this.state.myGames}
                 games={this.state.games}
                 itemList={this.state.itemList}
-                items={this.state.items} />
+                items={this.state.items}
+                createPicnic = {this.createPicnic} />
             }} />
         )
     }

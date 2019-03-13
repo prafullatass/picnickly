@@ -3,6 +3,8 @@ import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 import Input from "../reusableComponents/Input";
 import SelectPark from "../parks/SelectPark";
+import Button from "../reusableComponents/Button";
+import CreateObject from "../../Modules/CreateObject";
 
 export default class PicnicForm extends Component {
   getfeatures(obj) {
@@ -11,7 +13,6 @@ export default class PicnicForm extends Component {
   }
   // Set initial state
   state = {
-    picnicId: "",
     userId: "",
     parkName: "",
     address: "",
@@ -20,8 +21,8 @@ export default class PicnicForm extends Component {
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
-    selectedItems:[],
-    selectedFoodItems:[]
+    selectedItems: [],
+    selectedFoodItems: []
   };
 
   componentDidMount() {
@@ -60,11 +61,11 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-      this.state[selectedArray].push(id)
+      this.setState({selectedArray : selectedArray.push(id)})
     else {
       const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
       if (idx !== -1)
-        this.state[selectedArray].splice(idx, 1)
+        this.setState({selectedArray : selectedArray.splice(idx, 1)})
     }
 
   }
@@ -81,11 +82,31 @@ export default class PicnicForm extends Component {
     console.log(this.state.selectedItems)
   }
 
-  onKeyPressEvent =(event) => {
-    if(event.keyCode === 13){
+  onKeyPressEvent = (event) => {
+    if (event.keyCode === 13) {
       this.state.selectedFoodItems.push(event.target.value)
-      event.target.value=""}
-      console.log(this.state.selectedFoodItems)
+      event.target.value = ""
+    }
+    console.log(this.state.selectedFoodItems)
+  }
+
+  SubmitForm (evt) {
+    evt.preventDefault();
+    const uid = sessionStorage.getItem("credentials")
+    let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
+    this.props.createPicnic(obj).then(
+      e => {
+        this.state.selectedGames.forEach(game => {
+          this.props.createGames(CreateObject.GamesObj(sessionStorage.getItem("picnic"), game, false))
+        });
+        this.state.selectedItems.forEach(items => {
+          this.props.createItems(CreateObject.ItemsObj(sessionStorage.getItem("picnic"), items, false))
+        });
+        this.state.selectedFoodItems.forEach(foodItem => {
+          this.props.createFoodItems(CreateObject.FoodItemsObj(sessionStorage.getItem("picnic"), foodItem, false))
+        });
+      }
+    )
   }
 
   render() {
@@ -114,6 +135,7 @@ export default class PicnicForm extends Component {
               ))}
             </div>
           </div>
+
           <div className="form-group">
             <label htmlFor="items">Select items</label>
             <div>
@@ -126,6 +148,8 @@ export default class PicnicForm extends Component {
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
             type="text"
             label="Food Items :" />
+            <Button caption = "Submit"
+            onClickFunction={this.SubmitForm} />
         </form>
       </React.Fragment>
     )
