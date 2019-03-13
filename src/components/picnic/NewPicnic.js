@@ -3,6 +3,8 @@ import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 import Input from "../reusableComponents/Input";
 import SelectPark from "../parks/SelectPark";
+import Button from "../reusableComponents/Button";
+import CreateObject from "../../Modules/CreateObject";
 
 export default class PicnicForm extends Component {
   getfeatures(obj) {
@@ -11,7 +13,6 @@ export default class PicnicForm extends Component {
   }
   // Set initial state
   state = {
-    picnicId: "",
     userId: "",
     parkName: "",
     address: "",
@@ -20,7 +21,8 @@ export default class PicnicForm extends Component {
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
-    selectedItems:[]
+    selectedItems: [],
+    selectedFoodItems: []
   };
 
   componentDidMount() {
@@ -59,11 +61,11 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-      this.state[selectedArray].push(id)
+      this.setState({selectedArray : this.state[selectedArray].push(id)})
     else {
       const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
       if (idx !== -1)
-        this.state[selectedArray].splice(idx, 1)
+        this.setState({selectedArray : this.state[selectedArray].splice(idx, 1)})
     }
 
   }
@@ -80,12 +82,45 @@ export default class PicnicForm extends Component {
     console.log(this.state.selectedItems)
   }
 
+  onKeyPressEvent = (event) => {
+    if (event.keyCode === 13) {
+      this.state.selectedFoodItems.push(event.target.value)
+      event.target.value = ""
+    }
+    console.log(this.state.selectedFoodItems)
+  }
+
+  SubmitForm = (evt) => {
+
+    evt.preventDefault();
+    let promises = []
+    const uid = parseInt(sessionStorage.getItem("credentials"))
+
+    let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
+    this.props.createPicnic(obj).then(
+      e => {
+        this.state.selectedGames.forEach(game => {
+          promises.push(this.props.createGames(
+            CreateObject.GamesObj(parseInt(sessionStorage.getItem("picnic")), parseInt(game), false)))
+        });
+        this.state.selectedItems.forEach(items => {
+          promises.push(this.props.createItems(
+            CreateObject.ItemsObj(parseInt(sessionStorage.getItem("picnic")), parseInt(items), false)))
+        });
+        this.state.selectedFoodItems.forEach(foodItem => {
+          promises.push(this.props.createFoodItems(
+            CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
+        });
+        Promise.all(promises).then(this.props.setStateOfAll)
+      }
+    )
+  }
+
   render() {
     console.log("render", this.state)
     return (
       <React.Fragment>
         <form className="picnicForm">
-
           <SelectPark handleParkNameChange={this.handleParkNameChange}
             parks={this.state.parks}
             address={this.state.address}
@@ -106,6 +141,7 @@ export default class PicnicForm extends Component {
               ))}
             </div>
           </div>
+
           <div className="form-group">
             <label htmlFor="items">Select items</label>
             <div>
@@ -115,6 +151,12 @@ export default class PicnicForm extends Component {
               ))}
             </div>
           </div>
+
+          <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+            type="text"
+            label="Food Items " />
+            <Button caption = "Submit"
+            onClickFunction={this.SubmitForm} />
         </form>
       </React.Fragment>
     )
