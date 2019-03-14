@@ -102,23 +102,31 @@ class ApplicationViews extends Component {
         console.log(this.state)
 
         return (
-            <Route exact path="/new" render={(props) => {
-                return <PicnicForm picnicData={this.state.picnic}
-                    myGames={this.state.myGames}
-                    games={this.state.games}
-                    itemList={this.state.itemList}
-                    items={this.state.items}
-                    createPicnic={this.createPicnic}
-                    createItems={this.createItems}
-                    createFoodItems={this.createFoodItems}
-                    createGames={this.createGames}
-                    setStateOfAll={this.setStateOfAll}
-                    createMyGame={this.createMyGame}
-                    createItemsList={this.createItemsList}
-                    {...props}
-                />
-            }} />
+            <React.Fragment>
+                <Route exact path="/" render={(props) => {
+                    return <Picnic picnics={this.state.picnic}
+                    />
+                }} />
+
+                <Route exact path="/new" render={(props) => {
+                    return <PicnicForm picnicData={this.state.picnic}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        createPicnic={this.createPicnic}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}
+                        setStateOfAll={this.setStateOfAll}
+                        createMyGame={this.createMyGame}
+                        createItemsList={this.createItemsList}
+                        {...props}
+                    />
+                }} />
+            </React.Fragment>
         )
+
     }
 }
 

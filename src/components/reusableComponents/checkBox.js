@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Label} from "reactstrap"
 class Checkbox extends Component {
     state = {
         checked: false
@@ -24,7 +24,7 @@ class Checkbox extends Component {
                     id={this.props.id}
                     checked={this.state.checked}
                     onChange={this.onClicked} />
-                <label for={this.props.id}>{this.props.displayName}</label>
+                <Label for={this.props.id}>{this.props.displayName}</Label>
             </div>
         )
     }
