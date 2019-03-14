@@ -8,11 +8,8 @@ import CreateObject from "../../Modules/CreateObject";
 
 import "./picnic.css"
 import ModelNewObj from "./ModelNewObj";
+import GetParkData from "../../Modules/GetParkData";
 export default class PicnicForm extends Component {
-  getfeatures(obj) {
-    return Object.keys(obj).filter(key => obj[key] === "Yes")
-      .map(key => key.replace("_", " "));
-  }
   // Set initial state
   state = {
     userId: "",
@@ -28,22 +25,28 @@ export default class PicnicForm extends Component {
   };
 
   componentDidMount() {
-    ParkData.GETALL()
-      .then(parkdata => {
-        const parks = parkdata.filter(park => park.picnic_shelters === "Yes")
-          .sort((a, b) => a.park_name > b.park_name ? 1 : -1)
-          .map((park, index) => {
-            return {
-              id: index,
-              parkName: park.park_name,
-              address: park.mapped_location_address,
-              address2: park.mapped_location_city + " " + park.mapped_location_state,
-              features: this.getfeatures(park)
-            }
-          })
-        this.setState({ parks: parks })
-      })
-  }
+    // ParkData.GETALL()
+    //   .then(parkdata => {
+    //     const parks = parkdata.filter(park => park.picnic_shelters === "Yes")
+    //       .sort((a, b) => a.park_name > b.park_name ? 1 : -1)
+    //       .map((park, index) => {
+    //         return {
+    //           id: index,
+    //           parkName: park.park_name,
+    //           address: park.mapped_location_address,
+    //           address2: park.mapped_location_city + " " + park.mapped_location_state,
+    //           features: this.getfeatures(park)
+    //         }
+    //       })
+        GetParkData().then (parks =>
+         this.setState({ parks: parks }))
+  //     })
+   }
+
+  // getfeatures(obj) {
+  //   return Object.keys(obj).filter(key => obj[key] === "Yes")
+  //     .map(key => key.replace("_", " "));
+  // }
 
   handleFieldChange = evt => {
     const stateToChange = {};
@@ -127,11 +130,6 @@ export default class PicnicForm extends Component {
     )
   }
 
-  // MyNewGame = () => {
-  //   //console.log("New Game")
-  //   <ModelNewGame />
-  // }
-
   render() {
     console.log("render", this.state)
     return (
@@ -163,9 +161,9 @@ export default class PicnicForm extends Component {
 
 
           <ModelNewObj createNewObject={this.props.createMyGame}
-          buttonLabel = "Add New Game"
-          label = "New Game : "
-          createObjFn = {CreateObject.MyGamesObj}
+            buttonLabel="Add New Game"
+            label="New Game : "
+            createObjFn={CreateObject.MyGamesObj}
           />
 
           <div className="form-group">
@@ -179,9 +177,9 @@ export default class PicnicForm extends Component {
           </div>
 
           <ModelNewObj createNewObject={this.props.createItemsList}
-          buttonLabel = "Add New Necessity Item"
-          label = "Name of Item : "
-          createObjFn = {CreateObject.ItemListObj}
+            buttonLabel="Add New Necessity Item"
+            label="Name of Item : "
+            createObjFn={CreateObject.ItemListObj}
           />
 
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}

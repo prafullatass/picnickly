@@ -19,7 +19,9 @@ class Picnic extends Component {
                         <CardText>Address : {picnic.address}</CardText>
                         <CardFooter>
                             <Button color="info" size="sm"
-                            className = "footerButton">Edit </Button>
+                            className = "footerButton"
+                            onClick={() => this.props.history.push(`/picnics/${picnic.id}/edit`)}
+                            >Edit </Button>
                             <Button color="danger" size="sm"
                             id = {picnic.id}
                             className = "footerButton" onClick={this.confirmCancelPicnic}>Cancel</Button>

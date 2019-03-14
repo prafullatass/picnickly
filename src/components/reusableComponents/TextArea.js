@@ -7,7 +7,6 @@ class TextArea extends Component {
             <div>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
                 <textarea
-                    defaultValue=""
                     type={this.props.type}
                     name={this.props.id}
                     id={this.props.id}

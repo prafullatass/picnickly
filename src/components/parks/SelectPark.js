@@ -11,8 +11,6 @@ class SelectPark extends Component {
         dropdownOpen: false
     };
 
-
-
     toggle = (event) => {
 
         this.setState({
@@ -20,12 +18,11 @@ class SelectPark extends Component {
         });
     }
 
-
     render() {
         const _this = this
         return (
             <React.Fragment>
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} bsSize="small">
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle caret>
                         Select Park Name
                     </DropdownToggle>

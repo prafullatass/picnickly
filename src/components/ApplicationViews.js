@@ -8,6 +8,7 @@ import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
 import PicnicForm from "./picnic/NewPicnic";
+import EditPicnic from "./picnic/EditPicnic";
 
 class ApplicationViews extends Component {
     state = {
@@ -20,7 +21,7 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-
+console.log("compodid appview")
         let promises = []
         let new_state = {}
         promises.push(
@@ -101,8 +102,8 @@ class ApplicationViews extends Component {
     }
 
     multipleDel = (id, stateArray, managerName) => {
-         return this.state[stateArray].filter(game => game.picnicId === id)
-        .map(game => managerName.DELETE(game.id))
+        return this.state[stateArray].filter(game => game.picnicId === id)
+            .map(game => managerName.DELETE(game.id))
     }
 
     cancelPicnic = (id) => {
@@ -110,13 +111,13 @@ class ApplicationViews extends Component {
 
         promises.push(PicnicManager.DELETE(id))
         debugger
-        promises.push(this.multipleDel(id,"games", GamesManager))
-        promises.push(this.multipleDel(id,"items", ItemsManager))
-        promises.push(this.multipleDel(id,"foodItems", FoodItemsManager))
+        promises.push(this.multipleDel(id, "games", GamesManager))
+        promises.push(this.multipleDel(id, "items", ItemsManager))
+        promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
 
         Promise.all(promises).then(this.setStateOfAll)
 
-     }
+    }
     render() {
         console.log(this.state)
 
@@ -125,6 +126,7 @@ class ApplicationViews extends Component {
                 <Route exact path="/" render={(props) => {
                     return <Picnic picnics={this.state.picnic}
                         cancelPicnic={this.cancelPicnic}
+                        {...props}
                     />
                 }} />
 
@@ -143,6 +145,14 @@ class ApplicationViews extends Component {
                         createItemsList={this.createItemsList}
                         {...props}
                     />
+                }} />
+
+                <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
+                    return <EditPicnic {...props}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items} />
                 }} />
             </React.Fragment>
         )

@@ -13,6 +13,12 @@ export default Object.create(null, {
                 .then(r => r.json())
         }
     },
+    GETALLPICNICDATA: {
+        value: function (picnicId) {
+            return fetch(`${UrlLink.url}/${this.DBname}?picnicId=${picnicId}`)
+                .then(r => r.json())
+        }
+    },
     DELETE: {
         value: function (id) {
             return fetch(`${UrlLink.url}/${this.DBname}/${id}`,

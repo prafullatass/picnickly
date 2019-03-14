@@ -4,8 +4,15 @@
       "userId": 2,
       "parkName": "Cleveland Park",
       "address": "925 N 6th St, Nashville TN",
-      "picnicDate": "",
+      "picnicDate": "2019-01-01",
       "id": 1
+    },
+    {
+      "userId": 2,
+      "parkName": "Charlotte Park",
+      "address": "6031 Deal Ave, Nashville TN",
+      "picnicDate": "2019-03-22",
+      "id": 2
     }
   ],
   "users": [
@@ -26,6 +33,18 @@
       "picnicId": 1,
       "gameId": 1,
       "packed": false
+    },
+    {
+      "picnicId": 2,
+      "gameId": 2,
+      "packed": false,
+      "id": 2
+    },
+    {
+      "picnicId": 2,
+      "gameId": 3,
+      "packed": false,
+      "id": 3
     }
   ],
   "myGames": [
@@ -43,6 +62,11 @@
       "id": 3,
       "gameName": "Ball",
       "userId": 2
+    },
+    {
+      "gameName": "Cards",
+      "userId": 2,
+      "id": 4
     }
   ],
   "items": [
@@ -57,6 +81,12 @@
       "itemId": 1,
       "packed": false,
       "id": 3
+    },
+    {
+      "picnicId": 2,
+      "itemId": 1,
+      "packed": false,
+      "id": 4
     }
   ],
   "itemsList": [
@@ -91,6 +121,18 @@
       "gameName": "ss",
       "userId": 2,
       "id": 14
+    },
+    {
+      "picnicId": 2,
+      "foodItemName": "Chips",
+      "packed": false,
+      "id": 15
+    },
+    {
+      "picnicId": 2,
+      "foodItemName": "Coca Cola",
+      "packed": false,
+      "id": 16
     }
   ]
 }
