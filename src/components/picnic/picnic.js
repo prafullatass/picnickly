@@ -1,6 +1,12 @@
 import React, { Component } from "react"
 import { Card, Button, CardTitle, CardText, CardFooter } from "reactstrap"
+import { Alert } from 'reactstrap';
 class Picnic extends Component {
+    confirmCancelPicnic = (evt) => {
+        window.confirm("Cancel the Picnic ? ")
+            this.props.cancelPicnic(parseInt(evt.target.id))
+    }
+
     render() {
         console.log("Picnic")
         return (
@@ -12,8 +18,11 @@ class Picnic extends Component {
                         <CardText> At {picnic.parkName}</CardText>
                         <CardText>Address : {picnic.address}</CardText>
                         <CardFooter>
-                            <Button color="info" size="sm" className = "footerButton">Edit </Button>
-                            <Button color="danger" size="sm" className = "footerButton">Delete</Button>
+                            <Button color="info" size="sm"
+                            className = "footerButton">Edit </Button>
+                            <Button color="danger" size="sm"
+                            id = {picnic.id}
+                            className = "footerButton" onClick={this.confirmCancelPicnic}>Cancel</Button>
                         </CardFooter>
                     </Card>
                 )}

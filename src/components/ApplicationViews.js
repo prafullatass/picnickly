@@ -80,6 +80,7 @@ class ApplicationViews extends Component {
     createFoodItems = (foodObj) => {
         return FoodItemsManager.POST(foodObj)
     }
+
     createMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(
             MyGamesManger.GETALL().then(myGames =>
@@ -98,6 +99,24 @@ class ApplicationViews extends Component {
             )
         )
     }
+
+    multipleDel = (id, stateArray, managerName) => {
+         return this.state[stateArray].filter(game => game.picnicId === id)
+        .map(game => managerName.DELETE(game.id))
+    }
+
+    cancelPicnic = (id) => {
+        let promises = []
+
+        promises.push(PicnicManager.DELETE(id))
+        debugger
+        promises.push(this.multipleDel(id,"games", GamesManager))
+        promises.push(this.multipleDel(id,"items", ItemsManager))
+        promises.push(this.multipleDel(id,"foodItems", FoodItemsManager))
+
+        Promise.all(promises).then(this.setStateOfAll)
+
+     }
     render() {
         console.log(this.state)
 
@@ -105,6 +124,7 @@ class ApplicationViews extends Component {
             <React.Fragment>
                 <Route exact path="/" render={(props) => {
                     return <Picnic picnics={this.state.picnic}
+                        cancelPicnic={this.cancelPicnic}
                     />
                 }} />
 
