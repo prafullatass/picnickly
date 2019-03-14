@@ -1,10 +1,11 @@
 import React, { Component } from "react"
-
+import "../picnic/picnic.css"
 
 class Input extends Component {
-     render() {
+    render() {
+        let selectedclass = this.props.className ? this.props.className + " form-group" : "form-group"
         return (
-            <div className="form-group">
+            <div className={selectedclass}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
                 <input
                     defaultValue=""

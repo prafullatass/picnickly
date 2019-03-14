@@ -1,3 +1,10 @@
 .flexContainer {
     display : inline;
 }
+
+.Hidden {
+    display: none;
+}
+.Visible {
+    visibility: visible;
+}

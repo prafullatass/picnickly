@@ -1,0 +1,7 @@
+.Hidden {
+    visibility:hidden;
+    display: none;
+}
+.Visible {
+    visibility: visible;
+}
