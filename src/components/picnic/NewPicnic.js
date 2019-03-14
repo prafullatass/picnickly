@@ -7,7 +7,7 @@ import Button from "../reusableComponents/Button";
 import CreateObject from "../../Modules/CreateObject";
 
 import "./picnic.css"
-import ModelNewGame from "./ModelNewGame";
+import ModelNewObj from "./ModelNewObj";
 export default class PicnicForm extends Component {
   getfeatures(obj) {
     return Object.keys(obj).filter(key => obj[key] === "Yes")
@@ -162,7 +162,7 @@ export default class PicnicForm extends Component {
 
 
 
-          <ModelNewGame createNewObject={this.props.createMyGame}
+          <ModelNewObj createNewObject={this.props.createMyGame}
           buttonLabel = "Add New Game"
           label = "New Game : "
           createObjFn = {CreateObject.MyGamesObj}
@@ -178,9 +178,16 @@ export default class PicnicForm extends Component {
             </div>
           </div>
 
+          <ModelNewObj createNewObject={this.props.createItemsList}
+          buttonLabel = "Add New Necessity Item"
+          label = "Name of Item : "
+          createObjFn = {CreateObject.ItemListObj}
+          />
+
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
             type="text"
             label="Food Items " />
+
           <Input id="selectedFoodItems" type="text" label="List of Food :"
             value={this.state.selectedFoodItems} />
 

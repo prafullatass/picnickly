@@ -89,6 +89,15 @@ class ApplicationViews extends Component {
             )
         )
     }
+    createItemsList = (myItemObj) => {
+        ItemsListManager.POST(myItemObj).then(
+            ItemsListManager.GETALL().then(itemList =>
+                this.setState({
+                    itemList: itemList
+                })
+            )
+        )
+    }
     render() {
         console.log(this.state)
 
@@ -105,6 +114,7 @@ class ApplicationViews extends Component {
                     createGames={this.createGames}
                     setStateOfAll={this.setStateOfAll}
                     createMyGame={this.createMyGame}
+                    createItemsList={this.createItemsList}
                     {...props}
                 />
             }} />

@@ -1,9 +1,8 @@
 import React, { Component } from "react"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
-import CreateObject from "../../Modules/CreateObject";
 
-class ModelNewGame extends Component {
+class ModelNewObj extends Component {
 
     state = {
         modal: false,
@@ -28,7 +27,7 @@ class ModelNewGame extends Component {
         const _this = this
         // this.props.createMyGame(CreateObject.MyGamesObj(_this.state.newGame,
         // parseInt(sessionStorage.getItem("credentials"))))
-        this.props.createNewObject(this.props.createObjFn(_this.state.newGame,
+        _this.props.createNewObject(_this.props.createObjFn(_this.state.newGame,
              parseInt(sessionStorage.getItem("credentials"))))
         _this.toggle()
     }
@@ -46,7 +45,7 @@ class ModelNewGame extends Component {
                             />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.newGame}>Add Game!</Button>
+                        <Button color="primary" onClick={this.newGame}>Add </Button>
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
@@ -56,4 +55,4 @@ class ModelNewGame extends Component {
 }
 
 
-export default ModelNewGame
+export default ModelNewObj
