@@ -19,12 +19,12 @@ class Checkbox extends Component {
     render() {
         return (
             <div>
-                <label for={this.props.id}>{this.props.displayName}</label>
                 <input type="checkbox"
                     name={this.props.id}
                     id={this.props.id}
                     checked={this.state.checked}
                     onChange={this.onClicked} />
+                <label for={this.props.id}>{this.props.displayName}</label>
             </div>
         )
     }

@@ -72,15 +72,32 @@ class ApplicationViews extends Component {
             .then(res => sessionStorage.setItem("picnic", res.id))
     }
     createGames = (gamesObj) => {
-        GamesManager.POST(gamesObj)
+        return GamesManager.POST(gamesObj)
     }
     createItems = (itemsObj) => {
-        ItemsManager.POST(itemsObj)
+        return ItemsManager.POST(itemsObj)
     }
     createFoodItems = (foodObj) => {
-        FoodItemsManager.POST(foodObj)
+        return FoodItemsManager.POST(foodObj)
     }
-
+    createMyGame = (myGameObj) => {
+        MyGamesManger.POST(myGameObj).then(
+            MyGamesManger.GETALL().then(myGames =>
+                this.setState({
+                    myGames: myGames
+                })
+            )
+        )
+    }
+    createItemsList = (myItemObj) => {
+        ItemsListManager.POST(myItemObj).then(
+            ItemsListManager.GETALL().then(itemList =>
+                this.setState({
+                    itemList: itemList
+                })
+            )
+        )
+    }
     render() {
         console.log(this.state)
 
@@ -96,6 +113,9 @@ class ApplicationViews extends Component {
                     createFoodItems={this.createFoodItems}
                     createGames={this.createGames}
                     setStateOfAll={this.setStateOfAll}
+                    createMyGame={this.createMyGame}
+                    createItemsList={this.createItemsList}
+                    {...props}
                 />
             }} />
         )

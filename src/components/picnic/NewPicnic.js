@@ -6,6 +6,8 @@ import SelectPark from "../parks/SelectPark";
 import Button from "../reusableComponents/Button";
 import CreateObject from "../../Modules/CreateObject";
 
+import "./picnic.css"
+import ModelNewObj from "./ModelNewObj";
 export default class PicnicForm extends Component {
   getfeatures(obj) {
     return Object.keys(obj).filter(key => obj[key] === "Yes")
@@ -61,11 +63,11 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-      this.setState({selectedArray : this.state[selectedArray].push(id)})
+      this.setState({ selectedArray: this.state[selectedArray].push(id) })
     else {
       const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
       if (idx !== -1)
-        this.setState({selectedArray : this.state[selectedArray].splice(idx, 1)})
+        this.setState({ selectedArray: this.state[selectedArray].splice(idx, 1) })
     }
 
   }
@@ -84,8 +86,14 @@ export default class PicnicForm extends Component {
 
   onKeyPressEvent = (event) => {
     if (event.keyCode === 13) {
-      this.state.selectedFoodItems.push(event.target.value)
+      event.preventDefault();
+      const newFoodList = this.state.selectedFoodItems.slice()
+      newFoodList.push(event.target.value)
+      this.setState({
+        selectedFoodItems: newFoodList
+      })
       event.target.value = ""
+
     }
     console.log(this.state.selectedFoodItems)
   }
@@ -111,20 +119,30 @@ export default class PicnicForm extends Component {
           promises.push(this.props.createFoodItems(
             CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
         });
-        Promise.all(promises).then(this.props.setStateOfAll)
+        Promise.all(promises).then(() => {
+          this.props.setStateOfAll()
+          this.props.history.push("/")
+        })
       }
     )
   }
+
+  // MyNewGame = () => {
+  //   //console.log("New Game")
+  //   <ModelNewGame />
+  // }
 
   render() {
     console.log("render", this.state)
     return (
       <React.Fragment>
         <form className="picnicForm">
+
           <SelectPark handleParkNameChange={this.handleParkNameChange}
             parks={this.state.parks}
             address={this.state.address}
-            parkDetails={this.state.parkDetails} />
+            parkDetails={this.state.parkDetails}
+            parkName={this.state.parkName} />
 
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
             type="date"
@@ -142,6 +160,14 @@ export default class PicnicForm extends Component {
             </div>
           </div>
 
+
+
+          <ModelNewObj createNewObject={this.props.createMyGame}
+          buttonLabel = "Add New Game"
+          label = "New Game : "
+          createObjFn = {CreateObject.MyGamesObj}
+          />
+
           <div className="form-group">
             <label htmlFor="items">Select items</label>
             <div>
@@ -152,10 +178,20 @@ export default class PicnicForm extends Component {
             </div>
           </div>
 
+          <ModelNewObj createNewObject={this.props.createItemsList}
+          buttonLabel = "Add New Necessity Item"
+          label = "Name of Item : "
+          createObjFn = {CreateObject.ItemListObj}
+          />
+
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
             type="text"
             label="Food Items " />
-            <Button caption = "Submit"
+
+          <Input id="selectedFoodItems" type="text" label="List of Food :"
+            value={this.state.selectedFoodItems} />
+
+          <Button caption="Submit"
             onClickFunction={this.SubmitForm} />
         </form>
       </React.Fragment>
