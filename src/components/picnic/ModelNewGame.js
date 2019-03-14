@@ -7,7 +7,7 @@ class ModelNewGame extends Component {
 
     state = {
         modal: false,
-        newGame : ""
+        new : ""
     };
 
     toggle = () => {
@@ -17,7 +17,7 @@ class ModelNewGame extends Component {
     }
     handleFieldChange = (evt) => {
         const _this = this
-        
+
         _this.setState({
             newGame : evt.target.value
         })
@@ -26,20 +26,23 @@ class ModelNewGame extends Component {
     newGame = (event) => {
 
         const _this = this
-        const t = event.target.value
-        this.props.createMyGame(CreateObject.MyGamesObj(_this.state.newGame,
-        parseInt(sessionStorage.getItem("credentials"))))
+        // this.props.createMyGame(CreateObject.MyGamesObj(_this.state.newGame,
+        // parseInt(sessionStorage.getItem("credentials"))))
+        this.props.createNewObject(this.props.createObjFn(_this.state.newGame,
+             parseInt(sessionStorage.getItem("credentials"))))
+        _this.toggle()
     }
     render() {
+        const _this = this
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>Add New Game</Button>
+                <Button color="info" onClick={this.toggle}>{_this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>New Game</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>
-                            <Input id="newGame" handleFieldChange={this.handleFieldChange}
+                            <Input id="new" handleFieldChange={_this.handleFieldChange}
                             type="text"
-                            label="New Game "
+                            label={_this.props.label}
                             />
                     </ModalBody>
                     <ModalFooter>

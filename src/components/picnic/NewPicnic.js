@@ -162,7 +162,11 @@ export default class PicnicForm extends Component {
 
 
 
-          <ModelNewGame createMyGame={this.props.createMyGame} />
+          <ModelNewGame createNewObject={this.props.createMyGame}
+          buttonLabel = "Add New Game"
+          label = "New Game : "
+          createObjFn = {CreateObject.MyGamesObj}
+          />
 
           <div className="form-group">
             <label htmlFor="items">Select items</label>
