@@ -31,15 +31,15 @@ class ApplicationViews extends Component {
         promises.push(
             MyGamesManger.GETALL().then(myGames =>
                 new_state.myGames = myGames
-            )
-        )
+            ))
+        this.setStateOfAll("yes").then(restObj =>
+            new_state= new_state+restObj)
         Promise.all(promises)
             .then(() =>
                 this.setState(new_state))
-        this.setStateOfAll()
     }
 
-    setStateOfAll = () => {
+    setStateOfAll = (compDidMount) => {
 
         let promises = []
         let new_state = {}
@@ -64,10 +64,15 @@ class ApplicationViews extends Component {
                 new_state.items = items
             )
         )
-        Promise.all(promises)
-            .then(() =>
-                this.setState(new_state))
+        return Promise.all(promises)
+            .then(() => {
+                if (compDidMount === "yes")
+                    return (new_state)
+                else
+                    this.setState(new_state)
+            })
     }
+
     createPicnic = (picObj) => {
         return PicnicManager.POST(picObj)
             .then(res => sessionStorage.setItem("picnic", res.id))

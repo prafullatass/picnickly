@@ -76,7 +76,6 @@ class EditPicnic extends Component {
     }
 
     onKeyPressEvent = (event) => {
-
         if (event.keyCode === 13) {
           event.preventDefault();
           const newFoodList = this.state.selectedFoodItems.slice()
@@ -87,6 +86,11 @@ class EditPicnic extends Component {
           event.target.value = ""
         }
         console.log(this.state.selectedFoodItems)
+      }
+
+      UpdateForm =() => {
+          console.log("update")
+        
       }
 
     render() {
@@ -168,8 +172,8 @@ class EditPicnic extends Component {
                            </div>
                         )}
 
-                    <Button caption="Submit"
-                        onClickFunction={this.SubmitForm} />
+                    <Button caption="Update"
+                        onClickFunction={this.UpdateForm} />
                 </form>
             </React.Fragment>
         )
