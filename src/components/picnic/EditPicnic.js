@@ -106,7 +106,7 @@ class EditPicnic extends Component {
         debugger
         obj = CreateObject.PicnicObj(
             uid, this.state.parkName, this.state.address, this.state.picnicDate)
-        obj.picnicId = parseInt(sessionStorage.getItem("picnic"))
+        obj.id = parseInt(sessionStorage.getItem("picnic"))
         promises.push(this.props.updatePicnic(obj))
     }
 

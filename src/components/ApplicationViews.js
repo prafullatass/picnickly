@@ -176,7 +176,11 @@ class ApplicationViews extends Component {
                         itemList={this.state.itemList}
                         items={this.state.items}
                         createMyGame={this.createMyGame}
-                        createItemsList={this.createItemsList} />
+                        createItemsList={this.createItemsList}
+                        updatePicnic={this.updatePicnic}
+                        updateItems={this.updateItems}
+                        updateFoodItems={this.updateFoodItems}
+                        updateGames={this.updateGames} />
                 }} />
             </React.Fragment>
         )
