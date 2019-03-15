@@ -21,7 +21,6 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-console.log("compodid appview")
         let promises = []
         let new_state = {}
         promises.push(
@@ -39,6 +38,7 @@ console.log("compodid appview")
                 this.setState(new_state))
         this.setStateOfAll()
     }
+
     setStateOfAll = () => {
 
         let promises = []
@@ -83,7 +83,7 @@ console.log("compodid appview")
     }
 
     createMyGame = (myGameObj) => {
-        MyGamesManger.POST(myGameObj).then(
+        MyGamesManger.POST(myGameObj).then(() =>
             MyGamesManger.GETALL().then(myGames =>
                 this.setState({
                     myGames: myGames
@@ -92,7 +92,7 @@ console.log("compodid appview")
         )
     }
     createItemsList = (myItemObj) => {
-        ItemsListManager.POST(myItemObj).then(
+        ItemsListManager.POST(myItemObj).then(() =>
             ItemsListManager.GETALL().then(itemList =>
                 this.setState({
                     itemList: itemList
@@ -117,11 +117,6 @@ console.log("compodid appview")
 
         Promise.all(promises).then(this.setStateOfAll)
 
-    }
-
-
-    componentDidUpdate () {
-        console.log("componentDidUpdate -- ApplicationViews")
     }
 
 
@@ -160,7 +155,9 @@ console.log("compodid appview")
                         myGames={this.state.myGames}
                         games={this.state.games}
                         itemList={this.state.itemList}
-                        items={this.state.items} />
+                        items={this.state.items}
+                        createMyGame={this.createMyGame}
+                        createItemsList={this.createItemsList} />
                 }} />
             </React.Fragment>
         )

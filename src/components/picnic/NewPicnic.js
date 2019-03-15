@@ -9,6 +9,7 @@ import CreateObject from "../../Modules/CreateObject";
 import "./picnic.css"
 import ModelNewObj from "./ModelNewObj";
 import GetParkData from "../../Modules/GetParkData";
+import UpdateArray from "../../Modules/UpdateArray";
 export default class PicnicForm extends Component {
   // Set initial state
   state = {
@@ -63,26 +64,14 @@ export default class PicnicForm extends Component {
     })
   }
 
-  //add or delete id from given array
-  AddIdToSelectedArray = (id, status, selectedArray) => {
-    if (status)
-      selectedArray.push(parseInt(id))
-    else {
-      const idx = selectedArray.findIndex(gameId => gameId === parseInt(id))
-      if (idx !== -1)
-        selectedArray.splice(idx, 1)
-    }
-    return selectedArray
+  handleCheckBoxChangeGames = (id) => {
+    let NewArray = UpdateArray.Update(id, this.state.selectedGames)
+    this.setState({ selectedGames: NewArray })
   }
 
-  handleCheckBoxChangeGames = (id, status) => {
-    const newArray = this.AddIdToSelectedArray(id, status, this.state.selectedGames)
-    this.setState({ selectedGames: newArray })
-  }
-
-  handleCheckBoxChangeItems = (id, status) => {
-    const newArray = this.AddIdToSelectedArray(id, status, this.state.selectedItems)
-    this.setState({ selectedItems: newArray })
+  handleCheckBoxChangeItems = (id) => {
+    let NewArray = UpdateArray.Update(id, this.state.selectedItems)
+        this.setState({ selectedItems: NewArray })
   }
 
   onKeyPressEvent = (event) => {
