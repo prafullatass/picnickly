@@ -92,14 +92,14 @@ class ApplicationViews extends Component {
     updatePicnic = (picObj) => {
         return PicnicManager.PUT(picObj)
     }
-    updateGames = (gamesObj) => {
-        return GamesManager.PUT(gamesObj)
+    deleteGames = (id) => {
+        return GamesManager.DELETE(id)
     }
-    updateItems = (itemsObj) => {
-        return ItemsManager.PUT(itemsObj)
+    deleteItems = (id) => {
+        return ItemsManager.DELETE(id)
     }
-    updateFoodItems = (foodObj) => {
-        return FoodItemsManager.PUT(foodObj)
+    deleteFoodItems = (id) => {
+        return FoodItemsManager.DELETE(id)
     }
     updateMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(() =>
@@ -178,9 +178,12 @@ class ApplicationViews extends Component {
                         createMyGame={this.createMyGame}
                         createItemsList={this.createItemsList}
                         updatePicnic={this.updatePicnic}
-                        updateItems={this.updateItems}
-                        updateFoodItems={this.updateFoodItems}
-                        updateGames={this.updateGames} />
+                        deleteItems={this.deleteItems}
+                        deleteFoodItems={this.deleteFoodItems}
+                        deleteGames={this.deleteGames}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}/>
                 }} />
             </React.Fragment>
         )

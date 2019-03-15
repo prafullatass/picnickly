@@ -103,11 +103,30 @@ class EditPicnic extends Component {
         let promises = []
         let obj = {}
         const uid = parseInt(sessionStorage.getItem("credentials"))
-        debugger
+        const picnicId = parseInt(sessionStorage.getItem("picnic"))
         obj = CreateObject.PicnicObj(
             uid, this.state.parkName, this.state.address, this.state.picnicDate)
-        obj.id = parseInt(sessionStorage.getItem("picnic"))
+        obj.id = picnicId
         promises.push(this.props.updatePicnic(obj))
+
+        //update games -- first  delete unchecked games
+        this.props.games.filter(game => game.picnicId === picnicId)
+            .filter(game => !this.state.selectedGames.includes(game.gameId))
+            .map(game =>
+                this.props.deleteGames(game.id)
+            )
+        //then select new checked item and add them
+        const gamesArray = this.props.games.filter(game => game.picnicId === picnicId)
+            .map(game => game.gameId)
+        this.state.selectedGames.filter(gameId => !gamesArray.includes(gameId))
+            .map(gameId =>
+                //console.log(gameId)
+                this.props.createGames(
+                    CreateObject.GamesObj(
+                        parseInt(picnicId), parseInt(gameId), false))
+
+            )
+
     }
 
 

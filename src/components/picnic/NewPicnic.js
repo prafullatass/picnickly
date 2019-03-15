@@ -37,12 +37,6 @@ export default class PicnicForm extends Component {
   };
 
   handleParkNameChange = obj => {
-    // const selectedPark = this.state.parks.find(park => park.parkName === evt.target.value)
-    // this.setState({
-    //   address: selectedPark.address + ", " + selectedPark.address2,
-    //   parkName: selectedPark.parkName,
-    //   parkDetails: selectedPark.features.join(",\r\n ")
-    // })
     this.setState(obj)
   }
 

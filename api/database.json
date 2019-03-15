@@ -62,33 +62,9 @@
     },
     {
       "picnicId": 3,
-      "gameId": 3,
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 3,
-      "gameId": 5,
-      "packed": false,
-      "id": 5
-    },
-    {
-      "picnicId": 3,
-      "gameId": 7,
-      "packed": false,
-      "id": 6
-    },
-    {
-      "picnicId": 3,
       "gameId": 10,
       "packed": false,
       "id": 7
-    },
-    {
-      "picnicId": 3,
-      "gameId": 9,
-      "packed": false,
-      "id": 8
     },
     {
       "picnicId": 4,
@@ -103,10 +79,26 @@
       "id": 10
     },
     {
-      "picnicId": 4,
+      "picnicId": null,
+      "id": 11
+    },
+    {
+      "picnicId": 3,
+      "gameId": 2,
+      "packed": false,
+      "id": 12
+    },
+    {
+      "picnicId": 3,
+      "gameId": 3,
+      "packed": false,
+      "id": 13
+    },
+    {
+      "picnicId": 3,
       "gameId": 4,
       "packed": false,
-      "id": 11
+      "id": 14
     }
   ],
   "myGames": [
