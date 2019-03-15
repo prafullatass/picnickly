@@ -8,15 +8,19 @@ const UpdateArray = Object.create(null, {
     },
 
     Update: {
-        value: function (id, NewArray) {
-            if (this.CheckArray(parseInt(id), NewArray)) {
-                const idx = NewArray.findIndex(el => el === parseInt(id))
+        value: function (id, NewArray, string) {
+            if(string==="yes")
+                id =id
+            else
+                id = parseInt(id)
+            if (this.CheckArray(id, NewArray)) {
+                const idx = NewArray.findIndex(el => el === id)
                 if (idx !== -1) {
                     NewArray.splice(idx, 1)
                 }
             }
             else {
-                NewArray.push(parseInt(id))
+                NewArray.push(id)
             }
             console.log(NewArray)
             return NewArray

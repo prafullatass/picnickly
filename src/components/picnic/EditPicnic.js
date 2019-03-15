@@ -11,6 +11,7 @@ import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
 import UpdateArray from "../../Modules/UpdateArray";
+import Checkbox from "../reusableComponents/checkBox";
 
 class EditPicnic extends Component {
     state = {
@@ -69,7 +70,24 @@ class EditPicnic extends Component {
         let NewArray = UpdateArray.Update(event.target.id, this.state.selectedItems)
         this.setState({ selectedItems: NewArray })
     }
+    handleCheckBoxChangeFoodItems = (event) => {
+        let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
+        this.setState({ selectedFoodItems: NewArray })
+    }
 
+    onKeyPressEvent = (event) => {
+
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          const newFoodList = this.state.selectedFoodItems.slice()
+          newFoodList.push(event.target.value)
+          this.setState({
+            selectedFoodItems: newFoodList
+          })
+          event.target.value = ""
+        }
+        console.log(this.state.selectedFoodItems)
+      }
 
     render() {
         console.log("edit", this.state)
@@ -135,15 +153,23 @@ class EditPicnic extends Component {
                         createObjFn={CreateObject.ItemListObj}
                     />
 
-                    {/*<Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                    <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                         type="text"
-                        label="Food Items " />
+                        label="Add New Food Items :" />
 
-                    <Input id="selectedFoodItems" type="text" label="List of Food :"
-                        value={this.state.selectedFoodItems} />
+                        {this.state.selectedFoodItems.map(foodItem =>
+                           <div key={foodItem}>
+                           <input type="checkbox"
+                               name={foodItem}
+                               id={foodItem}
+                               checked={UpdateArray.CheckArray(foodItem, this.state.selectedFoodItems)}
+                               onChange={this.handleCheckBoxChangeFoodItems} />
+                           <Label for={foodItem}>{foodItem}</Label>
+                           </div>
+                        )}
 
                     <Button caption="Submit"
-                        onClickFunction={this.SubmitForm} /> */}
+                        onClickFunction={this.SubmitForm} />
                 </form>
             </React.Fragment>
         )

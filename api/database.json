@@ -210,22 +210,6 @@
       "packed": false
     },
     {
-      "picnicId": 3,
-      "foodItemName": "cccc",
-      "packed": false,
-      "id": 3
-    },
-    {
-      "gameName": "",
-      "userId": 2,
-      "id": 13
-    },
-    {
-      "gameName": "ss",
-      "userId": 2,
-      "id": 14
-    },
-    {
       "picnicId": 2,
       "foodItemName": "Chips",
       "packed": false,
@@ -239,7 +223,7 @@
     },
     {
       "picnicId": 3,
-      "foodItemName": "pepasi",
+      "foodItemName": "pepsi",
       "packed": false,
       "id": 17
     },
