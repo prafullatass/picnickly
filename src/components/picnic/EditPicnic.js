@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import GetParkData from "../../Modules/GetParkData";
 import SelectPark from "../parks/SelectPark";
 import Input from "../reusableComponents/Input";
-import Checkbox from "../reusableComponents/checkBox";
 import ModelNewObj from "./ModelNewObj";
 import CreateObject from "../../Modules/CreateObject";
 import Button from "../reusableComponents/Button";
@@ -11,6 +10,7 @@ import GamesManager from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
+import UpdateArray from "../../Modules/UpdateArray";
 
 class EditPicnic extends Component {
     state = {
@@ -60,27 +60,34 @@ class EditPicnic extends Component {
         })
     }
 
-    checkArray = (id) => {
+    // checkArray = (id, arrayName) => {
+    //     return this.state[arrayName].includes(id) ? true : false
+    // }
 
-        const t = this.state.selectedGames.includes(id) ? true : false
-        console.log(t, "checkedArray ", this.state.selectedGames, id)
-        return t
-    }
+    // updateArray = (id, NewArray, arrayName) => {
+    //     if (this.checkArray(parseInt(id, arrayName))) {
+    //         const idx = NewArray.findIndex(el => el === parseInt(id))
+    //         if (idx !== -1) {
+    //             NewArray.splice(idx, 1)
+    //         }
+    //     }
+    //     else {
+    //         NewArray.push(parseInt(id))
+    //     }
+    //     return NewArray
+    // }
 
     handleCheckBoxChangeGames = (event) => {
-        let NewArray = this.state.selectedGames
-        if (this.checkArray(parseInt(event.target.id))) {
-            event.target.checked = false
-            const idx = NewArray.findIndex(gameId => gameId === parseInt(event.target.id))
-            if (idx !== -1){
-                NewArray.splice(idx, 1)
-            }
-        }
-        else{
-            NewArray.push(parseInt(event.target.id))
-        }
-        this.setState({ selectedGames: NewArray})
+        let NewArray = UpdateArray.Update(event.target.id, this.state.selectedGames)
+        this.setState({ selectedGames: NewArray })
     }
+
+    handleCheckBoxChangeItems = (event) => {
+        let NewArray = UpdateArray.Update(event.target.id, this.state.selectedItems)
+        this.setState({ selectedItems: NewArray })
+    }
+
+
     render() {
         console.log("edit", this.state)
         return (
@@ -108,7 +115,7 @@ class EditPicnic extends Component {
                                     <input type="checkbox"
                                         name={game.gameName}
                                         id={game.id}
-                                        checked={this.checkArray(game.id)}
+                                        checked={UpdateArray.CheckArray(game.id, this.state.selectedGames)}
                                         onChange={this.handleCheckBoxChangeGames} />
                                     <Label for={game.gameName}>{game.gameName}</Label>
                                 </div>
@@ -117,20 +124,24 @@ class EditPicnic extends Component {
                         </div>
                     </div>
 
-
-
                     <ModelNewObj createNewObject={this.props.createMyGame}
                         buttonLabel="Add New Game"
                         label="New Game : "
                         createObjFn={CreateObject.MyGamesObj}
                     />
 
-                    {/*<div className="form-group">
+                    <div className="form-group">
                         <label htmlFor="items">Select items</label>
                         <div>
                             {this.props.itemList.map(item => (
-                                <Checkbox id={item.id} displayName={item.itemName} checked={false}
-                                    onChange={this.handleCheckBoxChangeItems} />
+                                <div key={item.id}>
+                                    <input type="checkbox"
+                                        name={item.itemName}
+                                        id={item.id}
+                                        checked={UpdateArray.CheckArray(item.id, this.state.selectedItems)}
+                                        onChange={this.handleCheckBoxChangeItems} />
+                                    <Label for={item.itemName}>{item.itemName}</Label>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -141,7 +152,7 @@ class EditPicnic extends Component {
                         createObjFn={CreateObject.ItemListObj}
                     />
 
-                    <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                    {/*<Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                         type="text"
                         label="Food Items " />
 
