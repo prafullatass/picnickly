@@ -11,7 +11,7 @@ class NavBar extends Component {
     render() {
         return (
             <div id="app" className="container">
-                <Nav color="light flexContainer" light expand="md">
+                <Nav color="light flexContainer" >
                     <NavItem>
                         <NavLink tag={Link} to="/new">New Picnic</NavLink>
                     </NavItem>

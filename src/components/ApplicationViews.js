@@ -8,6 +8,7 @@ import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
 import PicnicForm from "./picnic/NewPicnic";
+import EditPicnic from "./picnic/EditPicnic";
 
 class ApplicationViews extends Component {
     state = {
@@ -20,7 +21,7 @@ class ApplicationViews extends Component {
     }
 
     componentDidMount() {
-
+console.log("compodid appview")
         let promises = []
         let new_state = {}
         promises.push(
@@ -80,6 +81,7 @@ class ApplicationViews extends Component {
     createFoodItems = (foodObj) => {
         return FoodItemsManager.POST(foodObj)
     }
+
     createMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(
             MyGamesManger.GETALL().then(myGames =>
@@ -98,27 +100,71 @@ class ApplicationViews extends Component {
             )
         )
     }
+
+    multipleDel = (id, stateArray, managerName) => {
+        return this.state[stateArray].filter(game => game.picnicId === id)
+            .map(game => managerName.DELETE(game.id))
+    }
+
+    cancelPicnic = (id) => {
+        let promises = []
+
+        promises.push(PicnicManager.DELETE(id))
+        debugger
+        promises.push(this.multipleDel(id, "games", GamesManager))
+        promises.push(this.multipleDel(id, "items", ItemsManager))
+        promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
+
+        Promise.all(promises).then(this.setStateOfAll)
+
+    }
+
+
+    componentDidUpdate () {
+        console.log("componentDidUpdate -- ApplicationViews")
+    }
+
+
     render() {
-        console.log(this.state)
+        console.log("render -- ApplicationViews")
+        // console.log(this.state)
 
         return (
-            <Route exact path="/new" render={(props) => {
-                return <PicnicForm picnicData={this.state.picnic}
-                    myGames={this.state.myGames}
-                    games={this.state.games}
-                    itemList={this.state.itemList}
-                    items={this.state.items}
-                    createPicnic={this.createPicnic}
-                    createItems={this.createItems}
-                    createFoodItems={this.createFoodItems}
-                    createGames={this.createGames}
-                    setStateOfAll={this.setStateOfAll}
-                    createMyGame={this.createMyGame}
-                    createItemsList={this.createItemsList}
-                    {...props}
-                />
-            }} />
+            <React.Fragment>
+                <Route exact path="/" render={(props) => {
+                    return <Picnic picnics={this.state.picnic}
+                        cancelPicnic={this.cancelPicnic}
+                        {...props}
+                    />
+                }} />
+
+                <Route exact path="/new" render={(props) => {
+                    return <PicnicForm picnicData={this.state.picnic}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        createPicnic={this.createPicnic}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}
+                        setStateOfAll={this.setStateOfAll}
+                        createMyGame={this.createMyGame}
+                        createItemsList={this.createItemsList}
+                        {...props}
+                    />
+                }} />
+
+                <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
+                    return <EditPicnic {...props}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items} />
+                }} />
+            </React.Fragment>
         )
+
     }
 }
 

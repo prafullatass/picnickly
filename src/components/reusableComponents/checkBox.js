@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-
+import {Label} from "reactstrap"
 class Checkbox extends Component {
-    state = {
-        checked: false
-    }
+
+    state = { checked: false};
 
     onClicked = evt => {
         const targetId = evt.target.id
@@ -17,14 +16,15 @@ class Checkbox extends Component {
     }
 
     render() {
+
         return (
-            <div>
+            <div key = {this.props.id}>
                 <input type="checkbox"
-                    name={this.props.id}
+                    name={this.props.displayName}
                     id={this.props.id}
                     checked={this.state.checked}
                     onChange={this.onClicked} />
-                <label for={this.props.id}>{this.props.displayName}</label>
+                <Label for={this.props.displayName}>{this.props.displayName}</Label>
             </div>
         )
     }
