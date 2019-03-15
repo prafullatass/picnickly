@@ -18,6 +18,17 @@ class SelectPark extends Component {
         });
     }
 
+    ParkNameChange = evt => {
+        let _this = this
+        const selectedPark = this.props.parks.find(park => park.parkName === evt.target.value)
+        const obj = {
+          address: selectedPark.address + ", " + selectedPark.address2,
+          parkName: selectedPark.parkName,
+          parkDetails: selectedPark.features.join(",\r\n ")
+        }
+        _this.props.handleParkNameChange (obj)
+      }
+
     render() {
         const _this = this
         return (
@@ -29,7 +40,7 @@ class SelectPark extends Component {
                     <DropdownMenu style={{overflowY: "scroll",  maxHeight: "400px" }}>
                         {_this.props.parks.map(e => (
                             <DropdownItem key={e.id} id={e.id} value={e.parkName}
-                                onClick={_this.props.handleParkNameChange}>
+                                onClick={_this.ParkNameChange}>
                                 {e.parkName}
                             </DropdownItem>))}
                     </DropdownMenu>

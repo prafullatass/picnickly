@@ -32,8 +32,10 @@ class ApplicationViews extends Component {
             MyGamesManger.GETALL().then(myGames =>
                 new_state.myGames = myGames
             ))
-        this.setStateOfAll("yes").then(restObj =>
-            new_state= new_state+restObj)
+        //Object.assign addes two objects
+        promises.push(this.setStateOfAll("yes").then(restObj =>
+            Object.assign(new_state, restObj)))
+
         Promise.all(promises)
             .then(() =>
                 this.setState(new_state))
@@ -87,7 +89,19 @@ class ApplicationViews extends Component {
         return FoodItemsManager.POST(foodObj)
     }
 
-    createMyGame = (myGameObj) => {
+    updatePicnic = (picObj) => {
+        return PicnicManager.PUT(picObj)
+    }
+    updateGames = (gamesObj) => {
+        return GamesManager.PUT(gamesObj)
+    }
+    updateItems = (itemsObj) => {
+        return ItemsManager.PUT(itemsObj)
+    }
+    updateFoodItems = (foodObj) => {
+        return FoodItemsManager.PUT(foodObj)
+    }
+    updateMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(() =>
             MyGamesManger.GETALL().then(myGames =>
                 this.setState({
@@ -96,6 +110,7 @@ class ApplicationViews extends Component {
             )
         )
     }
+
     createItemsList = (myItemObj) => {
         ItemsListManager.POST(myItemObj).then(() =>
             ItemsListManager.GETALL().then(itemList =>
@@ -115,7 +130,6 @@ class ApplicationViews extends Component {
         let promises = []
 
         promises.push(PicnicManager.DELETE(id))
-        debugger
         promises.push(this.multipleDel(id, "games", GamesManager))
         promises.push(this.multipleDel(id, "items", ItemsManager))
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
@@ -127,7 +141,7 @@ class ApplicationViews extends Component {
 
     render() {
         console.log("render -- ApplicationViews")
-        // console.log(this.state)
+        console.log(this.state)
 
         return (
             <React.Fragment>

@@ -61,6 +61,15 @@ class EditPicnic extends Component {
         })
     }
 
+    handleFieldChange = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = evt.target.value;
+        this.setState(stateToChange);
+    };
+    handleParkNameChange = obj => {
+        this.setState(obj)
+    }
+
     handleCheckBoxChangeGames = (event) => {
         let NewArray = UpdateArray.Update(event.target.id, this.state.selectedGames)
         this.setState({ selectedGames: NewArray })
@@ -77,21 +86,30 @@ class EditPicnic extends Component {
 
     onKeyPressEvent = (event) => {
         if (event.keyCode === 13) {
-          event.preventDefault();
-          const newFoodList = this.state.selectedFoodItems.slice()
-          newFoodList.push(event.target.value)
-          this.setState({
-            selectedFoodItems: newFoodList
-          })
-          event.target.value = ""
+            event.preventDefault();
+            const newFoodList = this.state.selectedFoodItems.slice()
+            newFoodList.push(event.target.value)
+            this.setState({
+                selectedFoodItems: newFoodList
+            })
+            event.target.value = ""
         }
         console.log(this.state.selectedFoodItems)
-      }
+    }
 
-      UpdateForm =() => {
-          console.log("update")
-        
-      }
+    UpdateForm = (evt) => {
+        console.log("update")
+        evt.preventDefault();
+        let promises = []
+        let obj = {}
+        const uid = parseInt(sessionStorage.getItem("credentials"))
+        debugger
+        obj = CreateObject.PicnicObj(
+            uid, this.state.parkName, this.state.address, this.state.picnicDate)
+        obj.picnicId = parseInt(sessionStorage.getItem("picnic"))
+        promises.push(this.props.updatePicnic(obj))
+    }
+
 
     render() {
         console.log("edit", this.state)
@@ -161,16 +179,16 @@ class EditPicnic extends Component {
                         type="text"
                         label="Add New Food Items :" />
 
-                        {this.state.selectedFoodItems.map(foodItem =>
-                           <div key={foodItem}>
-                           <input type="checkbox"
-                               name={foodItem}
-                               id={foodItem}
-                               checked={UpdateArray.CheckArray(foodItem, this.state.selectedFoodItems)}
-                               onChange={this.handleCheckBoxChangeFoodItems} />
-                           <Label for={foodItem}>{foodItem}</Label>
-                           </div>
-                        )}
+                    {this.state.selectedFoodItems.map(foodItem =>
+                        <div key={foodItem}>
+                            <input type="checkbox"
+                                name={foodItem}
+                                id={foodItem}
+                                checked={UpdateArray.CheckArray(foodItem, this.state.selectedFoodItems)}
+                                onChange={this.handleCheckBoxChangeFoodItems} />
+                            <Label for={foodItem}>{foodItem}</Label>
+                        </div>
+                    )}
 
                     <Button caption="Update"
                         onClickFunction={this.UpdateForm} />
