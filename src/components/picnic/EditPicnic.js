@@ -10,6 +10,7 @@ import PicnicManager from "../../ResourceManager/PicnicManager";
 import GamesManager from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
+import { Label } from "reactstrap"
 
 class EditPicnic extends Component {
     state = {
@@ -26,40 +27,59 @@ class EditPicnic extends Component {
     };
 
     componentDidMount() {
-        console.log("comdidmount edit")
+        console.log("componentDidMount -- EditPicnic")
         let fetchedObj = {}
         sessionStorage.setItem("picnic", this.props.match.params.picnicId)
+        const promises = []
         GetParkData().then(parks => {
             fetchedObj.parks = parks
 
-            PicnicManager.GET(this.props.match.params.picnicId)
+            promises.push(PicnicManager.GET(this.props.match.params.picnicId)
                 .then(picnicData => {
                     fetchedObj.parkName = picnicData.parkName
                     fetchedObj.address = picnicData.address
                     fetchedObj.picnicDate = picnicData.picnicDate
                     fetchedObj.userId = picnicData.userId
                     fetchedObj.parkDetails = parks.find(park => park.parkName === picnicData.parkName).features
-                    this.setState(fetchedObj)
-                })
-            this.getDataForArray(GamesManager, "selectedGames", "gameId")
-            this.getDataForArray(ItemsManager, "selectedItems", "itemId")
-            this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName")
+                }))
+            promises.push(this.getDataForArray(GamesManager, "selectedGames", "gameId"))
+            promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemId"))
+            promises.push(this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName"))
+            Promise.all(promises).then(() => {
+                this.setState(fetchedObj)
+            })
         })
     }
 
 
     getDataForArray = (objManager, arrayName, idName) => {
-        objManager.GETALLPICNICDATA(sessionStorage.getItem("picnic")).then(allData => {
+        return objManager.GETALLPICNICDATA(sessionStorage.getItem("picnic")).then(allData => {
             allData.forEach(data => {
                 this.state[arrayName].push(data[idName])
             });
         })
     }
 
-    checkArray= (id) => {
-        this.state.selectedGames.includes(id)?true :false
-        console.log(t)
+    checkArray = (id) => {
+
+        const t = this.state.selectedGames.includes(id) ? true : false
+        console.log(t, "checkedArray ", this.state.selectedGames, id)
         return t
+    }
+
+    handleCheckBoxChangeGames = (event) => {
+        let NewArray = this.state.selectedGames
+        if (this.checkArray(parseInt(event.target.id))) {
+            event.target.checked = false
+            const idx = NewArray.findIndex(gameId => gameId === parseInt(event.target.id))
+            if (idx !== -1){
+                NewArray.splice(idx, 1)
+            }
+        }
+        else{
+            NewArray.push(parseInt(event.target.id))
+        }
+        this.setState({ selectedGames: NewArray})
     }
     render() {
         console.log("edit", this.state)
@@ -84,12 +104,16 @@ class EditPicnic extends Component {
                             {this.props.myGames.filter(game =>
                                 game.userId === parseInt(sessionStorage.getItem("credentials"))
                             ).map(game => (
-                                <Checkbox key = {game.id} id={game.id} displayName={game.gameName}
-                                checked= {false}
-                                onChange={this.handleCheckBoxChangeGames}
-                                selectedArray = {this.state.selectedGames}/>
+                                <div key={game.id}>
+                                    <input type="checkbox"
+                                        name={game.gameName}
+                                        id={game.id}
+                                        checked={this.checkArray(game.id)}
+                                        onChange={this.handleCheckBoxChangeGames} />
+                                    <Label for={game.gameName}>{game.gameName}</Label>
+                                </div>
                             )
-                        )}
+                            )}
                         </div>
                     </div>
 

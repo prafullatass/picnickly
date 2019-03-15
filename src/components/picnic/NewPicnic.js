@@ -38,10 +38,10 @@ export default class PicnicForm extends Component {
     //           features: this.getfeatures(park)
     //         }
     //       })
-        GetParkData().then (parks =>
-         this.setState({ parks: parks }))
-  //     })
-   }
+    GetParkData().then(parks =>
+      this.setState({ parks: parks }))
+    //     })
+  }
 
   // getfeatures(obj) {
   //   return Object.keys(obj).filter(key => obj[key] === "Yes")
@@ -66,25 +66,23 @@ export default class PicnicForm extends Component {
   //add or delete id from given array
   AddIdToSelectedArray = (id, status, selectedArray) => {
     if (status)
-      this.setState({ selectedArray: this.state[selectedArray].push(id) })
+      selectedArray.push(parseInt(id))
     else {
-      const idx = this.state[selectedArray].findIndex(gameId => gameId === id)
+      const idx = selectedArray.findIndex(gameId => gameId === parseInt(id))
       if (idx !== -1)
-        this.setState({ selectedArray: this.state[selectedArray].splice(idx, 1) })
+        selectedArray.splice(idx, 1)
     }
-
+    return selectedArray
   }
 
   handleCheckBoxChangeGames = (id, status) => {
-    console.log(status)
-    this.AddIdToSelectedArray(id, status, "selectedGames")
-    console.log(this.state.selectedGames)
+    const newArray = this.AddIdToSelectedArray(id, status, this.state.selectedGames)
+    this.setState({ selectedGames: newArray })
   }
 
   handleCheckBoxChangeItems = (id, status) => {
-    console.log(status)
-    this.AddIdToSelectedArray(id, status, "selectedItems")
-    console.log(this.state.selectedItems)
+    const newArray = this.AddIdToSelectedArray(id, status, this.state.selectedItems)
+    this.setState({ selectedItems: newArray })
   }
 
   onKeyPressEvent = (event) => {

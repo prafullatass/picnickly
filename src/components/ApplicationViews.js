@@ -118,8 +118,16 @@ console.log("compodid appview")
         Promise.all(promises).then(this.setStateOfAll)
 
     }
+
+
+    componentDidUpdate () {
+        console.log("componentDidUpdate -- ApplicationViews")
+    }
+
+
     render() {
-        console.log(this.state)
+        console.log("render -- ApplicationViews")
+        // console.log(this.state)
 
         return (
             <React.Fragment>
