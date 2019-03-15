@@ -4,6 +4,7 @@ import Input from "../reusableComponents/Input";
 
 class ModelNewObj extends Component {
 
+
     state = {
         modal: false,
         new : ""
@@ -25,12 +26,16 @@ class ModelNewObj extends Component {
     newGame = (event) => {
 
         const _this = this
-        // this.props.createMyGame(CreateObject.MyGamesObj(_this.state.newGame,
-        // parseInt(sessionStorage.getItem("credentials"))))
-        _this.props.createNewObject(_this.props.createObjFn(_this.state.newGame,
-             parseInt(sessionStorage.getItem("credentials"))))
+        _this.props.createNewObject(
+            _this.props.createObjFn(
+                _this.state.newGame,
+                parseInt(sessionStorage.getItem("credentials"))
+            )
+        )
         _this.toggle()
     }
+
+
     render() {
         const _this = this
         return (
@@ -42,6 +47,8 @@ class ModelNewObj extends Component {
                             <Input id="new" handleFieldChange={_this.handleFieldChange}
                             type="text"
                             label={_this.props.label}
+                            autofocus="true"
+                            ref = "modelInput"
                             />
                     </ModalBody>
                     <ModalFooter>

@@ -13,6 +13,13 @@
       "address": "6031 Deal Ave, Nashville TN",
       "picnicDate": "2019-03-22",
       "id": 2
+    },
+    {
+      "userId": 2,
+      "parkName": "England",
+      "address": "811 Delray Dr, Nashville TN",
+      "picnicDate": "",
+      "id": 3
     }
   ],
   "users": [
@@ -45,6 +52,36 @@
       "gameId": 3,
       "packed": false,
       "id": 3
+    },
+    {
+      "picnicId": 3,
+      "gameId": 3,
+      "packed": false,
+      "id": 4
+    },
+    {
+      "picnicId": 3,
+      "gameId": 5,
+      "packed": false,
+      "id": 5
+    },
+    {
+      "picnicId": 3,
+      "gameId": 7,
+      "packed": false,
+      "id": 6
+    },
+    {
+      "picnicId": 3,
+      "gameId": 10,
+      "packed": false,
+      "id": 7
+    },
+    {
+      "picnicId": 3,
+      "gameId": 9,
+      "packed": false,
+      "id": 8
     }
   ],
   "myGames": [
@@ -67,6 +104,36 @@
       "gameName": "Cards",
       "userId": 2,
       "id": 4
+    },
+    {
+      "gameName": "jhgjh",
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "gameName": "cardsaa",
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "gameName": "Foo",
+      "userId": 2,
+      "id": 7
+    },
+    {
+      "gameName": "Bar",
+      "userId": 2,
+      "id": 8
+    },
+    {
+      "gameName": "Foobar",
+      "userId": 2,
+      "id": 9
+    },
+    {
+      "gameName": "Soccer",
+      "userId": 2,
+      "id": 10
     }
   ],
   "items": [
@@ -87,6 +154,30 @@
       "itemId": 1,
       "packed": false,
       "id": 4
+    },
+    {
+      "picnicId": 3,
+      "itemId": 1,
+      "packed": false,
+      "id": 5
+    },
+    {
+      "picnicId": 3,
+      "itemId": 5,
+      "packed": false,
+      "id": 6
+    },
+    {
+      "picnicId": 3,
+      "itemId": 4,
+      "packed": false,
+      "id": 7
+    },
+    {
+      "picnicId": 3,
+      "itemId": 3,
+      "packed": false,
+      "id": 8
     }
   ],
   "itemsList": [
@@ -97,6 +188,18 @@
     {
       "itemName": "sdfsdfsdfsd",
       "id": 2
+    },
+    {
+      "itemName": "forks",
+      "id": 3
+    },
+    {
+      "itemName": "spoons",
+      "id": 4
+    },
+    {
+      "itemName": "plates",
+      "id": 5
     }
   ],
   "fooditems": [
@@ -133,6 +236,24 @@
       "foodItemName": "Coca Cola",
       "packed": false,
       "id": 16
+    },
+    {
+      "picnicId": 3,
+      "foodItemName": "pepasi",
+      "packed": false,
+      "id": 17
+    },
+    {
+      "picnicId": 3,
+      "foodItemName": "cheese burger",
+      "packed": false,
+      "id": 18
+    },
+    {
+      "picnicId": 3,
+      "foodItemName": "apples",
+      "packed": false,
+      "id": 19
     }
   ]
 }

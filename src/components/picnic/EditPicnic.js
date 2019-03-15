@@ -60,23 +60,6 @@ class EditPicnic extends Component {
         })
     }
 
-    // checkArray = (id, arrayName) => {
-    //     return this.state[arrayName].includes(id) ? true : false
-    // }
-
-    // updateArray = (id, NewArray, arrayName) => {
-    //     if (this.checkArray(parseInt(id, arrayName))) {
-    //         const idx = NewArray.findIndex(el => el === parseInt(id))
-    //         if (idx !== -1) {
-    //             NewArray.splice(idx, 1)
-    //         }
-    //     }
-    //     else {
-    //         NewArray.push(parseInt(id))
-    //     }
-    //     return NewArray
-    // }
-
     handleCheckBoxChangeGames = (event) => {
         let NewArray = UpdateArray.Update(event.target.id, this.state.selectedGames)
         this.setState({ selectedGames: NewArray })
