@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Card, Button, CardTitle, CardText, CardFooter } from "reactstrap"
-import { Alert } from 'reactstrap';
+
 class Picnic extends Component {
     confirmCancelPicnic = (evt) => {
         window.confirm("Cancel the Picnic ? ")
@@ -9,6 +9,7 @@ class Picnic extends Component {
 
     render() {
         console.log("Picnic")
+
         return (
             <div className="Container">
                 {this.props.picnics.map(picnic =>

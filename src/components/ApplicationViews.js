@@ -31,15 +31,17 @@ class ApplicationViews extends Component {
         promises.push(
             MyGamesManger.GETALL().then(myGames =>
                 new_state.myGames = myGames
-            )
-        )
+            ))
+        //Object.assign addes two objects
+        promises.push(this.setStateOfAll("yes").then(restObj =>
+            Object.assign(new_state, restObj)))
+
         Promise.all(promises)
             .then(() =>
                 this.setState(new_state))
-        this.setStateOfAll()
     }
 
-    setStateOfAll = () => {
+    setStateOfAll = (compDidMount) => {
 
         let promises = []
         let new_state = {}
@@ -64,10 +66,15 @@ class ApplicationViews extends Component {
                 new_state.items = items
             )
         )
-        Promise.all(promises)
-            .then(() =>
-                this.setState(new_state))
+        return Promise.all(promises)
+            .then(() => {
+                if (compDidMount === "yes")
+                    return (new_state)
+                else
+                    this.setState(new_state)
+            })
     }
+
     createPicnic = (picObj) => {
         return PicnicManager.POST(picObj)
             .then(res => sessionStorage.setItem("picnic", res.id))
@@ -82,7 +89,19 @@ class ApplicationViews extends Component {
         return FoodItemsManager.POST(foodObj)
     }
 
-    createMyGame = (myGameObj) => {
+    updatePicnic = (picObj) => {
+        return PicnicManager.PUT(picObj)
+    }
+    deleteGames = (id) => {
+        return GamesManager.DELETE(id)
+    }
+    deleteItems = (id) => {
+        return ItemsManager.DELETE(id)
+    }
+    deleteFoodItems = (id) => {
+        return FoodItemsManager.DELETE(id)
+    }
+    updateMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(() =>
             MyGamesManger.GETALL().then(myGames =>
                 this.setState({
@@ -91,6 +110,7 @@ class ApplicationViews extends Component {
             )
         )
     }
+
     createItemsList = (myItemObj) => {
         ItemsListManager.POST(myItemObj).then(() =>
             ItemsListManager.GETALL().then(itemList =>
@@ -110,7 +130,6 @@ class ApplicationViews extends Component {
         let promises = []
 
         promises.push(PicnicManager.DELETE(id))
-        debugger
         promises.push(this.multipleDel(id, "games", GamesManager))
         promises.push(this.multipleDel(id, "items", ItemsManager))
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
@@ -122,7 +141,7 @@ class ApplicationViews extends Component {
 
     render() {
         console.log("render -- ApplicationViews")
-        // console.log(this.state)
+        console.log(this.state)
 
         return (
             <React.Fragment>
@@ -157,7 +176,15 @@ class ApplicationViews extends Component {
                         itemList={this.state.itemList}
                         items={this.state.items}
                         createMyGame={this.createMyGame}
-                        createItemsList={this.createItemsList} />
+                        createItemsList={this.createItemsList}
+                        updatePicnic={this.updatePicnic}
+                        deleteItems={this.deleteItems}
+                        deleteFoodItems={this.deleteFoodItems}
+                        deleteGames={this.deleteGames}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}
+                        foodItems={this.state.foodItems} />
                 }} />
             </React.Fragment>
         )

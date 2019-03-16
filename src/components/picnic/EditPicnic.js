@@ -61,6 +61,15 @@ class EditPicnic extends Component {
         })
     }
 
+    handleFieldChange = evt => {
+        const stateToChange = {};
+        stateToChange[evt.target.id] = evt.target.value;
+        this.setState(stateToChange);
+    };
+    handleParkNameChange = obj => {
+        this.setState(obj)
+    }
+
     handleCheckBoxChangeGames = (event) => {
         let NewArray = UpdateArray.Update(event.target.id, this.state.selectedGames)
         this.setState({ selectedGames: NewArray })
@@ -76,18 +85,80 @@ class EditPicnic extends Component {
     }
 
     onKeyPressEvent = (event) => {
-
         if (event.keyCode === 13) {
-          event.preventDefault();
-          const newFoodList = this.state.selectedFoodItems.slice()
-          newFoodList.push(event.target.value)
-          this.setState({
-            selectedFoodItems: newFoodList
-          })
-          event.target.value = ""
+            event.preventDefault();
+            const newFoodList = this.state.selectedFoodItems.slice()
+            newFoodList.push(event.target.value)
+            this.setState({
+                selectedFoodItems: newFoodList
+            })
+            event.target.value = ""
         }
         console.log(this.state.selectedFoodItems)
-      }
+    }
+
+    UpdateForm = (evt) => {
+        console.log("update")
+        evt.preventDefault();
+        let promises = []
+        let obj = {}
+        const uid = parseInt(sessionStorage.getItem("credentials"))
+        const picnicId = parseInt(sessionStorage.getItem("picnic"))
+        obj = CreateObject.PicnicObj(
+            uid, this.state.parkName, this.state.address, this.state.picnicDate)
+        obj.id = picnicId
+        promises.push(this.props.updatePicnic(obj))
+
+        // //update games -- first  delete unchecked games
+        // promises.push(this.props.games.filter(game => game.picnicId === picnicId)
+        //     .filter(game => !this.state.selectedGames.includes(game.gameId))
+        //     .map(game =>
+        //         this.props.deleteGames(game.id)
+        //     ))
+        // //then select new checked item and add them
+        // const gamesArray = this.props.games.filter(game => game.picnicId === picnicId)
+        //     .map(game => game.gameId)
+        // this.state.selectedGames.filter(gameId => !gamesArray.includes(gameId))
+        //     .map(gameId =>
+        //         //console.log(gameId)
+        //         this.props.createGames(
+        //             CreateObject.GamesObj(
+        //                 parseInt(picnicId), parseInt(gameId), false))
+
+        //     )
+        promises.push(this.updateArray(this.props.games,
+            this.state.selectedGames, "gameId", "deleteGames", "createGames", "GamesObj"))
+        promises.push(this.updateArray(this.props.items,
+            this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj"))
+            promises.push(this.updateArray(this.props.foodItems,
+                this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
+        Promise.all(promises).then(this.props.setStateOfAll )
+    }
+
+    updateArray = (dbArray, selectedArray, idName, deleteAPIFn, createAPI, creatObj, isStr) => {
+        let promises = []
+        const picnicId = parseInt(sessionStorage.getItem("picnic"))
+
+        //update games -- first  delete unchecked games
+        promises.push(dbArray.filter(obj => obj.picnicId === picnicId)
+            .filter(obj => !selectedArray.includes(obj[idName]))
+            .map(obj =>
+                promises.push(this.props[deleteAPIFn](obj.id))
+            ))
+        //then select new checked item and add them
+        const gamesArray = dbArray.filter(game => game.picnicId === picnicId)
+            .map(game => game[idName])
+        promises.push(selectedArray.filter(id => !gamesArray.includes(id))
+            .map(newObjItem =>
+                //console.log(gameId)
+                this.props[createAPI](
+                    CreateObject[creatObj](
+                        picnicId, isStr? newObjItem : parseInt(newObjItem), false))
+
+            ))
+        return promises
+    }
+
 
     render() {
         console.log("edit", this.state)
@@ -157,19 +228,19 @@ class EditPicnic extends Component {
                         type="text"
                         label="Add New Food Items :" />
 
-                        {this.state.selectedFoodItems.map(foodItem =>
-                           <div key={foodItem}>
-                           <input type="checkbox"
-                               name={foodItem}
-                               id={foodItem}
-                               checked={UpdateArray.CheckArray(foodItem, this.state.selectedFoodItems)}
-                               onChange={this.handleCheckBoxChangeFoodItems} />
-                           <Label for={foodItem}>{foodItem}</Label>
-                           </div>
-                        )}
+                    {this.state.selectedFoodItems.map(foodItem =>
+                        <div key={foodItem}>
+                            <input type="checkbox"
+                                name={foodItem}
+                                id={foodItem}
+                                checked={UpdateArray.CheckArray(foodItem, this.state.selectedFoodItems)}
+                                onChange={this.handleCheckBoxChangeFoodItems} />
+                            <Label for={foodItem}>{foodItem}</Label>
+                        </div>
+                    )}
 
-                    <Button caption="Submit"
-                        onClickFunction={this.SubmitForm} />
+                    <Button caption="Update"
+                        onClickFunction={this.UpdateForm} />
                 </form>
             </React.Fragment>
         )
