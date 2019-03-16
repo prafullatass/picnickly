@@ -183,7 +183,8 @@ class ApplicationViews extends Component {
                         deleteGames={this.deleteGames}
                         createItems={this.createItems}
                         createFoodItems={this.createFoodItems}
-                        createGames={this.createGames}/>
+                        createGames={this.createGames}
+                        foodItems={this.state.foodItems} />
                 }} />
             </React.Fragment>
         )

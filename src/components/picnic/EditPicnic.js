@@ -109,24 +109,54 @@ class EditPicnic extends Component {
         obj.id = picnicId
         promises.push(this.props.updatePicnic(obj))
 
+        // //update games -- first  delete unchecked games
+        // promises.push(this.props.games.filter(game => game.picnicId === picnicId)
+        //     .filter(game => !this.state.selectedGames.includes(game.gameId))
+        //     .map(game =>
+        //         this.props.deleteGames(game.id)
+        //     ))
+        // //then select new checked item and add them
+        // const gamesArray = this.props.games.filter(game => game.picnicId === picnicId)
+        //     .map(game => game.gameId)
+        // this.state.selectedGames.filter(gameId => !gamesArray.includes(gameId))
+        //     .map(gameId =>
+        //         //console.log(gameId)
+        //         this.props.createGames(
+        //             CreateObject.GamesObj(
+        //                 parseInt(picnicId), parseInt(gameId), false))
+
+        //     )
+        promises.push(this.updateArray(this.props.games,
+            this.state.selectedGames, "gameId", "deleteGames", "createGames", "GamesObj"))
+        promises.push(this.updateArray(this.props.items,
+            this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj"))
+            promises.push(this.updateArray(this.props.foodItems,
+                this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
+        Promise.all(promises).then(this.props.setStateOfAll )
+    }
+
+    updateArray = (dbArray, selectedArray, idName, deleteAPIFn, createAPI, creatObj, isStr) => {
+        let promises = []
+        const picnicId = parseInt(sessionStorage.getItem("picnic"))
+
         //update games -- first  delete unchecked games
-        this.props.games.filter(game => game.picnicId === picnicId)
-            .filter(game => !this.state.selectedGames.includes(game.gameId))
-            .map(game =>
-                this.props.deleteGames(game.id)
-            )
+        promises.push(dbArray.filter(obj => obj.picnicId === picnicId)
+            .filter(obj => !selectedArray.includes(obj[idName]))
+            .map(obj =>
+                promises.push(this.props[deleteAPIFn](obj.id))
+            ))
         //then select new checked item and add them
-        const gamesArray = this.props.games.filter(game => game.picnicId === picnicId)
-            .map(game => game.gameId)
-        this.state.selectedGames.filter(gameId => !gamesArray.includes(gameId))
-            .map(gameId =>
+        const gamesArray = dbArray.filter(game => game.picnicId === picnicId)
+            .map(game => game[idName])
+        promises.push(selectedArray.filter(id => !gamesArray.includes(id))
+            .map(newObjItem =>
                 //console.log(gameId)
-                this.props.createGames(
-                    CreateObject.GamesObj(
-                        parseInt(picnicId), parseInt(gameId), false))
+                this.props[createAPI](
+                    CreateObject[creatObj](
+                        picnicId, isStr? newObjItem : parseInt(newObjItem), false))
 
-            )
-
+            ))
+        return promises
     }
 
 
