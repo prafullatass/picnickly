@@ -2,37 +2,9 @@
   "picnic": [
     {
       "userId": 2,
-      "parkName": "Fannie Mae Dees Park",
-      "address": "2400 Blakemore Ave, Nashville TN",
-      "picnicDate": "2019-01-02",
-      "id": 1
-    },
-    {
-      "userId": 2,
-      "parkName": "Charlotte Park",
-      "address": "6031 Deal Ave, Nashville TN",
-      "picnicDate": "2019-03-22",
-      "id": 2
-    },
-    {
-      "userId": 2,
       "parkName": "England",
       "address": "811 Delray Dr, Nashville TN",
-      "picnicDate": "",
-      "id": 3
-    },
-    {
-      "userId": 2,
-      "parkName": "Cedar Hill",
-      "address": "860 West Old Hickory Blvd, Nashville TN",
-      "picnicDate": "",
-      "id": 4
-    },
-    {
-      "userId": 2,
-      "parkName": "Antioch Park",
-      "address": "5023 Blue Hole Rd, Antioch TN",
-      "picnicDate": "2019-03-28",
+      "picnicDate": "2019-03-30",
       "id": 5
     }
   ],
@@ -50,62 +22,22 @@
   ],
   "games": [
     {
-      "id": 1,
-      "picnicId": 1,
-      "gameId": 1,
-      "packed": false
+      "picnicId": 5,
+      "gameId": 2,
+      "packed": false,
+      "id": 1
     },
     {
-      "picnicId": 2,
-      "gameId": 2,
+      "picnicId": 5,
+      "gameId": 3,
       "packed": false,
       "id": 2
     },
     {
-      "picnicId": 2,
-      "gameId": 3,
+      "picnicId": 5,
+      "gameId": 4,
       "packed": false,
       "id": 3
-    },
-    {
-      "picnicId": 4,
-      "gameId": 2,
-      "packed": false,
-      "id": 9
-    },
-    {
-      "picnicId": 4,
-      "gameId": 3,
-      "packed": false,
-      "id": 10
-    },
-    {
-      "picnicId": null,
-      "id": 11
-    },
-    {
-      "picnicId": 5,
-      "gameId": 2,
-      "packed": false,
-      "id": 15
-    },
-    {
-      "picnicId": 5,
-      "gameId": 9,
-      "packed": false,
-      "id": 17
-    },
-    {
-      "picnicId": 5,
-      "gameId": 10,
-      "packed": false,
-      "id": 18
-    },
-    {
-      "picnicId": 3,
-      "gameId": 3,
-      "packed": false,
-      "id": 26
     }
   ],
   "myGames": [
@@ -162,40 +94,10 @@
   ],
   "items": [
     {
-      "id": 1,
-      "picnicId": 1,
-      "itemId": 1,
-      "packed": false
-    },
-    {
-      "picnicId": 2,
-      "itemId": 1,
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 3,
-      "itemId": 4,
-      "packed": false,
-      "id": 7
-    },
-    {
-      "picnicId": 4,
-      "itemId": 4,
-      "packed": false,
-      "id": 10
-    },
-    {
       "picnicId": 5,
-      "itemId": 1,
+      "itemId": 5,
       "packed": false,
-      "id": 11
-    },
-    {
-      "picnicId": 5,
-      "itemId": 4,
-      "packed": false,
-      "id": 13
+      "id": 5
     }
   ],
   "itemsList": [
@@ -222,76 +124,6 @@
   ],
   "fooditems": [
     {
-      "id": 1,
-      "picnicId": 1,
-      "foodItemName": "Chips",
-      "packed": false
-    },
-    {
-      "gameName": "",
-      "userId": 2,
-      "id": 13
-    },
-    {
-      "gameName": "ss",
-      "userId": 2,
-      "id": 14
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Chips",
-      "packed": false,
-      "id": 15
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Coca Cola",
-      "packed": false,
-      "id": 16
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "pepasi",
-      "packed": false,
-      "id": 17
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "cheese burger",
-      "packed": false,
-      "id": 18
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "apples",
-      "packed": false,
-      "id": 19
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "pinapple",
-      "packed": false,
-      "id": 20
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "chips",
-      "packed": false,
-      "id": 21
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "potato",
-      "packed": false,
-      "id": 22
-    },
-    {
-      "picnicId": 5,
-      "foodItemName": "rice",
-      "packed": false,
-      "id": 23
-    },
-    {
       "picnicId": 5,
       "foodItemName": "chips",
       "packed": false,
@@ -304,10 +136,28 @@
       "id": 25
     },
     {
-      "picnicId": 3,
-      "foodItemName": "chips",
+      "picnicId": 5,
+      "foodItemName": "Poli",
+      "packed": false,
+      "id": 26
+    },
+    {
+      "picnicId": 5,
+      "foodItemName": "1",
+      "packed": false,
+      "id": 27
+    },
+    {
+      "picnicId": 5,
+      "foodItemName": "2",
       "packed": false,
       "id": 28
+    },
+    {
+      "picnicId": 5,
+      "foodItemName": "rice",
+      "packed": false,
+      "id": 29
     }
   ]
 }

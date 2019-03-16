@@ -59,9 +59,7 @@ export default class PicnicForm extends Component {
         selectedFoodItems: newFoodList
       })
       event.target.value = ""
-
     }
-    console.log(this.state.selectedFoodItems)
   }
 
   SubmitForm = (evt) => {

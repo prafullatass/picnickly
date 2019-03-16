@@ -127,33 +127,34 @@ class EditPicnic extends Component {
 
         //     )
         promises.push(this.updateArray(this.props.games,
-            this.state.selectedGames, "gameId", "deleteGames", "createGames", "GamesObj"))
+            this.state.selectedGames, "gameId", "deleteGames", "createGames", "GamesObj", false))
         promises.push(this.updateArray(this.props.items,
-            this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj"))
-            promises.push(this.updateArray(this.props.foodItems,
-                this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
-        Promise.all(promises).then(this.props.setStateOfAll )
+            this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj", false))
+        promises.push(this.updateArray(this.props.foodItems,
+            this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
+        Promise.all(promises).then(this.props.setStateOfAll)
     }
 
     updateArray = (dbArray, selectedArray, idName, deleteAPIFn, createAPI, creatObj, isStr) => {
         let promises = []
-        const picnicId = parseInt(sessionStorage.getItem("picnic"))
+        const PicnicId = parseInt(sessionStorage.getItem("picnic"))
 
         //update games -- first  delete unchecked games
-        promises.push(dbArray.filter(obj => obj.picnicId === picnicId)
+        //Avalable in database and ot in selected array
+        promises.push(dbArray.filter(obj => obj.picnicId === PicnicId)
             .filter(obj => !selectedArray.includes(obj[idName]))
             .map(obj =>
-                promises.push(this.props[deleteAPIFn](obj.id))
+                     this.props[deleteAPIFn](obj.id)
             ))
         //then select new checked item and add them
-        const gamesArray = dbArray.filter(game => game.picnicId === picnicId)
-            .map(game => game[idName])
+        const gamesArray = dbArray.filter(obj => obj.picnicId === PicnicId)
+            .map(obj => obj[idName])
         promises.push(selectedArray.filter(id => !gamesArray.includes(id))
             .map(newObjItem =>
                 //console.log(gameId)
                 this.props[createAPI](
                     CreateObject[creatObj](
-                        picnicId, isStr? newObjItem : parseInt(newObjItem), false))
+                        PicnicId, isStr ? newObjItem : parseInt(newObjItem), false))
 
             ))
         return promises
