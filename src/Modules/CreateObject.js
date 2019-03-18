@@ -38,7 +38,7 @@ const CreateObject = Object.create(null,
             }
         },
         ItemListObj: {
-            value: function (name, user_id) {
+            value: function (name) {
                 return {
                     itemName: name
                 }

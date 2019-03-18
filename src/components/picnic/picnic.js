@@ -14,7 +14,7 @@ class Picnic extends Component {
             <div className="Container">
                 {this.props.picnics.map(picnic =>
                     <Card body inverse color="info" className="cardSize"
-                    id = {picnic.id}>
+                    id = {picnic.id} key = {picnic.id}>
                         <CardTitle>On {picnic.picnicDate} </CardTitle>
                         <CardText> At {picnic.parkName}</CardText>
                         <CardText>Address : {picnic.address}</CardText>
@@ -26,6 +26,10 @@ class Picnic extends Component {
                             <Button color="danger" size="sm"
                             id = {picnic.id}
                             className = "footerButton" onClick={this.confirmCancelPicnic}>Cancel</Button>
+                            <Button color="info" size="sm"
+                            className = "footerButton"
+                            onClick={() => this.props.history.push(`/picnics/${picnic.id}/pack`)}
+                            >Start Packing</Button>
                         </CardFooter>
                     </Card>
                 )}

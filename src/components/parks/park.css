@@ -1,0 +1,23 @@
+.address {
+    width : 400px;
+    margin-left: 10px;
+}
+
+.name {
+    width :300px;
+    margin-left: 2px;
+}
+
+.details {
+    height: 200px;
+    width : 200px;
+    overflow: auto;
+    padding-left: 3px;
+    margin-right: 10px;
+}
+
+.rightFloat{
+    float : right;
+    display: flex;
+    flex-direction: column;
+}

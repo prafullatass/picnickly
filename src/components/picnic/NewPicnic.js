@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 import Input from "../reusableComponents/Input";
 import SelectPark from "../parks/SelectPark";
@@ -10,6 +9,13 @@ import "./picnic.css"
 import ModelNewObj from "./ModelNewObj";
 import GetParkData from "../../Modules/GetParkData";
 import UpdateArray from "../../Modules/UpdateArray";
+import UsefulFn from "../../Modules/UsalfulFn";
+import Validation from "../../Modules/Validation";
+import { Label } from "reactstrap"
+import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import classnames from 'classnames';
+
+
 export default class PicnicForm extends Component {
   // Set initial state
   state = {
@@ -22,8 +28,18 @@ export default class PicnicForm extends Component {
     dropdownOpen: false,
     selectedGames: [],
     selectedItems: [],
-    selectedFoodItems: []
+    selectedFoodItems: [],
+    activeTab: '1'
+
   };
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
 
   componentDidMount() {
     GetParkData().then(parks =>
@@ -47,21 +63,27 @@ export default class PicnicForm extends Component {
 
   handleCheckBoxChangeItems = (id) => {
     let NewArray = UpdateArray.Update(id, this.state.selectedItems)
-        this.setState({ selectedItems: NewArray })
+    this.setState({ selectedItems: NewArray })
+  }
+
+  handleCheckBoxChangeFoodItem = (event) => {
+    let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
+    this.setState({ selectedItems: NewArray })
   }
 
   onKeyPressEvent = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
       const newFoodList = this.state.selectedFoodItems.slice()
-      newFoodList.push(event.target.value)
-      this.setState({
-        selectedFoodItems: newFoodList
-      })
+      const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
+      if (Validation.Duplicate(newFoodItem, this.state.selectedFoodItems) === false) {
+        newFoodList.push(newFoodItem)
+        this.setState({
+          selectedFoodItems: newFoodList
+        })
+      }
       event.target.value = ""
-
     }
-    console.log(this.state.selectedFoodItems)
   }
 
   SubmitForm = (evt) => {
@@ -109,53 +131,109 @@ export default class PicnicForm extends Component {
             type="date"
             label="Picnic Date :" />
 
-          <div className="form-group">
-            <label htmlFor="games">Select Games</label>
-            <div>
-              {this.props.myGames.filter(game =>
-                game.userId === parseInt(sessionStorage.getItem("credentials"))
-              ).map(game => (
-                <Checkbox id={game.id} displayName={game.gameName} checked={false}
-                  onChange={this.handleCheckBoxChangeGames} />
-              ))}
-            </div>
+          <div className="TabContainer">
+            <Nav tabs>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '1' })}
+                  onClick={() => { this.toggle('1'); }}
+                >
+                  Games
+            </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '2' })}
+                  onClick={() => { this.toggle('2'); }}
+                >
+                  Necessity Items
+            </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  className={classnames({ active: this.state.activeTab === '3' })}
+                  onClick={() => { this.toggle('3'); }}
+                >
+                  Food Items
+            </NavLink>
+              </NavItem>
+            </Nav>
+
+            <TabContent activeTab={this.state.activeTab}>
+              <TabPane tabId="1">
+                <div className="form-group">
+                  <div className="inlineAll">
+                    <label htmlFor="games">Select Games</label>
+                    <ModelNewObj createNewObject={this.props.createMyGame}
+                      buttonLabel="New Game"
+                      label="New Game : "
+                      createObjFn={CreateObject.MyGamesObj}
+                      list={this.props.myGames.filter(game =>
+                        game.userId === parseInt(sessionStorage.getItem("credentials"))
+                      ).map(game => game.gameName)}
+                    />
+                  </div>
+                  <div>
+                    {this.props.myGames.filter(game =>
+                      game.userId === parseInt(sessionStorage.getItem("credentials"))
+                    ).map(game => (
+                      <Checkbox key = {game.id} id={game.id}
+                      displayName={game.gameName}
+                      checked={false}
+                        onChange={this.handleCheckBoxChangeGames} />
+                    ))}
+                  </div>
+                </div>
+
+              </TabPane>
+              <TabPane tabId="2">
+
+                <div className="form-group">
+                  <div className="inlineAll">
+                    <label htmlFor="items">Select items -</label>
+                    <ModelNewObj createNewObject={this.props.createItemsList}
+                      buttonLabel=" New Item"
+                      label="Name of Item : "
+                      createObjFn={CreateObject.ItemListObj}
+                      list={this.props.itemList.map(item => item.itemName)}
+                    />
+                  </div>
+                  <div>
+                    {this.props.itemList.map(item => (
+                      <Checkbox key = {item.id} id={item.id} displayName={item.itemName} checked={false}
+                        onChange={this.handleCheckBoxChangeItems} />
+                    ))}
+                  </div>
+                </div>
+
+              </TabPane>
+              <TabPane tabId="3">
+
+                <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                  type="text"
+                  label="Food Items " />
+
+                {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
+            value={this.state.selectedFoodItems} /> */}
+
+                {this.state.selectedFoodItems.map(foodItem =>
+                  <div key={foodItem}>
+                    <input type="checkbox"
+                      name={foodItem}
+                      id={foodItem}
+                      checked={true}
+                      onChange={this.handleCheckBoxChangeFoodItem} />
+                    <Label for={foodItem}>{foodItem}</Label>
+                  </div>
+                )}
+
+              </TabPane>
+            </TabContent>
           </div>
-
-
-
-          <ModelNewObj createNewObject={this.props.createMyGame}
-            buttonLabel="Add New Game"
-            label="New Game : "
-            createObjFn={CreateObject.MyGamesObj}
-          />
-
-          <div className="form-group">
-            <label htmlFor="items">Select items</label>
-            <div>
-              {this.props.itemList.map(item => (
-                <Checkbox id={item.id} displayName={item.itemName} checked={false}
-                  onChange={this.handleCheckBoxChangeItems} />
-              ))}
-            </div>
-          </div>
-
-          <ModelNewObj createNewObject={this.props.createItemsList}
-            buttonLabel="Add New Necessity Item"
-            label="Name of Item : "
-            createObjFn={CreateObject.ItemListObj}
-          />
-
-          <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
-            type="text"
-            label="Food Items " />
-
-          <Input id="selectedFoodItems" type="text" label="List of Food :"
-            value={this.state.selectedFoodItems} />
-
           <Button caption="Submit"
             onClickFunction={this.SubmitForm} />
-        </form>
-      </React.Fragment>
+        </form >
+      </React.Fragment >
     )
   }
 }
