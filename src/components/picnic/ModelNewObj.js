@@ -48,7 +48,7 @@ class ModelNewObj extends Component {
         const _this = this
         return (
             <div>
-                <Button color="info" onClick={this.toggle}>{_this.props.buttonLabel}</Button>
+                <Button color="primary" size="sm" onClick={this.toggle}>{_this.props.buttonLabel}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>

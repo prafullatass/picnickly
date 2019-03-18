@@ -227,7 +227,17 @@ class EditPicnic extends Component {
                             <TabPane tabId="1">
 
                                 <div className="form-group">
-                                    <label htmlFor="allData">Select Games</label>
+                                    <div className="inlineAll">
+                                        <label htmlFor="allData">Select Games : </label>
+                                        <ModelNewObj createNewObject={this.props.createMyGame}
+                                            buttonLabel="New Game"
+                                            label="New Game : "
+                                            createObjFn={CreateObject.MyGamesObj}
+                                            list={this.props.myGames.filter(game =>
+                                                game.userId === parseInt(sessionStorage.getItem("credentials"))
+                                            ).map(game => game.gameName)}
+                                        />
+                                    </div>
                                     <div>
                                         {this.props.myGames.filter(game =>
                                             game.userId === parseInt(sessionStorage.getItem("credentials"))
@@ -244,20 +254,19 @@ class EditPicnic extends Component {
                                         )}
                                     </div>
                                 </div>
-
-                                <ModelNewObj createNewObject={this.props.createMyGame}
-                                    buttonLabel="Add New Game"
-                                    label="New Game : "
-                                    createObjFn={CreateObject.MyGamesObj}
-                                    list={this.props.myGames.filter(game =>
-                                        game.userId === parseInt(sessionStorage.getItem("credentials"))
-                                    ).map(game => game.gameName)}
-                                />
                             </TabPane>
                             <TabPane tabId="2">
 
                                 <div className="form-group">
-                                    <label htmlFor="items">Select items</label>
+                                    <div className="inlineAll">
+                                        <label htmlFor="items">Select Items :</label>
+                                        <ModelNewObj createNewObject={this.props.createItemsList}
+                                            buttonLabel="New Item"
+                                            label="Name of Item : "
+                                            createObjFn={CreateObject.ItemListObj}
+                                            list={this.props.itemList.map(item => item.itemName)}
+                                        />
+                                    </div>
                                     <div>
                                         {this.props.itemList.map(item => (
                                             <div key={item.id}>
@@ -272,12 +281,6 @@ class EditPicnic extends Component {
                                     </div>
                                 </div>
 
-                                <ModelNewObj createNewObject={this.props.createItemsList}
-                                    buttonLabel="Add New Necessity Item"
-                                    label="Name of Item : "
-                                    createObjFn={CreateObject.ItemListObj}
-                                    list={this.props.itemList.map(item => item.itemName)}
-                                />
                             </TabPane>
                             <TabPane tabId="3">
 
