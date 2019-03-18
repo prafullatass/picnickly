@@ -13,9 +13,15 @@ class NavBar extends Component {
             <div id="app" className="container">
                 <Nav color="light flexContainer" >
                     <NavItem>
-                        <NavLink tag={Link} to="/new">New Picnic</NavLink>
+                        <NavLink tag={Link} to="/">Picnics</NavLink>
                     </NavItem>
-                    <a className="nav-link">Aloha {this.props.activeUser.username}</a>
+                    <NavItem>
+                        <NavLink tag={Link} to="/new">New</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink tag={Link} to="/past">History</NavLink>
+                    </NavItem>
+                    <a className="nav-link">Welcome  {this.props.activeUser.username}</a>
                     <button
                         type="button"
                         className="btn btn-outline-info"

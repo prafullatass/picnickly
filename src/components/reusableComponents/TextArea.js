@@ -12,6 +12,7 @@ class TextArea extends Component {
                     id={this.props.id}
                     onChange={this.props.handleFieldChange}
                     value={this.props.value}
+                    disabled = {this.props.disabled}
                     className={this.props.className}
                 />
             </div>

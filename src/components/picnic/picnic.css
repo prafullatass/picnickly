@@ -28,9 +28,22 @@
     border : 1px double black ;
     overflow-y: auto;
     width : 400px;
-    height : 350px;
+    height : 250px;
 }
 
 .inlineAll{
     display: inline-flex;
 }
+/* body{
+    background: url("https://images.century21.ca/Images/3f754c10ca0d/af63fe5e-524b-4307-862a-9fb38490b57f.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer{
+    background: url("https://image.shutterstock.com/image-photo/picnic-basket-bread-wine-on-260nw-1021358554.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:150px;
+    width : auto;
+} */
