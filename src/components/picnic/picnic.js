@@ -8,11 +8,14 @@ class Picnic extends Component {
     }
 
     render() {
-        console.log("Picnic")
-
+        const dt = new Date().setHours(0,0,0,0)
+        console.log("Picnic", dt)
         return (
             <div className="Container">
-                {this.props.picnics.map(picnic =>
+                {this.props.picnics.filter(picnic =>
+                new Date((picnic.picnicDate).replace("-","/").replace("-", "/")) >= dt)
+                .sort((a,b) => new Date(a.picnicDate) < new Date(b.picnicDate) ? -1 : 1)
+                .map(picnic =>
                     <Card body inverse color="info" className="cardSize"
                     id = {picnic.id} key = {picnic.id}>
                         <CardTitle>On {picnic.picnicDate} </CardTitle>

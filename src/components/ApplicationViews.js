@@ -10,7 +10,7 @@ import ItemsListManager from "../ResourceManager/ItemListManager";
 import PicnicForm from "./picnic/NewPicnic";
 import EditPicnic from "./picnic/EditPicnic";
 import Pack from "./picnic/Pack";
-
+import "./picnic/picnic.css"
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -211,9 +211,11 @@ class ApplicationViews extends Component {
                         patchFoodItems = { this.patchFoodItems}
                         />
                 }} />
+                <footer className="footer">
+
+                </footer>
             </React.Fragment>
         )
-
     }
 }
 
