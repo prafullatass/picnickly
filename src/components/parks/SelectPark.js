@@ -34,7 +34,7 @@ class SelectPark extends Component {
         return (
             <React.Fragment>
                 <div className="inlineAll">
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size = "sm">
+                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm">
                         <DropdownToggle caret color="info">
                             Select Park Name
                     </DropdownToggle>
@@ -62,13 +62,13 @@ class SelectPark extends Component {
                             </select>
                         </div> */}
                     <Input id="parkName" type="text" value={this.props.parkName}
-                        label="" className="name" />
+                        label="" className="name" disabled="disabled" />
                 </div>
                 <TextArea id="parkDetails" label="Park Details" value={this.props.parkDetails}
-                className = "details" divClass = "rightFloat" />
+                    className="details" divClass="rightFloat" disabled = "disabled" />
 
                 <Input id="address" type="text" value={this.props.address}
-                    label="Address : " className= "address" />
+                    label="Address : " className="address" disabled = "disabled" />
 
             </React.Fragment>
         )

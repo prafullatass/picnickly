@@ -14,6 +14,7 @@ class Input extends Component {
                     autoFocus={this.props.autofocus}
                     onChange={this.props.handleFieldChange}
                     value={this.props.value}
+                    disabled={this.props.disabled}
                     onKeyDown={this.props.onKeyPressEvent}
                 />
             </div>

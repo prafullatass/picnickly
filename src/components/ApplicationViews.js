@@ -11,6 +11,7 @@ import PicnicForm from "./picnic/NewPicnic";
 import EditPicnic from "./picnic/EditPicnic";
 import Pack from "./picnic/Pack";
 import "./picnic/picnic.css"
+import HistoryPicnic from "./picnic/History";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -102,13 +103,13 @@ class ApplicationViews extends Component {
     deleteFoodItems = (id) => {
         return FoodItemsManager.DELETE(id)
     }
-    patchGames =(obj) => {
+    patchGames = (obj) => {
         return GamesManager.PATCH(obj)
     }
-    patchItems =(obj) => {
+    patchItems = (obj) => {
         return ItemsManager.PATCH(obj)
     }
-    patchFoodItems =(obj) => {
+    patchFoodItems = (obj) => {
         return FoodItemsManager.PATCH(obj)
     }
 
@@ -163,7 +164,12 @@ class ApplicationViews extends Component {
                         {...props}
                     />
                 }} />
-
+                <Route exact path="/past" render={(props) => {
+                    return <HistoryPicnic picnics={this.state.picnic}
+                        cancelPicnic={this.cancelPicnic}
+                        {...props}
+                    />
+                }} />
                 <Route exact path="/new" render={(props) => {
                     return <PicnicForm picnicData={this.state.picnic}
                         myGames={this.state.myGames}
@@ -206,10 +212,10 @@ class ApplicationViews extends Component {
                         itemList={this.state.itemList}
                         items={this.state.items}
                         foodItems={this.state.foodItems}
-                        patchGames = { this.patchGames}
-                        patchItems = { this.patchItems}
-                        patchFoodItems = { this.patchFoodItems}
-                        />
+                        patchGames={this.patchGames}
+                        patchItems={this.patchItems}
+                        patchFoodItems={this.patchFoodItems}
+                    />
                 }} />
                 <footer className="footer">
 

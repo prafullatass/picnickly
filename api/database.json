@@ -13,6 +13,13 @@
       "address": "3000 Morgan Rd, Joelton TN",
       "picnicDate": "2019-03-18",
       "id": 2
+    },
+    {
+      "userId": 2,
+      "parkName": "England",
+      "address": "811 Delray Dr, Nashville TN",
+      "picnicDate": "2019-03-06",
+      "id": 3
     }
   ],
   "users": [
@@ -69,6 +76,24 @@
       "gameId": 5,
       "packed": false,
       "id": 7
+    },
+    {
+      "picnicId": 3,
+      "gameId": 3,
+      "packed": false,
+      "id": 8
+    },
+    {
+      "picnicId": 3,
+      "gameId": 4,
+      "packed": false,
+      "id": 9
+    },
+    {
+      "picnicId": 3,
+      "gameId": 5,
+      "packed": false,
+      "id": 10
     }
   ],
   "myGames": [
@@ -133,6 +158,18 @@
       "itemId": 3,
       "packed": false,
       "id": 5
+    },
+    {
+      "picnicId": 3,
+      "itemId": 1,
+      "packed": false,
+      "id": 6
+    },
+    {
+      "picnicId": 3,
+      "itemId": 2,
+      "packed": false,
+      "id": 7
     }
   ],
   "itemsList": [
@@ -183,6 +220,12 @@
       "foodItemName": "Popcorn",
       "packed": false,
       "id": 5
+    },
+    {
+      "picnicId": 3,
+      "foodItemName": "Anything",
+      "packed": false,
+      "id": 6
     }
   ]
 }
