@@ -9,6 +9,7 @@ import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
 import PicnicForm from "./picnic/NewPicnic";
 import EditPicnic from "./picnic/EditPicnic";
+import Pack from "./picnic/Pack";
 
 class ApplicationViews extends Component {
     state = {
@@ -101,6 +102,16 @@ class ApplicationViews extends Component {
     deleteFoodItems = (id) => {
         return FoodItemsManager.DELETE(id)
     }
+    patchGames =(obj) => {
+        return GamesManager.PATCH(obj)
+    }
+    patchItems =(obj) => {
+        return ItemsManager.PATCH(obj)
+    }
+    patchFoodItems =(obj) => {
+        return FoodItemsManager.PATCH(obj)
+    }
+
     createMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(() =>
             MyGamesManger.GETALL().then(myGames =>
@@ -137,6 +148,7 @@ class ApplicationViews extends Component {
         Promise.all(promises).then(this.setStateOfAll)
 
     }
+
 
 
     render() {
@@ -185,6 +197,19 @@ class ApplicationViews extends Component {
                         createFoodItems={this.createFoodItems}
                         createGames={this.createGames}
                         foodItems={this.state.foodItems} />
+                }} />
+
+                <Route exact path="/picnics/:picnicId(\d+)/pack" render={(props) => {
+                    return <Pack {...props}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        foodItems={this.state.foodItems}
+                        patchGames = { this.patchGames}
+                        patchItems = { this.patchItems}
+                        patchFoodItems = { this.patchFoodItems}
+                        />
                 }} />
             </React.Fragment>
         )

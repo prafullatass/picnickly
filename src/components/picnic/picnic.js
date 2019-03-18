@@ -26,6 +26,10 @@ class Picnic extends Component {
                             <Button color="danger" size="sm"
                             id = {picnic.id}
                             className = "footerButton" onClick={this.confirmCancelPicnic}>Cancel</Button>
+                            <Button color="info" size="sm"
+                            className = "footerButton"
+                            onClick={() => this.props.history.push(`/picnics/${picnic.id}/pack`)}
+                            >Start Packing</Button>
                         </CardFooter>
                     </Card>
                 )}

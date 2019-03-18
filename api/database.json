@@ -20,7 +20,32 @@
       "id": 2
     }
   ],
-  "games": [],
+  "games": [
+    {
+      "picnicId": 1,
+      "gameId": 2,
+      "packed": true,
+      "id": 1
+    },
+    {
+      "picnicId": 1,
+      "gameId": 5,
+      "packed": false,
+      "id": 2
+    },
+    {
+      "picnicId": 1,
+      "gameId": 3,
+      "packed": false,
+      "id": 3
+    },
+    {
+      "picnicId": 1,
+      "gameId": 4,
+      "packed": false,
+      "id": 4
+    }
+  ],
   "myGames": [
     {
       "id": 1,
@@ -53,7 +78,26 @@
       "id": 6
     }
   ],
-  "items": [],
+  "items": [
+    {
+      "picnicId": 1,
+      "itemId": 1,
+      "packed": false,
+      "id": 1
+    },
+    {
+      "picnicId": 1,
+      "itemId": 2,
+      "packed": true,
+      "id": 2
+    },
+    {
+      "picnicId": 1,
+      "itemId": 3,
+      "packed": false,
+      "id": 3
+    }
+  ],
   "itemsList": [
     {
       "id": 1,
@@ -82,7 +126,7 @@
     {
       "picnicId": 1,
       "foodItemName": "Chips",
-      "packed": false,
+      "packed": true,
       "id": 2
     },
     {
