@@ -11,7 +11,7 @@ import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
 import UpdateArray from "../../Modules/UpdateArray";
-import Checkbox from "../reusableComponents/checkBox";
+import UsefulFn from "../../Modules/UsalfulFn";
 
 class EditPicnic extends Component {
     state = {
@@ -88,7 +88,8 @@ class EditPicnic extends Component {
         if (event.keyCode === 13) {
             event.preventDefault();
             const newFoodList = this.state.selectedFoodItems.slice()
-            newFoodList.push(event.target.value)
+            const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
+            newFoodList.push(newFoodItem)
             this.setState({
                 selectedFoodItems: newFoodList
             })
@@ -144,7 +145,7 @@ class EditPicnic extends Component {
         promises.push(dbArray.filter(obj => obj.picnicId === PicnicId)
             .filter(obj => !selectedArray.includes(obj[idName]))
             .map(obj =>
-                     this.props[deleteAPIFn](obj.id)
+                this.props[deleteAPIFn](obj.id)
             ))
         //then select new checked item and add them
         const gamesArray = dbArray.filter(obj => obj.picnicId === PicnicId)

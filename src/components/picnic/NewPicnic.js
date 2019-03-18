@@ -10,6 +10,7 @@ import "./picnic.css"
 import ModelNewObj from "./ModelNewObj";
 import GetParkData from "../../Modules/GetParkData";
 import UpdateArray from "../../Modules/UpdateArray";
+import UsefulFn from "../../Modules/UsalfulFn";
 export default class PicnicForm extends Component {
   // Set initial state
   state = {
@@ -54,7 +55,8 @@ export default class PicnicForm extends Component {
     if (event.keyCode === 13) {
       event.preventDefault();
       const newFoodList = this.state.selectedFoodItems.slice()
-      newFoodList.push(event.target.value)
+      const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
+      newFoodList.push(newFoodItem)
       this.setState({
         selectedFoodItems: newFoodList
       })
