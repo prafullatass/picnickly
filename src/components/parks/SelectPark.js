@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import TextArea from "../reusableComponents/TextArea";
-
+import "./park.css"
 class SelectPark extends Component {
 
     state = {
@@ -22,30 +22,31 @@ class SelectPark extends Component {
         let _this = this
         const selectedPark = this.props.parks.find(park => park.parkName === evt.target.value)
         const obj = {
-          address: selectedPark.address + ", " + selectedPark.address2,
-          parkName: selectedPark.parkName,
-          parkDetails: selectedPark.features.join(",\r\n ")
+            address: selectedPark.address + ", " + selectedPark.address2,
+            parkName: selectedPark.parkName,
+            parkDetails: selectedPark.features.join(", \n ")
         }
-        _this.props.handleParkNameChange (obj)
-      }
+        _this.props.handleParkNameChange(obj)
+    }
 
     render() {
         const _this = this
         return (
             <React.Fragment>
-                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    <DropdownToggle caret>
-                        Select Park Name
+                <div className="inlineAll">
+                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size = "sm">
+                        <DropdownToggle caret color="info">
+                            Select Park Name
                     </DropdownToggle>
-                    <DropdownMenu style={{overflowY: "scroll",  maxHeight: "400px" }}>
-                        {_this.props.parks.map(e => (
-                            <DropdownItem key={e.id} id={e.id} value={e.parkName}
-                                onClick={_this.ParkNameChange}>
-                                {e.parkName}
-                            </DropdownItem>))}
-                    </DropdownMenu>
-                </Dropdown>
-                {/* <div className="form-group">
+                        <DropdownMenu style={{ overflowY: "scroll", maxHeight: "400px" }}>
+                            {_this.props.parks.map(e => (
+                                <DropdownItem key={e.id} id={e.id} value={e.parkName}
+                                    onClick={_this.ParkNameChange}>
+                                    {e.parkName}
+                                </DropdownItem>))}
+                        </DropdownMenu>
+                    </Dropdown>
+                    {/* <div className="form-group">
                             <label htmlFor="parkName">Select Park</label>
                             <select
                                 defaultValue=""
@@ -60,12 +61,15 @@ class SelectPark extends Component {
                                 ))}
                             </select>
                         </div> */}
-                <Input id="parkName" type="text" value={this.props.parkName}
-                    label="Park Name : " />
-                <Input id="address" type="text" value={this.props.address}
-                    label="Address : " />
+                    <Input id="parkName" type="text" value={this.props.parkName}
+                        label="" className="name" />
+                </div>
+                <TextArea id="parkDetails" label="Park Details" value={this.props.parkDetails}
+                className = "details" divClass = "rightFloat" />
 
-                <TextArea id="parkDetails" value={this.props.parkDetails} />
+                <Input id="address" type="text" value={this.props.address}
+                    label="Address : " className= "address" />
+
             </React.Fragment>
         )
     }

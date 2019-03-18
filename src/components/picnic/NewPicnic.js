@@ -177,7 +177,9 @@ export default class PicnicForm extends Component {
                     {this.props.myGames.filter(game =>
                       game.userId === parseInt(sessionStorage.getItem("credentials"))
                     ).map(game => (
-                      <Checkbox id={game.id} displayName={game.gameName} checked={false}
+                      <Checkbox key = {game.id} id={game.id}
+                      displayName={game.gameName}
+                      checked={false}
                         onChange={this.handleCheckBoxChangeGames} />
                     ))}
                   </div>
@@ -198,12 +200,11 @@ export default class PicnicForm extends Component {
                   </div>
                   <div>
                     {this.props.itemList.map(item => (
-                      <Checkbox id={item.id} displayName={item.itemName} checked={false}
+                      <Checkbox key = {item.id} id={item.id} displayName={item.itemName} checked={false}
                         onChange={this.handleCheckBoxChangeItems} />
                     ))}
                   </div>
                 </div>
-
 
               </TabPane>
               <TabPane tabId="3">

@@ -9,7 +9,7 @@ class ModelNewObj extends Component {
 
     state = {
         modal: false,
-        new : ""
+        new: ""
     };
 
     toggle = () => {
@@ -21,15 +21,15 @@ class ModelNewObj extends Component {
         const _this = this
 
         _this.setState({
-            newGame : evt.target.value
+            newGame: evt.target.value
         })
     }
 
     newGame = (evt) => {
 
         const _this = this
-        const capitalLetterItem = UsefulFn.CapitalizeFirstLetter( _this.state.newGame)
-        if(Validation.Duplicate(capitalLetterItem, _this.props.list) === false) {
+        const capitalLetterItem = UsefulFn.CapitalizeFirstLetter(_this.state.newGame)
+        if (Validation.Duplicate(capitalLetterItem, _this.props.list) === false) {
             _this.props.createNewObject(
                 _this.props.createObjFn(
                     capitalLetterItem,
@@ -39,7 +39,7 @@ class ModelNewObj extends Component {
             _this.toggle()
         }
         _this.setState({
-            newGame : ""
+            newGame: ""
         })
     }
 
@@ -52,12 +52,12 @@ class ModelNewObj extends Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>
-                            <Input id="new" handleFieldChange={_this.handleFieldChange}
+                        <Input id="new" handleFieldChange={_this.handleFieldChange}
                             type="text"
                             label={_this.props.label}
-                            autofocus="true"
-                            ref = "modelInput"
-                            />
+                            autofocus={true}
+                            ref="modelInput"
+                        />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.newGame}>Add </Button>

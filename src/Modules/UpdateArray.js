@@ -10,9 +10,7 @@ const UpdateArray = Object.create(null, {
     Update: {
         value: function (id, NewArray, string) {
             debugger
-            if(string==="yes")
-                id =id
-            else
+            if(string !=="yes")
                 id = parseInt(id)
             if (this.CheckArray(id, NewArray)) {
                 const idx = NewArray.findIndex(el => el === id)

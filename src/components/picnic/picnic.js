@@ -14,7 +14,7 @@ class Picnic extends Component {
             <div className="Container">
                 {this.props.picnics.map(picnic =>
                     <Card body inverse color="info" className="cardSize"
-                    id = {picnic.id}>
+                    id = {picnic.id} key = {picnic.id}>
                         <CardTitle>On {picnic.picnicDate} </CardTitle>
                         <CardText> At {picnic.parkName}</CardText>
                         <CardText>Address : {picnic.address}</CardText>

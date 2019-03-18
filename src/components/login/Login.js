@@ -1,6 +1,10 @@
 import React, { Component } from "react"
 import UserManager from "../../ResourceManager/userManager";
-
+import {
+    Container, Col, Form,
+    FormGroup, Label
+  } from 'reactstrap';
+import "./login.css"
 
 export default class Login extends Component {
     // Set initial state
@@ -60,9 +64,16 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form className="loginForm">
-                <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-                <label htmlFor="inputUsername">Username</label>
+            // <form className="loginForm">
+            //     <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            //     <label htmlFor="inputUsername">Username</label>
+        <Container className="Login">
+        <h2>Sign In</h2>
+        <Form className="form">
+          <Col>
+            <FormGroup>
+              <Label>Username</Label>
+
                 <input
                     onChange={this.handleFieldChange}
                     type="username"
@@ -71,7 +82,13 @@ export default class Login extends Component {
                     required=""
                     autoFocus=""
                 />
-                <label htmlFor="inputPassword">Password</label>
+            {/* <label htmlFor="inputPassword">Password</label> */}
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label for="examplePassword">Password</Label>
+
                 <input
                     onChange={this.handleFieldChange}
                     type="password"
@@ -79,13 +96,19 @@ export default class Login extends Component {
                     placeholder={` Don't tell!`}
                     required=""
                 />
+                </FormGroup>
+          </Col>
                 <button type="submit" onClick={this.handleLogin}>
                     Sign in
                 </button>
+
                 <button type="submit" onClick={this.handleRegister}>
                     Register
                 </button>
-            </form>
+
+        </Form>
+      </Container>
+
         )
     }
 }

@@ -15,6 +15,7 @@ import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
+//import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
 
 class EditPicnic extends Component {
     state = {
@@ -48,7 +49,6 @@ class EditPicnic extends Component {
         const promises = []
         GetParkData().then(parks => {
             fetchedObj.parks = parks
-
             promises.push(PicnicManager.GET(this.props.match.params.picnicId)
                 .then(picnicData => {
                     fetchedObj.parkName = picnicData.parkName
@@ -283,10 +283,20 @@ class EditPicnic extends Component {
 
                             </TabPane>
                             <TabPane tabId="3">
+                                {/* <InputGroup>
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                            <InputReact addon type="checkbox"
+                                            aria-label="Food item"
+                                            onKeyDown={this.onKeyPressEvent} />
+                                        </InputGroupText>
+                                    </InputGroupAddon>
+                                    <InputReact placeholder="Enter Food Item" />
+                                </InputGroup> */}
 
-                                <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
-                                    type="text"
-                                    label="Add New Food Items :" />
+                                 <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                                     type="text"
+                                     label="Food carrying :" />
 
                                 {this.state.selectedFoodItems.map(foodItem =>
                                     <div key={foodItem}>
