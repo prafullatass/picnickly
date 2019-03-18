@@ -11,6 +11,7 @@ import ModelNewObj from "./ModelNewObj";
 import GetParkData from "../../Modules/GetParkData";
 import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
+import Validation from "../../Modules/Validation";
 export default class PicnicForm extends Component {
   // Set initial state
   state = {
@@ -56,10 +57,12 @@ export default class PicnicForm extends Component {
       event.preventDefault();
       const newFoodList = this.state.selectedFoodItems.slice()
       const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
-      newFoodList.push(newFoodItem)
-      this.setState({
-        selectedFoodItems: newFoodList
-      })
+      if(Validation.Duplicate(newFoodItem,this.state.selectedFoodItems) === false) {
+        newFoodList.push(newFoodItem)
+        this.setState({
+          selectedFoodItems: newFoodList
+        })
+      }
       event.target.value = ""
     }
   }
@@ -127,6 +130,9 @@ export default class PicnicForm extends Component {
             buttonLabel="Add New Game"
             label="New Game : "
             createObjFn={CreateObject.MyGamesObj}
+            list = {this.props.myGames.filter(game =>
+              game.userId === parseInt(sessionStorage.getItem("credentials"))
+            ).map(game => game.gameName)}
           />
 
           <div className="form-group">
@@ -143,6 +149,7 @@ export default class PicnicForm extends Component {
             buttonLabel="Add New Necessity Item"
             label="Name of Item : "
             createObjFn={CreateObject.ItemListObj}
+            list={this.props.itemList.map(item => item.itemName)}
           />
 
           <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}

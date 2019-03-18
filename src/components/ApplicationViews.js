@@ -101,7 +101,7 @@ class ApplicationViews extends Component {
     deleteFoodItems = (id) => {
         return FoodItemsManager.DELETE(id)
     }
-    updateMyGame = (myGameObj) => {
+    createMyGame = (myGameObj) => {
         MyGamesManger.POST(myGameObj).then(() =>
             MyGamesManger.GETALL().then(myGames =>
                 this.setState({

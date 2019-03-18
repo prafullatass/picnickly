@@ -12,6 +12,7 @@ import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
 import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
+import Validation from "../../Modules/Validation";
 
 class EditPicnic extends Component {
     state = {
@@ -89,10 +90,12 @@ class EditPicnic extends Component {
             event.preventDefault();
             const newFoodList = this.state.selectedFoodItems.slice()
             const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
-            newFoodList.push(newFoodItem)
-            this.setState({
-                selectedFoodItems: newFoodList
-            })
+            if (Validation.Duplicate(newFoodItem, this.state.selectedFoodItems) === false) {
+                newFoodList.push(newFoodItem)
+                this.setState({
+                    selectedFoodItems: newFoodList
+                })
+            }
             event.target.value = ""
         }
         console.log(this.state.selectedFoodItems)
@@ -202,6 +205,9 @@ class EditPicnic extends Component {
                         buttonLabel="Add New Game"
                         label="New Game : "
                         createObjFn={CreateObject.MyGamesObj}
+                        list={this.props.myGames.filter(game =>
+                            game.userId === parseInt(sessionStorage.getItem("credentials"))
+                        ).map(game => game.gameName)}
                     />
 
                     <div className="form-group">
@@ -224,6 +230,7 @@ class EditPicnic extends Component {
                         buttonLabel="Add New Necessity Item"
                         label="Name of Item : "
                         createObjFn={CreateObject.ItemListObj}
+                        list={this.props.itemList.map(item => item.itemName)}
                     />
 
                     <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}

@@ -90,6 +90,16 @@
       "gameName": "Soccer",
       "userId": 2,
       "id": 10
+    },
+    {
+      "gameName": "Chess",
+      "userId": 2,
+      "id": 11
+    },
+    {
+      "gameName": "Sd",
+      "userId": 2,
+      "id": 12
     }
   ],
   "items": [
@@ -120,6 +130,10 @@
     {
       "itemName": "plates",
       "id": 5
+    },
+    {
+      "itemName": "Chair",
+      "id": 6
     }
   ],
   "fooditems": [

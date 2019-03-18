@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
+import Validation from "../../Modules/Validation";
 
 class ModelNewObj extends Component {
 
@@ -24,17 +25,22 @@ class ModelNewObj extends Component {
         })
     }
 
-    newGame = (event) => {
+    newGame = (evt) => {
 
         const _this = this
         const capitalLetterItem = UsefulFn.CapitalizeFirstLetter( _this.state.newGame)
-        _this.props.createNewObject(
-            _this.props.createObjFn(
-                capitalLetterItem,
-                parseInt(sessionStorage.getItem("credentials"))
+        if(Validation.Duplicate(capitalLetterItem, _this.props.list) === false) {
+            _this.props.createNewObject(
+                _this.props.createObjFn(
+                    capitalLetterItem,
+                    parseInt(sessionStorage.getItem("credentials"))
+                )
             )
-        )
-        _this.toggle()
+            _this.toggle()
+        }
+        _this.setState({
+            newGame : ""
+        })
     }
 
 
