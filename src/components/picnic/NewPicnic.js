@@ -11,7 +11,9 @@ import GetParkData from "../../Modules/GetParkData";
 import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
-import {Label} from "reactstrap"
+import { Label } from "reactstrap"
+import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
+import classnames from 'classnames';
 
 
 export default class PicnicForm extends Component {
@@ -26,8 +28,18 @@ export default class PicnicForm extends Component {
     dropdownOpen: false,
     selectedGames: [],
     selectedItems: [],
-    selectedFoodItems: []
+    selectedFoodItems: [],
+    activeTab: '1'
+
   };
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
 
   componentDidMount() {
     GetParkData().then(parks =>
@@ -119,65 +131,104 @@ export default class PicnicForm extends Component {
             type="date"
             label="Picnic Date :" />
 
-          <div className="form-group">
-            <label htmlFor="games">Select Games</label>
-            <div>
-              {this.props.myGames.filter(game =>
-                game.userId === parseInt(sessionStorage.getItem("credentials"))
-              ).map(game => (
-                <Checkbox id={game.id} displayName={game.gameName} checked={false}
-                  onChange={this.handleCheckBoxChangeGames} />
-              ))}
-            </div>
-          </div>
+          <div className = "TabContainer">
+          <Nav tabs>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === '1' })}
+                onClick={() => { this.toggle('1'); }}
+              >
+                Games
+            </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === '2' })}
+                onClick={() => { this.toggle('2'); }}
+              >
+                Necessity Items
+            </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={classnames({ active: this.state.activeTab === '3' })}
+                onClick={() => { this.toggle('3'); }}
+              >
+                Food Items
+            </NavLink>
+            </NavItem>
+          </Nav>
+
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane tabId="1">
+              <div className="form-group">
+                <label htmlFor="games">Select Games</label>
+                <div>
+                  {this.props.myGames.filter(game =>
+                    game.userId === parseInt(sessionStorage.getItem("credentials"))
+                  ).map(game => (
+                    <Checkbox id={game.id} displayName={game.gameName} checked={false}
+                      onChange={this.handleCheckBoxChangeGames} />
+                  ))}
+                </div>
+              </div>
 
 
 
-          <ModelNewObj createNewObject={this.props.createMyGame}
-            buttonLabel="Add New Game"
-            label="New Game : "
-            createObjFn={CreateObject.MyGamesObj}
-            list={this.props.myGames.filter(game =>
-              game.userId === parseInt(sessionStorage.getItem("credentials"))
-            ).map(game => game.gameName)}
-          />
+              <ModelNewObj createNewObject={this.props.createMyGame}
+                buttonLabel="Add New Game"
+                label="New Game : "
+                createObjFn={CreateObject.MyGamesObj}
+                list={this.props.myGames.filter(game =>
+                  game.userId === parseInt(sessionStorage.getItem("credentials"))
+                ).map(game => game.gameName)}
+              />
+            </TabPane>
+            <TabPane tabId="2">
 
-          <div className="form-group">
-            <label htmlFor="items">Select items</label>
-            <div>
-              {this.props.itemList.map(item => (
-                <Checkbox id={item.id} displayName={item.itemName} checked={false}
-                  onChange={this.handleCheckBoxChangeItems} />
-              ))}
-            </div>
-          </div>
+              <div className="form-group">
+                <label htmlFor="items">Select items -</label>
+                <div>
+                  {this.props.itemList.map(item => (
+                    <Checkbox id={item.id} displayName={item.itemName} checked={false}
+                      onChange={this.handleCheckBoxChangeItems} />
+                  ))}
+                </div>
+              </div>
 
-          <ModelNewObj createNewObject={this.props.createItemsList}
-            buttonLabel="Add New Necessity Item"
-            label="Name of Item : "
-            createObjFn={CreateObject.ItemListObj}
-            list={this.props.itemList.map(item => item.itemName)}
-          />
+              <ModelNewObj createNewObject={this.props.createItemsList}
+                buttonLabel="Add New Necessity Item"
+                label="Name of Item : "
+                createObjFn={CreateObject.ItemListObj}
+                list={this.props.itemList.map(item => item.itemName)}
+              />
 
-          <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
-            type="text"
-            label="Food Items " />
+            </TabPane>
+            <TabPane tabId="3">
 
-          {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
+              <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                type="text"
+                label="Food Items " />
+
+              {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
             value={this.state.selectedFoodItems} /> */}
 
-          {this.state.selectedFoodItems.map(foodItem =>
-            <div key={foodItem}>
-              <input type="checkbox"
-                name={foodItem}
-                id={foodItem}
-                checked={true}
-                onChange={this.handleCheckBoxChangeFoodItem} />
-              <Label for={foodItem}>{foodItem}</Label>
-            </div>
-          )}
-        <Button caption="Submit"
-          onClickFunction={this.SubmitForm} />
+              {this.state.selectedFoodItems.map(foodItem =>
+                <div key={foodItem}>
+                  <input type="checkbox"
+                    name={foodItem}
+                    id={foodItem}
+                    checked={true}
+                    onChange={this.handleCheckBoxChangeFoodItem} />
+                  <Label for={foodItem}>{foodItem}</Label>
+                </div>
+              )}
+
+            </TabPane>
+          </TabContent>
+          </div>
+          <Button caption="Submit"
+            onClickFunction={this.SubmitForm} />
         </form >
       </React.Fragment >
     )
