@@ -9,6 +9,7 @@ const UpdateArray = Object.create(null, {
 
     Update: {
         value: function (id, NewArray, string) {
+            debugger
             if(string==="yes")
                 id =id
             else

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ParkData from "../../ResourceManager/ParkDataManager";
 import Checkbox from "../reusableComponents/checkBox";
 import Input from "../reusableComponents/Input";
 import SelectPark from "../parks/SelectPark";
@@ -12,6 +11,9 @@ import GetParkData from "../../Modules/GetParkData";
 import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
+import {Label} from "reactstrap"
+
+
 export default class PicnicForm extends Component {
   // Set initial state
   state = {
@@ -49,7 +51,12 @@ export default class PicnicForm extends Component {
 
   handleCheckBoxChangeItems = (id) => {
     let NewArray = UpdateArray.Update(id, this.state.selectedItems)
-        this.setState({ selectedItems: NewArray })
+    this.setState({ selectedItems: NewArray })
+  }
+
+  handleCheckBoxChangeFoodItem = (event) => {
+    let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
+    this.setState({ selectedItems: NewArray })
   }
 
   onKeyPressEvent = (event) => {
@@ -57,7 +64,7 @@ export default class PicnicForm extends Component {
       event.preventDefault();
       const newFoodList = this.state.selectedFoodItems.slice()
       const newFoodItem = UsefulFn.CapitalizeFirstLetter(event.target.value)
-      if(Validation.Duplicate(newFoodItem,this.state.selectedFoodItems) === false) {
+      if (Validation.Duplicate(newFoodItem, this.state.selectedFoodItems) === false) {
         newFoodList.push(newFoodItem)
         this.setState({
           selectedFoodItems: newFoodList
@@ -130,7 +137,7 @@ export default class PicnicForm extends Component {
             buttonLabel="Add New Game"
             label="New Game : "
             createObjFn={CreateObject.MyGamesObj}
-            list = {this.props.myGames.filter(game =>
+            list={this.props.myGames.filter(game =>
               game.userId === parseInt(sessionStorage.getItem("credentials"))
             ).map(game => game.gameName)}
           />
@@ -156,13 +163,23 @@ export default class PicnicForm extends Component {
             type="text"
             label="Food Items " />
 
-          <Input id="selectedFoodItems" type="text" label="List of Food :"
-            value={this.state.selectedFoodItems} />
+          {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
+            value={this.state.selectedFoodItems} /> */}
 
-          <Button caption="Submit"
-            onClickFunction={this.SubmitForm} />
-        </form>
-      </React.Fragment>
+          {this.state.selectedFoodItems.map(foodItem =>
+            <div key={foodItem}>
+              <input type="checkbox"
+                name={foodItem}
+                id={foodItem}
+                checked={true}
+                onChange={this.handleCheckBoxChangeFoodItem} />
+              <Label for={foodItem}>{foodItem}</Label>
+            </div>
+          )}
+        <Button caption="Submit"
+          onClickFunction={this.SubmitForm} />
+        </form >
+      </React.Fragment >
     )
   }
 }
