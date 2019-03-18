@@ -8,7 +8,7 @@ import GamesManager from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Spinner } from 'reactstrap';
 import classnames from 'classnames';
 //import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
 
@@ -100,7 +100,6 @@ class Pack extends Component {
 
     UpdatePackedStatus = (arrayName, id) => {
         arrayName.find(obj => obj.id === id ? obj.packed = true : "")
-        debugger
         return arrayName
     }
 
@@ -136,6 +135,15 @@ class Pack extends Component {
     }
 
 
+    addspinner =(array) => {
+        for (let i = 0; i < array.length; i++) {
+          if(array[i].packed === false)
+            return true
+        }
+        return false
+      //<Spinner color="warning" />
+      }
+
 
 
     render() {
@@ -162,7 +170,8 @@ class Pack extends Component {
                                 <NavLink
                                     className={classnames({ active: this.state.activeTab === '1' })}
                                     onClick={() => { this.toggle('1'); }}
-                                >Games
+                                >Games {this.addspinner(this.state.selectedGames) ?
+                                <Spinner size="sm" color="warning" /> : "😃"}
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -170,7 +179,8 @@ class Pack extends Component {
                                     className={classnames({ active: this.state.activeTab === '2' })}
                                     onClick={() => { this.toggle('2'); }}
                                 >
-                                    Necessity Items
+                                    Necessity Items {this.addspinner(this.state.selectedItems) ?
+                                <Spinner size="sm" color="warning" /> : "😃"}
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -178,7 +188,8 @@ class Pack extends Component {
                                     className={classnames({ active: this.state.activeTab === '3' })}
                                     onClick={() => { this.toggle('3'); }}
                                 >
-                                    Food Items
+                                    Food Items {this.addspinner(this.state.selectedFoodItems) ?
+                                <Spinner size="sm" color="warning" /> : "😃"}
                                 </NavLink>
                             </NavItem>
                         </Nav>

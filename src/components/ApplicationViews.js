@@ -25,6 +25,7 @@ class ApplicationViews extends Component {
     componentDidMount() {
         let promises = []
         let new_state = {}
+        
         promises.push(
             ItemsListManager.GETALL().then(itemList =>
                 new_state.itemList = itemList

@@ -86,6 +86,7 @@ export default class PicnicForm extends Component {
     }
   }
 
+
   SubmitForm = (evt) => {
 
     evt.preventDefault();
