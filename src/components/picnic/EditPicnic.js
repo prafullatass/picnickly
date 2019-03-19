@@ -16,7 +16,7 @@ import Validation from "../../Modules/Validation";
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 //import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
-
+import "./picnic.css"
 class EditPicnic extends Component {
     state = {
         userId: "",
@@ -294,9 +294,9 @@ class EditPicnic extends Component {
                                     <InputReact placeholder="Enter Food Item" />
                                 </InputGroup> */}
 
-                                 <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
-                                     type="text"
-                                     label="Food carrying :" />
+                                <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                                    type="text"
+                                    label="Food carrying :" />
 
                                 {this.state.selectedFoodItems.map(foodItem =>
                                     <div key={foodItem}>
@@ -311,9 +311,12 @@ class EditPicnic extends Component {
                             </TabPane>
                         </TabContent>
                     </div>
-
-                    <Button caption="Update"
-                        onClickFunction={this.UpdateForm} />
+                    <div className="btnContainer">
+                        <Button caption="Update" className="CommonButton submitButton "
+                            onClickFunction={this.UpdateForm} />
+                        <Button caption="Cancel" className="cancelButton CommonButton"
+                            onClickFunction={() => this.props.history.push("/")} />
+                    </div>
                 </form>
             </React.Fragment>
         )

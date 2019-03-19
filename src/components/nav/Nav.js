@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import { Nav, NavItem, NavLink } from 'reactstrap';
-
+import "./Nav.css"
 class NavBar extends Component {
     logout = () => {
         sessionStorage.clear("credentials")
@@ -21,10 +21,10 @@ class NavBar extends Component {
                     <NavItem>
                         <NavLink tag={Link} to="/past">History</NavLink>
                     </NavItem>
-                    <a className="nav-link">Welcome  {this.props.activeUser.username}</a>
+                    <a id= "name" className="nav-link">Welcome  {this.props.activeUser.username}</a>
                     <button
                         type="button"
-                        className="btn btn-outline-info"
+                        className="btn btn-outline-info logout"
                         onClick={this.logout}>
                         Logout
                     </button>

@@ -20,6 +20,20 @@
       "address": "811 Delray Dr, Nashville TN",
       "picnicDate": "2019-03-06",
       "id": 3
+    },
+    {
+      "userId": 2,
+      "parkName": "Brookmeade Park",
+      "address": "7002 Charlotte Pike, Nashville TN",
+      "picnicDate": "2019-03-23",
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "parkName": "",
+      "address": "",
+      "picnicDate": "",
+      "id": 5
     }
   ],
   "users": [
@@ -94,6 +108,24 @@
       "gameId": 5,
       "packed": false,
       "id": 10
+    },
+    {
+      "picnicId": 4,
+      "gameId": 2,
+      "packed": false,
+      "id": 11
+    },
+    {
+      "picnicId": 4,
+      "gameId": 3,
+      "packed": false,
+      "id": 12
+    },
+    {
+      "picnicId": 4,
+      "gameId": 4,
+      "packed": false,
+      "id": 13
     }
   ],
   "myGames": [
@@ -170,6 +202,24 @@
       "itemId": 2,
       "packed": false,
       "id": 7
+    },
+    {
+      "picnicId": 4,
+      "itemId": 1,
+      "packed": false,
+      "id": 8
+    },
+    {
+      "picnicId": 4,
+      "itemId": 2,
+      "packed": false,
+      "id": 9
+    },
+    {
+      "picnicId": 4,
+      "itemId": 3,
+      "packed": false,
+      "id": 10
     }
   ],
   "itemsList": [
@@ -226,6 +276,30 @@
       "foodItemName": "Anything",
       "packed": false,
       "id": 6
+    },
+    {
+      "picnicId": 4,
+      "foodItemName": "Peanut butter sandwich",
+      "packed": false,
+      "id": 7
+    },
+    {
+      "picnicId": 4,
+      "foodItemName": "Chips",
+      "packed": false,
+      "id": 8
+    },
+    {
+      "picnicId": 4,
+      "foodItemName": "Apples",
+      "packed": false,
+      "id": 9
+    },
+    {
+      "picnicId": 4,
+      "foodItemName": "Banana",
+      "packed": false,
+      "id": 10
     }
   ]
 }

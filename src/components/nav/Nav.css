@@ -8,3 +8,10 @@
 .Visible {
     visibility: visible;
 }
+
+#name{
+    text-align: center;
+}
+.logout{
+    float: right;
+}
