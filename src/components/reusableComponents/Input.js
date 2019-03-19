@@ -8,6 +8,7 @@ class Input extends Component {
             <div className={divClass}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
                 <input
+                    defaultValue={this.props.defaultValue}
                     className = {this.props.className}
                     type={this.props.type}
                     name={this.props.id}

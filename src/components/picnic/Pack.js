@@ -150,7 +150,7 @@ class Pack extends Component {
         console.log("pack", this.state)
         return (
             <React.Fragment>
-                <form className="packForm">
+                <form className="picnicForm">
                     <h3>Let's Pack for Picnic</h3>
                     <SelectPark handleParkNameChange={this.handleParkNameChange}
                         parks={this.state.parks}
@@ -161,9 +161,10 @@ class Pack extends Component {
                     <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
                         type="date"
                         label="Picnic Date :"
-                        value={this.state.picnicDate} />
+                        value={this.state.picnicDate}
+                        disabled="disabled"  />
 
-                    <Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge>
+                    <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
                     <div className="TabContainer">
                         <Nav tabs>
                             <NavItem>
@@ -210,7 +211,8 @@ class Pack extends Component {
                                                 <Row>
                                                     <Col>
                                                         <Label for={game.FKid}>
-                                                            {this.props.myGames.find(obj => obj.id === game.FKid).gameName}
+                                                            {this.props.myGames
+                                                                .find(obj => obj.id === game.FKid).gameName}
                                                         </Label>
                                                     </Col>
                                                     <Col>
@@ -262,7 +264,10 @@ class Pack extends Component {
                                         <Col> Food to go--- </Col>
                                         <Col> Packed ?</Col>
                                     </Row>
-                                    {this.state.selectedFoodItems.map((food, idx) => (
+                                    <hr/>
+                                    {this.state.selectedFoodItems
+                                    .sort((a,b)=>(a.FKid < b.FKid) ? -1: 1)
+                                    .map((food, idx) => (
                                         <div key={idx}>
                                             <Row>
                                                 <Col>

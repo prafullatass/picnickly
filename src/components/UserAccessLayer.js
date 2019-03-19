@@ -11,13 +11,15 @@ export default class UserAccessLayer extends Component {
 
   componentDidMount() {
     UserManager.GET(this.activeUserId())
-    .then(activeUser =>
+    .then(activeUser =>{
       this.setState({ activeUser: activeUser })
+    }
     )
   }
   activeUserId = () => parseInt(sessionStorage.getItem("credentials"))
 
   render() {
+    console.log(this.state.activeUser)
     return (
       <React.Fragment>
         <NavBar setAuth={this.props.setAuth} activeUser={this.state.activeUser} />

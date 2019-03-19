@@ -13,7 +13,7 @@ import { Label } from "reactstrap"
 import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import classnames from 'classnames';
 //import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
 import "./picnic.css"
@@ -149,7 +149,10 @@ class EditPicnic extends Component {
             this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj", false))
         promises.push(this.updateArray(this.props.foodItems,
             this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
-        Promise.all(promises).then(this.props.setStateOfAll)
+        Promise.all(promises).then(() => {
+            this.props.setStateOfAll()
+            this.props.history.push("/")
+        })
     }
 
     updateArray = (dbArray, selectedArray, idName, deleteAPIFn, createAPI, creatObj, isStr) => {
@@ -195,7 +198,7 @@ class EditPicnic extends Component {
                         label="Picnic Date :"
                         value={this.state.picnicDate} />
 
-
+                    <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
                     <div className="TabContainer">
                         <Nav tabs>
                             <NavItem>
@@ -240,8 +243,9 @@ class EditPicnic extends Component {
                                     </div>
                                     <div>
                                         {this.props.myGames.filter(game =>
-                                            game.userId === parseInt(sessionStorage.getItem("credentials"))
-                                        ).map(game => (
+                                            game.userId === parseInt(sessionStorage.getItem("credentials")))
+                                        .sort((a,b)=>(a.gameName < b.gameName) ? -1: 1)
+                                        .map(game => (
                                             <div key={game.id}>
                                                 <input type="checkbox"
                                                     name={game.gameName}
@@ -268,7 +272,9 @@ class EditPicnic extends Component {
                                         />
                                     </div>
                                     <div>
-                                        {this.props.itemList.map(item => (
+                                        {this.props.itemList
+                                        .sort((a,b)=>(a.itemName < b.itemName) ? -1: 1)
+                                        .map(item => (
                                             <div key={item.id}>
                                                 <input type="checkbox"
                                                     name={item.itemName}
