@@ -92,32 +92,32 @@ export default class PicnicForm extends Component {
     evt.preventDefault();
     let promises = []
     const uid = parseInt(sessionStorage.getItem("credentials"))
-
-    let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
-    this.props.createPicnic(obj).then(
-      e => {
-        this.state.selectedGames.forEach(game => {
-          promises.push(this.props.createGames(
-            CreateObject.GamesObj(parseInt(sessionStorage.getItem("picnic")), parseInt(game), false)))
-        });
-        this.state.selectedItems.forEach(items => {
-          promises.push(this.props.createItems(
-            CreateObject.ItemsObj(parseInt(sessionStorage.getItem("picnic")), parseInt(items), false)))
-        });
-        this.state.selectedFoodItems.forEach(foodItem => {
-          promises.push(this.props.createFoodItems(
-            CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
-        });
-        Promise.all(promises).then(() => {
-          this.props.setStateOfAll()
-          this.props.history.push("/")
-        })
-      }
-    )
+    if (Validation.Validate(this.state.parkName)) {
+      let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
+      this.props.createPicnic(obj).then(
+        e => {
+          this.state.selectedGames.forEach(game => {
+            promises.push(this.props.createGames(
+              CreateObject.GamesObj(parseInt(sessionStorage.getItem("picnic")), parseInt(game), false)))
+          });
+          this.state.selectedItems.forEach(items => {
+            promises.push(this.props.createItems(
+              CreateObject.ItemsObj(parseInt(sessionStorage.getItem("picnic")), parseInt(items), false)))
+          });
+          this.state.selectedFoodItems.forEach(foodItem => {
+            promises.push(this.props.createFoodItems(
+              CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
+          });
+          Promise.all(promises).then(() => {
+            this.props.setStateOfAll()
+            this.props.history.push("/")
+          })
+        }
+      )
+    }
   }
 
   render() {
-    console.log("render", this.state)
     return (
       <React.Fragment>
         <form className="picnicForm">
@@ -130,6 +130,7 @@ export default class PicnicForm extends Component {
 
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
             type="date"
+            defaultValue={new Date().toISOString().slice(0,10)}
             label="Picnic Date :" />
 
           <div className="TabContainer">
@@ -234,7 +235,7 @@ export default class PicnicForm extends Component {
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"
               onClickFunction={this.SubmitForm} />
-            <Button caption="Cancel" className = "cancelButton CommonButton"
+            <Button caption="Cancel" className="cancelButton CommonButton"
               onClickFunction={() => this.props.history.push("/")} />
           </div>
         </form >

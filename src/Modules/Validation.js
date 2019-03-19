@@ -78,7 +78,7 @@ let profanityRegexArray = [
 const Validation = Object.create(null, {
 
     isEmpty: {
-        value: (stringToCheck) => {
+        value: function(stringToCheck) {
             if (stringToCheck === "") {
                 return true
             }
@@ -87,7 +87,7 @@ const Validation = Object.create(null, {
     },
 
     isProfanity: {
-        value: (stringToCheck) => {
+        value: function(stringToCheck) {
             let flag = false;
             profanityRegexArray.forEach(regex => {
                 let matcher = new RegExp(regex);
@@ -102,7 +102,7 @@ const Validation = Object.create(null, {
     },
 
     Validate: {
-        value: (...arg) => {
+        value: function(...arg) {
             for (let i = 0; i < arg.length; i++) {
                 let el = arg[i];
                 if (this.isEmpty(el)) {
@@ -112,14 +112,14 @@ const Validation = Object.create(null, {
                 else if (this.isProfanity(el)) {
                     alert("One or more fields contain profanity")
                     return false;
-                } else if (this.checkLetter(el))
-                    return false
+                }
             }
             return true
         }
     },
+
     Duplicate: {
-        value: (str, arrayName) => {
+        value: function(str, arrayName)  {
             if (arrayName.includes(str)) {
                 alert("Already added into List !!!")
                 return true
