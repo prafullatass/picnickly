@@ -5,13 +5,15 @@ import {
     FormGroup, Label
   } from 'reactstrap';
 import "./login.css"
-import Register from "./Register";
+import UsefulFn from "../../Modules/UsalfulFn";
 
-export default class Login extends Component {
+export default class Register extends Component {
     // Set initial state
     state = {
         password: "",
-        username: ""
+        username: "",
+        firstName:"",
+        lastName:""
     }
 
     // Update state whenever an input field is edited
@@ -25,7 +27,9 @@ export default class Login extends Component {
         e.preventDefault()
         const newUser = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            firstName: UsefulFn.CapitalizeFirstLetter(this.state.firstName),
+            lastName: UsefulFn.CapitalizeFirstLetter(this.state.lastName),
         }
         if (this.state.username && this.state.password) {
             UserManager.searchUsername(this.state.username)
@@ -45,32 +49,42 @@ export default class Login extends Component {
         }
     }
 
-    handleLogin = e => {
-        e.preventDefault()
-        if (this.state.username && this.state.password) {
-            UserManager.searchUP(this.state.username, this.state.password)
-            .then(user => {
-                    if (!user.length) {
-                        alert("Wrong username or password!")
-                    } else {
-                        sessionStorage.setItem("credentials", parseInt(user[0].id))
-                        this.props.setAuth()
-                    }
-                }
-            )
-        } else {
-            alert("Please Fill Out Form 😬!")
-        }
-    }
 
     render() {
         return (
-            // <form className="loginForm">
-            //     <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-            //     <label htmlFor="inputUsername">Username</label>
         <Container className="Login">
-        <h2>Sign In</h2>
+        <h2>Register</h2>
         <Form className="form">
+        <Col>
+            <FormGroup>
+              <Label>First Name</Label>
+
+                <input
+                    onChange={this.handleFieldChange}
+                    type="firstName"
+                    id="firstName"
+                    placeholder={` First Name `}
+                    required=""
+                    autoFocus="true"
+                />
+            {/* <label htmlFor="inputPassword">Password</label> */}
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label>Last Name</Label>
+
+                <input
+                    onChange={this.handleFieldChange}
+                    type="lastName"
+                    id="lastName"
+                    placeholder={` Last Name`}
+                    required=""
+                    autoFocus=""
+                />
+            {/* <label htmlFor="inputPassword">Password</label> */}
+            </FormGroup>
+          </Col>
           <Col>
             <FormGroup>
               <Label>Username</Label>
@@ -99,12 +113,12 @@ export default class Login extends Component {
                 />
                 </FormGroup>
           </Col>
-                <button type="submit" onClick={this.handleLogin}>
-                    Sign in
-                </button>
 
-                <button type="submit" onClick={() => this.props.changeState()}>
+                <button type="submit" onClick={this.handleRegister}>
                     Register
+                </button>
+                <button type="submit" onClick={() => this.props.changeState()}>
+                    Cancel
                 </button>
 
         </Form>

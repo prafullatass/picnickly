@@ -67,15 +67,31 @@
   "users": [
     {
       "id": 1,
+      "firstName": "Praful",
+      "lastName": "Sonani",
       "username": "Praful",
-      "password": "pass",
-      "name": "Prafullata"
+      "password": "pass"
     },
     {
       "username": "asd",
       "password": "asd",
-      "name": "Swanand",
+      "firstName": "Swanand",
+      "lastName": "Sonani",
       "id": 2
+    },
+    {
+      "username": "Oju",
+      "password": "Oju",
+      "firstName": "Oju",
+      "lastName": "Sonani",
+      "id": 3
+    },
+    {
+      "username": "sandy",
+      "password": "sandy",
+      "firstName": "Sandeep",
+      "lastName": "Sonawane",
+      "id": 4
     }
   ],
   "games": [

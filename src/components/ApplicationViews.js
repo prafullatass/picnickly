@@ -152,7 +152,6 @@ class ApplicationViews extends Component {
     }
 
 
-
     render() {
         console.log("render -- ApplicationViews")
         console.log(this.state)

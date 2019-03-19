@@ -15,7 +15,8 @@ class NavBar extends Component {
                 <NavItem>
                     <NavLink className="title" >Picknickly</NavLink>
                 </NavItem>
-                    <a id= "name" className="nav-link">Welcome  {this.props.activeUser.username}</a>
+                    <a id= "name" className="nav-link">Welcome  {this.props.activeUser.firstName}
+                    {' '} {this.props.activeUser.lastName} </a>
                     <button
                         type="button"
                         className="CommonButton cancelButton logout"

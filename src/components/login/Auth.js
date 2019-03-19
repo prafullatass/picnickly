@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import Login from "./Login"
 import UserAccessLayer from "../UserAccessLayer"
+import LoginOrRegister from "./LoginOrRegister";
 
 class IsAuth extends Component {
   render() {
@@ -9,7 +9,7 @@ class IsAuth extends Component {
         {this.props.isAuthenticated() ? (
           <UserAccessLayer {...this.props} />
         ) : (
-          <Login {...this.props} />
+          <LoginOrRegister {...this.props} />
         )}
       </React.Fragment>
     )
