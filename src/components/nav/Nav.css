@@ -8,3 +8,17 @@
 .Visible {
     visibility: visible;
 }
+
+#name{
+    text-align: center;
+}
+.logout{
+    float: right;
+}
+.title{
+    text-decoration: none;
+    font-family:"'Times New Roman', Times, serif";
+    font-weight: bolder;
+    font-size: x-large;
+    color:rebeccapurple;
+}

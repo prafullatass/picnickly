@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import TextArea from "../reusableComponents/TextArea";
 import "./park.css"
@@ -32,7 +32,8 @@ class SelectPark extends Component {
     render() {
         const _this = this
         return (
-            <React.Fragment>
+            <div className="parkContainer">
+
                 <div className="inlineAll">
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm">
                         <DropdownToggle caret color="info">
@@ -65,12 +66,14 @@ class SelectPark extends Component {
                         label="" className="name" disabled="disabled" />
                 </div>
                 <TextArea id="parkDetails" label="Park Details" value={this.props.parkDetails}
-                    className="details" divClass="rightFloat" disabled = "disabled" />
+                    className="details" divClass="rightFloat" disabled="disabled" />
+
 
                 <Input id="address" type="text" value={this.props.address}
-                    label="Address : " className="address" disabled = "disabled" />
+                    label="Address : " divClass="address" disabled="disabled"
+                    className = "addr" />
 
-            </React.Fragment>
+            </div>
         )
     }
 }

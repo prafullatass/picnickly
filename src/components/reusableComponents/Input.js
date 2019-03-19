@@ -3,8 +3,9 @@ import "../picnic/picnic.css"
 
 class Input extends Component {
     render() {
+        const divClass = this.props.divClass ? "form-group " + this.props.divClass: "form-group"
         return (
-            <div className="form-group">
+            <div className={divClass}>
                 <label htmlFor={this.props.id}>{this.props.label}</label>
                 <input
                     className = {this.props.className}

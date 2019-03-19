@@ -1,11 +1,12 @@
 .address {
-    width : 400px;
-    margin-left: 10px;
+    margin-left: 75px;
 }
-
+.addr{
+    width : 400px;
+}
 .name {
-    width :300px;
-    margin-left: 2px;
+    margin-left: 4px;
+    width : 400px;
 }
 
 .details {

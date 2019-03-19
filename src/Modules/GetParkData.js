@@ -9,10 +9,12 @@ const getfeatures = (obj) => {
 export default () => {
     return ParkData.GETALL()
         .then(parkdata => {
-            const parks = parkdata.filter(park => park.picnic_shelters === "Yes")
-                .sort((a, b) => a.park_name > b.park_name ? 1 : -1)
-                .map((park, index) => {
-                    return {
+            console.log(parkdata.parkName)
+            const parks = parkdata//.filter(park => park.picnic_shelters === "Yes")
+            .sort((a, b) => a.park_name > b.park_name ? 1 : -1)
+            .map((park, index) => {
+                console.log(park.mapped_location_city)
+                return {
                         id: index,
                         parkName: park.park_name,
                         address: park.mapped_location_address,

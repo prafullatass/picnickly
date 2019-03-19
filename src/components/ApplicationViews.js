@@ -25,6 +25,7 @@ class ApplicationViews extends Component {
     componentDidMount() {
         let promises = []
         let new_state = {}
+
         promises.push(
             ItemsListManager.GETALL().then(itemList =>
                 new_state.itemList = itemList
@@ -157,7 +158,7 @@ class ApplicationViews extends Component {
         console.log(this.state)
 
         return (
-            <React.Fragment>
+            <div className="coverImage">
                 <Route exact path="/" render={(props) => {
                     return <Picnic picnics={this.state.picnic}
                         cancelPicnic={this.cancelPicnic}
@@ -217,10 +218,7 @@ class ApplicationViews extends Component {
                         patchFoodItems={this.patchFoodItems}
                     />
                 }} />
-                <footer className="footer">
-
-                </footer>
-            </React.Fragment>
+            </div>
         )
     }
 }
