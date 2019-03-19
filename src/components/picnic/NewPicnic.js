@@ -12,7 +12,7 @@ import UpdateArray from "../../Modules/UpdateArray";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import { Label } from "reactstrap"
-import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import classnames from 'classnames';
 
 
@@ -130,9 +130,9 @@ export default class PicnicForm extends Component {
 
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
             type="date"
-            defaultValue={new Date().toISOString().slice(0,10)}
+            defaultValue={new Date().toISOString().slice(0, 10)}
             label="Picnic Date :" />
-
+          <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
           <div className="TabContainer">
             <Nav tabs>
               <NavItem>
@@ -176,7 +176,9 @@ export default class PicnicForm extends Component {
                     />
                   </div>
                   <div>
-                    {this.props.myGames.filter(game =>
+                    {this.props.myGames
+                    .sort((a,b)=>(a.gameName < b.gameName) ? -1: 1)
+                    .filter(game =>
                       game.userId === parseInt(sessionStorage.getItem("credentials"))
                     ).map(game => (
                       <Checkbox key={game.id} id={game.id}
@@ -201,7 +203,9 @@ export default class PicnicForm extends Component {
                     />
                   </div>
                   <div>
-                    {this.props.itemList.map(item => (
+                    {this.props.itemList
+                    .sort((a,b)=>(a.itemName < b.itemName) ? -1: 1)
+                    .map(item => (
                       <Checkbox key={item.id} id={item.id} displayName={item.itemName} checked={false}
                         onChange={this.handleCheckBoxChangeItems} />
                     ))}

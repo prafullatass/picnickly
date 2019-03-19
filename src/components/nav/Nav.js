@@ -11,7 +11,7 @@ class NavBar extends Component {
     render() {
         return (
             <div id="app" className="container">
-            <Nav>
+            <Nav className = "titleBar">
                 <NavItem>
                     <NavLink className="title" >Picknickly</NavLink>
                 </NavItem>

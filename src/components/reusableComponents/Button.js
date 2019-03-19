@@ -5,8 +5,8 @@ export default class Button extends Component {
         return (
             <button
                 type="submit"
-                onClick={this.props.onClickFunction}
                 className={this.props.className}
+                onClick={this.props.onClickFunction}
             >
                 {this.props.caption}
             </button>

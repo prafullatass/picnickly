@@ -194,6 +194,7 @@ class ApplicationViews extends Component {
                         games={this.state.games}
                         itemList={this.state.itemList}
                         items={this.state.items}
+                        setStateOfAll={this.setStateOfAll}
                         createMyGame={this.createMyGame}
                         createItemsList={this.createItemsList}
                         updatePicnic={this.updatePicnic}
