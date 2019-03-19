@@ -94,6 +94,15 @@
       "id": 4
     }
   ],
+  "friends": [
+    {
+      "id" : 1,
+      "userId": 2,
+      "FriendId" : 1,
+      "nickName": "sandy",
+      "pic":"pictuer"
+    }
+  ],
   "games": [
     {
       "picnicId": 1,
