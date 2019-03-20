@@ -15,7 +15,7 @@ const CreateObject = Object.create(null,
             value: function (picId, gameId, packed) {
                 return {
                     picnicId: picId,
-                    gameId: gameId,
+                    myGameId: gameId,
                     packed: packed
                 }
             }
@@ -32,7 +32,7 @@ const CreateObject = Object.create(null,
             value: function (picId, itemId, packed) {
                 return {
                     picnicId: picId,
-                    itemId: itemId,
+                    itemListId: itemId,
                     packed: packed
                 }
             }

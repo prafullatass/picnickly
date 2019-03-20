@@ -21,30 +21,6 @@ export default class Login extends Component {
         this.setState(stateToChange)
     }
 
-    handleRegister = e => {
-        e.preventDefault()
-        const newUser = {
-            username: this.state.username,
-            password: this.state.password
-        }
-        if (this.state.username && this.state.password) {
-            UserManager.searchUsername(this.state.username)
-            .then(users => {
-                if (users.length) {
-                    alert(`Username ${this.state.username} already exits!`)
-                } else {
-                    UserManager.POST(newUser)
-                    .then(user => {
-                        sessionStorage.setItem("credentials", parseInt(user.id))
-                        this.props.setAuth()
-                    })
-                }
-            })
-        } else {
-            alert("Please Fill Out Form 😬!")
-        }
-    }
-
     handleLogin = e => {
         e.preventDefault()
         if (this.state.username && this.state.password) {

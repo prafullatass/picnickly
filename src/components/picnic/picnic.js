@@ -15,6 +15,8 @@ class Picnic extends Component {
         return (
             <div className="Container">
                 {this.props.picnics.filter(picnic =>
+                picnic.userId === parseInt(sessionStorage.getItem("credentials")))
+                .filter(picnic =>
                     new Date((picnic.picnicDate).replace("-", "/").replace("-", "/")) >= dt)
                     .sort((a, b) => new Date(a.picnicDate) < new Date(b.picnicDate) ? -1 : 1)
                     .map(picnic =>

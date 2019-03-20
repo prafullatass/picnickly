@@ -9,6 +9,7 @@ const UpdateArray = Object.create(null, {
 
     Update: {
         value: function (id, NewArray, string) {
+
             if(string !=="yes")
                 id = parseInt(id)
             if (this.CheckArray(id, NewArray)) {

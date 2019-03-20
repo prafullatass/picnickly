@@ -57,8 +57,8 @@ class EditPicnic extends Component {
                     fetchedObj.userId = picnicData.userId
                     fetchedObj.parkDetails = parks.find(park => park.parkName === picnicData.parkName).features
                 }))
-            promises.push(this.getDataForArray(GamesManager, "selectedGames", "gameId"))
-            promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemId"))
+            promises.push(this.getDataForArray(GamesManager, "selectedGames", "myGameId"))
+            promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemListId"))
             promises.push(this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName"))
             Promise.all(promises).then(() => {
                 this.setState(fetchedObj)
@@ -68,7 +68,9 @@ class EditPicnic extends Component {
 
 
     getDataForArray = (objManager, arrayName, idName) => {
-        return objManager.GETALLPICNICDATA(sessionStorage.getItem("picnic")).then(allData => {
+        return objManager.GETALLPICNICDATA(parseInt(sessionStorage.getItem("picnic")))
+        .then(allData => {
+            console.log(allData)
             allData.forEach(data => {
                 this.state[arrayName].push(data[idName])
             });
@@ -143,11 +145,11 @@ class EditPicnic extends Component {
         //                 parseInt(picnicId), parseInt(gameId), false))
 
         //     )
-        promises.push(this.updateArray(this.props.games,
-            this.state.selectedGames, "gameId", "deleteGames", "createGames", "GamesObj", false))
-        promises.push(this.updateArray(this.props.items,
-            this.state.selectedItems, "itemId", "deleteItems", "createItems", "ItemsObj", false))
-        promises.push(this.updateArray(this.props.foodItems,
+        promises = promises.concat(this.updateArray(this.props.games,
+            this.state.selectedGames, "myGameId", "deleteGames", "createGames", "GamesObj", false))
+        promises = promises.concat(this.updateArray(this.props.items,
+            this.state.selectedItems, "itemListId", "deleteItems", "createItems", "ItemsObj", false))
+        promises = promises.concat(this.updateArray(this.props.foodItems,
             this.state.selectedFoodItems, "foodItemName", "deleteFoodItems", "createFoodItems", "FoodItemsObj", true))
         Promise.all(promises).then(() => {
             this.props.setStateOfAll()
@@ -158,25 +160,27 @@ class EditPicnic extends Component {
     updateArray = (dbArray, selectedArray, idName, deleteAPIFn, createAPI, creatObj, isStr) => {
         let promises = []
         const PicnicId = parseInt(sessionStorage.getItem("picnic"))
-
         //update games -- first  delete unchecked games
         //Avalable in database and ot in selected array
-        promises.push(dbArray.filter(obj => obj.picnicId === PicnicId)
+        dbArray.filter(obj => obj.picnicId === PicnicId)
             .filter(obj => !selectedArray.includes(obj[idName]))
             .map(obj =>
-                this.props[deleteAPIFn](obj.id)
-            ))
-        //then select new checked item and add them
-        const gamesArray = dbArray.filter(obj => obj.picnicId === PicnicId)
-            .map(obj => obj[idName])
-        promises.push(selectedArray.filter(id => !gamesArray.includes(id))
-            .map(newObjItem =>
-                //console.log(gameId)
-                this.props[createAPI](
-                    CreateObject[creatObj](
-                        PicnicId, isStr ? newObjItem : parseInt(newObjItem), false))
+                promises.push(this.props[deleteAPIFn](obj.id))
+            )
+            Promise.all(promises).then(() => {
+                //then select new checked item and add them
+                const gamesArray = dbArray.filter(obj => obj.picnicId === PicnicId)
+                    .map(obj => obj[idName])
+                selectedArray.filter(id => !gamesArray.includes(id))
+                    .map(newObjItem =>
+                        //console.log(gameId)
+                        promises.push(this.props[createAPI](
+                            CreateObject[creatObj](
+                                PicnicId, isStr ? newObjItem : parseInt(newObjItem), false))
 
-            ))
+                        ))
+            })
+
         return promises
     }
 
@@ -213,7 +217,7 @@ class EditPicnic extends Component {
                                     className={classnames({ active: this.state.activeTab === '2' })}
                                     onClick={() => { this.toggle('2'); }}
                                 >
-                                    Necessity Items
+                                    Necessary Items
                                 </NavLink>
                             </NavItem>
                             <NavItem>
@@ -241,21 +245,22 @@ class EditPicnic extends Component {
                                             ).map(game => game.gameName)}
                                         />
                                     </div>
-                                    <div>
+                                    <div className="insideTab">
                                         {this.props.myGames.filter(game =>
                                             game.userId === parseInt(sessionStorage.getItem("credentials")))
-                                        .sort((a,b)=>(a.gameName < b.gameName) ? -1: 1)
-                                        .map(game => (
-                                            <div key={game.id}>
-                                                <input type="checkbox"
-                                                    name={game.gameName}
-                                                    id={game.id}
-                                                    checked={UpdateArray.CheckArray(game.id, this.state.selectedGames)}
-                                                    onChange={this.handleCheckBoxChangeGames} />
-                                                <Label for={game.gameName}>{game.gameName}</Label>
-                                            </div>
-                                        )
-                                        )}
+                                            .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
+                                            .map(game => (
+                                                <div key={game.id}>
+                                                    <input type="checkbox"
+                                                        name={game.gameName}
+                                                        id={game.id}
+                                                        checked={UpdateArray.CheckArray(game.id, this.state.selectedGames)}
+                                                        onChange={this.handleCheckBoxChangeGames} />
+                                                    <Label for={game.gameName} onClick={this.handleCheckBoxChangeGames}
+                                                    >{game.gameName} </Label>
+                                                </div>
+                                            )
+                                            )}
                                     </div>
                                 </div>
                             </TabPane>
@@ -271,19 +276,19 @@ class EditPicnic extends Component {
                                             list={this.props.itemList.map(item => item.itemName)}
                                         />
                                     </div>
-                                    <div>
+                                    <div className="insideTab">
                                         {this.props.itemList
-                                        .sort((a,b)=>(a.itemName < b.itemName) ? -1: 1)
-                                        .map(item => (
-                                            <div key={item.id}>
-                                                <input type="checkbox"
-                                                    name={item.itemName}
-                                                    id={item.id}
-                                                    checked={UpdateArray.CheckArray(item.id, this.state.selectedItems)}
-                                                    onChange={this.handleCheckBoxChangeItems} />
-                                                <Label for={item.itemName}>{item.itemName}</Label>
-                                            </div>
-                                        ))}
+                                            .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
+                                            .map(item => (
+                                                <div key={item.id}>
+                                                    <input type="checkbox"
+                                                        name={item.itemName}
+                                                        id={item.id}
+                                                        checked={UpdateArray.CheckArray(item.id, this.state.selectedItems)}
+                                                        onChange={this.handleCheckBoxChangeItems} />
+                                                    <Label for={item.itemName}>{item.itemName}</Label>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
 
@@ -305,7 +310,7 @@ class EditPicnic extends Component {
                                     label="Food carrying :" />
 
                                 {this.state.selectedFoodItems.map(foodItem =>
-                                    <div key={foodItem}>
+                                    <div key={foodItem} className="insideTab">
                                         <input type="checkbox"
                                             name={foodItem}
                                             id={foodItem}

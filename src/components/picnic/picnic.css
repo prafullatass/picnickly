@@ -55,7 +55,9 @@
     float :right;
     margin-left:  10px;
 }
-
+.insideTab{
+    padding-left : 5px;
+}
 .TabContainer {
     border : 1px double black ;
     overflow-y: auto;
@@ -63,6 +65,7 @@
     width : 500px;
     height : 250px;
     background-color: whitesmoke;
+    padding : 3px;
 }
 
 .inlineAll{

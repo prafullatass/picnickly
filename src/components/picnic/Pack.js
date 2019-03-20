@@ -52,8 +52,8 @@ class Pack extends Component {
                     fetchedObj.userId = picnicData.userId
                     fetchedObj.parkDetails = parks.find(park => park.parkName === picnicData.parkName).features
                 }))
-            promises.push(this.getDataForArray(GamesManager, "selectedGames", "gameId"))
-            promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemId"))
+            promises.push(this.getDataForArray(GamesManager, "selectedGames", "myGameId"))
+            promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemListId"))
             promises.push(this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName"))
             Promise.all(promises).then(() => {
                 this.setState(fetchedObj)
@@ -64,7 +64,8 @@ class Pack extends Component {
 
 
     getDataForArray = (objManager, arrayName, idName) => {
-        return objManager.GETALLPICNICDATA(sessionStorage.getItem("picnic")).then(allData => {
+        return objManager.GETALLPICNICDATA(parseInt(sessionStorage.getItem("picnic")))
+        .then(allData => {
             allData.forEach(data => {
                 this.state[arrayName].push({
                     id: data.id,
