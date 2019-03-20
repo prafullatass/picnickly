@@ -16,6 +16,8 @@ import Friends from "./friends/friends";
 import FriendsManager from "../ResourceManager/FriendsManager";
 import UserManager from "../ResourceManager/userManager";
 import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
+import Items from "./smallComponents/items";
+import MyGames from "./smallComponents/myGames";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -122,6 +124,18 @@ class ApplicationViews extends Component {
     }
     deleteFoodItems = (id) => {
         return FoodItemsManager.DELETE(id)
+    }
+    deleteItemList = (id) => {
+        return ItemsListManager.DELETE(id)
+            .then(() => ItemsListManager.GETALL()
+                .then(itemList => this.setState({ itemList: itemList })
+                ))
+    }
+    deleteMyGame = (id) => {
+        return MyGamesManger.DELETE(id)
+            .then(() => MyGamesManger.GETALL()
+                .then(myGames => this.setState({ myGames: myGames })
+                ))
     }
     patchGames = (obj) => {
         return GamesManager.PATCH(obj)
@@ -245,6 +259,21 @@ class ApplicationViews extends Component {
                 <Route exact path="/friends/New" render={(props) => {
                     return <Friends friendsList={this.state.friendsList}
                         users={this.state.users}
+                    />
+
+                }} />
+                <Route exact path="/items" render={(props) => {
+                    return <Items itemList={this.state.itemList}
+                        deleteItemList={this.deleteItemList}
+                        createItemsList={this.createItemsList}
+                        {...props}
+                    />
+                }} />
+                <Route exact path="/mygames" render={(props) => {
+                    return <MyGames myGames={this.state.myGames}
+                        deleteMyGame={this.deleteMyGame}
+                        createMyGame={this.createMyGame}
+                        {...props}
                     />
                 }} />
             </div>

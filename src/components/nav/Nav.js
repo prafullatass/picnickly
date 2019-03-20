@@ -55,9 +55,9 @@ class NavBar extends Component {
                             Manage
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem >Games</DropdownItem>
+                            <DropdownItem tag={Link} to="/mygames">Games</DropdownItem>
                             <DropdownItem divider />
-                            <DropdownItem >Necessity Items</DropdownItem>
+                            <DropdownItem tag={Link} to="/items"  >Necessity Items</DropdownItem>
                             <DropdownItem divider />
                             <DropdownItem tag={Link} to="/friends/New">Friends</DropdownItem>
                         </DropdownMenu>
