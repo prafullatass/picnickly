@@ -29,6 +29,7 @@ export default class PicnicForm extends Component {
     selectedGames: [],
     selectedItems: [],
     selectedFoodItems: [],
+    selectedFriends:[],
     activeTab: '1'
 
   };
@@ -68,9 +69,12 @@ export default class PicnicForm extends Component {
 
   handleCheckBoxChangeFoodItem = (event) => {
     let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
-    this.setState({ selectedItems: NewArray })
+    this.setState({ selectedFoodItems: NewArray })
   }
-
+  handleCheckBoxChangeFriends = (event) => {
+    let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFriends)
+    this.setState({ selectedFriends: NewArray })
+  }
   onKeyPressEvent = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -235,6 +239,14 @@ export default class PicnicForm extends Component {
 
               </TabPane>
             </TabContent>
+          </div>
+          <div>
+            {this.props.friendsList.map(friend =>
+                <Checkbox id={friend.friendId} key={friend.friendId}
+                displayName={friend.nickName} checked={false}
+                        onChange={this.handleCheckBoxChangeFriends}
+                />
+            )}
           </div>
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"
