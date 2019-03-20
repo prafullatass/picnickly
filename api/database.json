@@ -1,67 +1,25 @@
 {
   "picnic": [
     {
-      "userId": 2,
-      "parkName": "Paradise Ridge Park",
-      "address": "3000 Morgan Rd, Joelton TN",
-      "picnicDate": "2019-03-30",
-      "id": 1
-    },
-    {
-      "userId": 2,
-      "parkName": "Paradise Ridge Park",
-      "address": "3000 Morgan Rd, Joelton TN",
-      "picnicDate": "2019-03-18",
-      "id": 2
-    },
-    {
-      "userId": 2,
-      "parkName": "England",
-      "address": "811 Delray Dr, Nashville TN",
-      "picnicDate": "2019-03-06",
-      "id": 3
-    },
-    {
-      "userId": 2,
-      "parkName": "Brookmeade Park",
-      "address": "7002 Charlotte Pike, Nashville TN",
+      "userId": 5,
+      "parkName": "Oakwood Park",
+      "address": "2572 Bethwood Drive, Nashville TN",
       "picnicDate": "2019-03-23",
-      "id": 4
-    },
-    {
-      "userId": 2,
-      "parkName": "",
-      "address": "",
-      "picnicDate": "",
       "id": 5
     },
     {
       "userId": 2,
-      "parkName": "Bordeaux Garden Park",
-      "address": "Snell Blvd at Panorama Dr, Nashville TN",
-      "picnicDate": "",
-      "id": 6
+      "parkName": "Cleveland Park",
+      "address": "925 N 6th St, Nashville TN",
+      "picnicDate": "2019-03-20",
+      "id": 12
     },
     {
       "userId": 2,
-      "parkName": "Cane Ridge Park",
-      "address": "419 Battle Rd, Antioch TN",
-      "picnicDate": "",
-      "id": 7
-    },
-    {
-      "userId": 2,
-      "parkName": "Commerce Center Park",
-      "address": "120 3rd Ave N, Nashville TN",
-      "picnicDate": "",
-      "id": 8
-    },
-    {
-      "userId": 2,
-      "parkName": "Cane Ridge Park",
-      "address": "419 Battle Rd, Antioch TN",
-      "picnicDate": "",
-      "id": 9
+      "parkName": "Centennial Park",
+      "address": "2500 West End Ave, Nashville TN",
+      "picnicDate": "2019-03-20",
+      "id": 13
     }
   ],
   "users": [
@@ -92,176 +50,124 @@
       "firstName": "Sandeep",
       "lastName": "Sonawane",
       "id": 4
+    },
+    {
+      "username": "sandeepso",
+      "password": "swanand20",
+      "firstName": "Sandeep",
+      "lastName": "Sonawane",
+      "id": 5
+    },
+    {
+      "username": "test",
+      "password": "test123",
+      "firstName": "Test",
+      "lastName": "Test",
+      "id": 6
+    }
+  ],
+  "picnicFriends": [
+    {
+      "id": 1,
+      "picnicId": 1,
+      "friendId": 1,
+      "confirmed": false
+    },
+    {
+      "picnicId": 13,
+      "friendId": 1,
+      "confirmed": false,
+      "id": 2
+    },
+    {
+      "picnicId": 4,
+      "friendId": 1,
+      "confirmed": false,
+      "id": 3
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "userId": 2,
+      "friendId": 1,
+      "nickName": "sandy",
+      "pic": "pictuer"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "friendId": 2,
+      "nickName": "Sonu",
+      "pic": "pictuer"
     }
   ],
   "games": [
     {
-      "picnicId": 1,
-      "gameId": 2,
+      "picnicId": 5,
+      "myGameId": 8,
       "packed": true,
-      "id": 1
-    },
-    {
-      "picnicId": 1,
-      "gameId": 5,
-      "packed": false,
-      "id": 2
-    },
-    {
-      "picnicId": 1,
-      "gameId": 3,
-      "packed": false,
-      "id": 3
-    },
-    {
-      "picnicId": 1,
-      "gameId": 4,
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 2,
-      "gameId": 2,
-      "packed": false,
-      "id": 5
-    },
-    {
-      "picnicId": 2,
-      "gameId": 3,
-      "packed": false,
-      "id": 6
-    },
-    {
-      "picnicId": 2,
-      "gameId": 5,
-      "packed": false,
       "id": 7
     },
     {
-      "picnicId": 3,
-      "gameId": 3,
+      "picnicId": 5,
+      "myGameId": 7,
       "packed": false,
       "id": 8
     },
     {
-      "picnicId": 3,
-      "gameId": 4,
-      "packed": false,
-      "id": 9
-    },
-    {
-      "picnicId": 3,
-      "gameId": 5,
-      "packed": false,
-      "id": 10
-    },
-    {
-      "picnicId": 4,
-      "gameId": 2,
+      "picnicId": 9,
+      "myGameId": 3,
       "packed": false,
       "id": 11
     },
     {
-      "picnicId": 4,
-      "gameId": 3,
+      "picnicId": 9,
+      "myGameId": 5,
       "packed": false,
       "id": 12
     },
     {
-      "picnicId": 4,
-      "gameId": 4,
+      "picnicId": 9,
+      "myGameId": 4,
       "packed": false,
       "id": 13
     },
     {
-      "picnicId": 6,
-      "gameId": 2,
+      "picnicId": 10,
+      "myGameId": 3,
       "packed": false,
       "id": 14
     },
     {
-      "picnicId": 6,
-      "gameId": 3,
+      "picnicId": 10,
+      "myGameId": 5,
       "packed": false,
       "id": 15
     },
     {
-      "picnicId": 6,
-      "gameId": 5,
+      "picnicId": 11,
+      "myGameId": 3,
       "packed": false,
       "id": 16
     },
     {
-      "picnicId": 7,
-      "gameId": 2,
+      "picnicId": 11,
+      "myGameId": 5,
       "packed": false,
       "id": 17
     },
     {
-      "picnicId": 7,
-      "gameId": 3,
+      "picnicId": 13,
+      "myGameId": 4,
       "packed": false,
       "id": 18
     },
     {
-      "picnicId": 7,
-      "gameId": 4,
+      "picnicId": 13,
+      "myGameId": 6,
       "packed": false,
       "id": 19
-    },
-    {
-      "picnicId": 8,
-      "gameId": 3,
-      "packed": false,
-      "id": 20
-    },
-    {
-      "picnicId": 8,
-      "gameId": 4,
-      "packed": false,
-      "id": 21
-    },
-    {
-      "picnicId": 8,
-      "gameId": 5,
-      "packed": false,
-      "id": 22
-    },
-    {
-      "picnicId": 9,
-      "gameId": 2,
-      "packed": false,
-      "id": 23
-    },
-    {
-      "picnicId": 9,
-      "gameId": 3,
-      "packed": false,
-      "id": 24
-    },
-    {
-      "picnicId": 9,
-      "gameId": 4,
-      "packed": false,
-      "id": 25
-    },
-    {
-      "picnicId": 4,
-      "gameId": 5,
-      "packed": false,
-      "id": 26
-    },
-    {
-      "picnicId": 4,
-      "gameId": 5,
-      "packed": false,
-      "id": 27
-    },
-    {
-      "picnicId": 4,
-      "gameId": 6,
-      "packed": false,
-      "id": 28
     }
   ],
   "myGames": [
@@ -294,116 +200,76 @@
       "gameName": "Forks",
       "userId": 2,
       "id": 6
+    },
+    {
+      "gameName": "Basketball",
+      "userId": 5,
+      "id": 7
+    },
+    {
+      "gameName": "Soccer",
+      "userId": 5,
+      "id": 8
+    },
+    {
+      "gameName": "Hide and seek",
+      "userId": 5,
+      "id": 9
+    },
+    {
+      "gameName": "Batminton",
+      "userId": 5,
+      "id": 10
     }
   ],
   "items": [
     {
-      "picnicId": 1,
-      "itemId": 1,
-      "packed": false,
-      "id": 1
-    },
-    {
-      "picnicId": 1,
-      "itemId": 2,
-      "packed": true,
-      "id": 2
-    },
-    {
-      "picnicId": 1,
-      "itemId": 3,
+      "picnicId": 5,
+      "itemListId": 3,
       "packed": false,
       "id": 3
     },
     {
-      "picnicId": 2,
-      "itemId": 1,
+      "picnicId": 5,
+      "itemListId": 4,
       "packed": false,
       "id": 4
     },
     {
-      "picnicId": 2,
-      "itemId": 3,
+      "picnicId": 11,
+      "itemListId": 1,
       "packed": false,
       "id": 5
     },
     {
-      "picnicId": 3,
-      "itemId": 1,
+      "picnicId": 11,
+      "itemListId": 2,
       "packed": false,
       "id": 6
     },
     {
-      "picnicId": 3,
-      "itemId": 2,
+      "picnicId": 13,
+      "itemListId": 3,
       "packed": false,
       "id": 7
     },
     {
-      "picnicId": 4,
-      "itemId": 1,
+      "picnicId": 13,
+      "itemListId": 2,
       "packed": false,
       "id": 8
     },
     {
-      "picnicId": 4,
-      "itemId": 2,
+      "picnicId": 13,
+      "itemListId": 1,
       "packed": false,
       "id": 9
     },
     {
-      "picnicId": 4,
-      "itemId": 3,
+      "picnicId": 13,
+      "itemListId": 4,
       "packed": false,
       "id": 10
-    },
-    {
-      "picnicId": 6,
-      "itemId": 3,
-      "packed": false,
-      "id": 11
-    },
-    {
-      "picnicId": 6,
-      "itemId": 4,
-      "packed": false,
-      "id": 12
-    },
-    {
-      "picnicId": 7,
-      "itemId": 1,
-      "packed": false,
-      "id": 13
-    },
-    {
-      "picnicId": 7,
-      "itemId": 2,
-      "packed": false,
-      "id": 14
-    },
-    {
-      "picnicId": 8,
-      "itemId": 2,
-      "packed": false,
-      "id": 15
-    },
-    {
-      "picnicId": 8,
-      "itemId": 3,
-      "packed": false,
-      "id": 16
-    },
-    {
-      "picnicId": 9,
-      "itemId": 1,
-      "packed": false,
-      "id": 17
-    },
-    {
-      "picnicId": 9,
-      "itemId": 2,
-      "packed": false,
-      "id": 18
     }
   ],
   "itemsList": [
@@ -426,124 +292,46 @@
   ],
   "fooditems": [
     {
-      "picnicId": 1,
-      "foodItemName": "Banana",
-      "packed": false,
-      "id": 1
-    },
-    {
-      "picnicId": 1,
-      "foodItemName": "Chips",
+      "picnicId": 5,
+      "foodItemName": "Donuts",
       "packed": true,
-      "id": 2
-    },
-    {
-      "picnicId": 1,
-      "foodItemName": "Sandwich",
-      "packed": false,
-      "id": 3
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Apple",
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Popcorn",
-      "packed": false,
-      "id": 5
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "Anything",
-      "packed": false,
-      "id": 6
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Peanut butter sandwich",
-      "packed": false,
-      "id": 7
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Chips",
-      "packed": false,
-      "id": 8
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Apples",
-      "packed": false,
-      "id": 9
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Banana",
-      "packed": false,
-      "id": 10
-    },
-    {
-      "picnicId": 6,
-      "foodItemName": "Chips",
-      "packed": false,
       "id": 11
     },
     {
-      "picnicId": 6,
-      "foodItemName": "Sandwich",
-      "packed": false,
+      "picnicId": 5,
+      "foodItemName": "Sauce",
+      "packed": true,
       "id": 12
     },
     {
-      "picnicId": 6,
-      "foodItemName": "Apple",
+      "picnicId": 11,
+      "foodItemName": "Banana",
       "packed": false,
       "id": 13
     },
     {
-      "picnicId": 7,
-      "foodItemName": "Banana",
+      "picnicId": 11,
+      "foodItemName": "Chips",
       "packed": false,
       "id": 14
     },
     {
-      "picnicId": 7,
-      "foodItemName": "Aplle",
+      "picnicId": 11,
+      "foodItemName": "Sandwich",
       "packed": false,
       "id": 15
     },
     {
-      "picnicId": 8,
-      "foodItemName": "Aa",
+      "picnicId": 13,
+      "foodItemName": "Sandwich",
       "packed": false,
       "id": 16
     },
     {
-      "picnicId": 8,
-      "foodItemName": "Dd",
+      "picnicId": 13,
+      "foodItemName": "Coca",
       "packed": false,
       "id": 17
-    },
-    {
-      "picnicId": 8,
-      "foodItemName": "Cc",
-      "packed": false,
-      "id": 18
-    },
-    {
-      "picnicId": 9,
-      "foodItemName": "Asd",
-      "packed": false,
-      "id": 19
-    },
-    {
-      "picnicId": 9,
-      "foodItemName": "Xcv",
-      "packed": false,
-      "id": 20
     }
   ]
 }

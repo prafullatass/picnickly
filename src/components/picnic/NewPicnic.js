@@ -23,12 +23,13 @@ export default class PicnicForm extends Component {
     parkName: "",
     address: "",
     parkDetails: "",
-    picnicDate: "",
+    picnicDate:new Date().toISOString().slice(0, 10),
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
     selectedItems: [],
     selectedFoodItems: [],
+    selectedFriends: [],
     activeTab: '1'
 
   };
@@ -68,9 +69,12 @@ export default class PicnicForm extends Component {
 
   handleCheckBoxChangeFoodItem = (event) => {
     let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
-    this.setState({ selectedItems: NewArray })
+    this.setState({ selectedFoodItems: NewArray })
   }
-
+  handleCheckBoxChangeFriends = (id) => {
+    let NewArray = UpdateArray.Update(id, this.state.selectedFriends)
+    this.setState({ selectedFriends: NewArray })
+  }
   onKeyPressEvent = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -86,14 +90,14 @@ export default class PicnicForm extends Component {
     }
   }
 
-
   SubmitForm = (evt) => {
 
     evt.preventDefault();
     let promises = []
     const uid = parseInt(sessionStorage.getItem("credentials"))
     if (Validation.Validate(this.state.parkName)) {
-      let obj = CreateObject.PicnicObj(uid, this.state.parkName, this.state.address, this.state.picnicDate)
+      let obj = CreateObject.PicnicObj(uid, this.state.parkName,
+        this.state.address, this.state.picnicDate)
       this.props.createPicnic(obj).then(
         e => {
           this.state.selectedGames.forEach(game => {
@@ -108,6 +112,10 @@ export default class PicnicForm extends Component {
             promises.push(this.props.createFoodItems(
               CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
           });
+          this.state.selectedFriends.forEach(friend => {
+            promises.push(this.props.createPicnicFriend(
+              CreateObject.picnicFriendObj(parseInt(sessionStorage.getItem("picnic")), parseInt(friend), false)))
+          });
           Promise.all(promises).then(() => {
             this.props.setStateOfAll()
             this.props.history.push("/")
@@ -118,6 +126,7 @@ export default class PicnicForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <React.Fragment>
         <form className="picnicForm">
@@ -148,7 +157,7 @@ export default class PicnicForm extends Component {
                   className={classnames({ active: this.state.activeTab === '2' })}
                   onClick={() => { this.toggle('2'); }}
                 >
-                  Necessity Items
+                  Necessary Items
             </NavLink>
               </NavItem>
               <NavItem>
@@ -175,17 +184,17 @@ export default class PicnicForm extends Component {
                       ).map(game => game.gameName)}
                     />
                   </div>
-                  <div>
+                  <div className="insideTab">
                     {this.props.myGames
-                    .sort((a,b)=>(a.gameName < b.gameName) ? -1: 1)
-                    .filter(game =>
-                      game.userId === parseInt(sessionStorage.getItem("credentials"))
-                    ).map(game => (
-                      <Checkbox key={game.id} id={game.id}
-                        displayName={game.gameName}
-                        checked={false}
-                        onChange={this.handleCheckBoxChangeGames} />
-                    ))}
+                      .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
+                      .filter(game =>
+                        game.userId === parseInt(sessionStorage.getItem("credentials"))
+                      ).map(game => (
+                        <Checkbox key={game.id} id={game.id}
+                          displayName={game.gameName}
+                          checked={false}
+                          onChange={this.handleCheckBoxChangeGames} />
+                      ))}
                   </div>
                 </div>
 
@@ -202,13 +211,13 @@ export default class PicnicForm extends Component {
                       list={this.props.itemList.map(item => item.itemName)}
                     />
                   </div>
-                  <div>
+                  <div className="insideTab">
                     {this.props.itemList
-                    .sort((a,b)=>(a.itemName < b.itemName) ? -1: 1)
-                    .map(item => (
-                      <Checkbox key={item.id} id={item.id} displayName={item.itemName} checked={false}
-                        onChange={this.handleCheckBoxChangeItems} />
-                    ))}
+                      .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
+                      .map(item => (
+                        <Checkbox key={item.id} id={item.id} displayName={item.itemName} checked={false}
+                          onChange={this.handleCheckBoxChangeItems} />
+                      ))}
                   </div>
                 </div>
 
@@ -223,7 +232,7 @@ export default class PicnicForm extends Component {
             value={this.state.selectedFoodItems} /> */}
 
                 {this.state.selectedFoodItems.map(foodItem =>
-                  <div key={foodItem}>
+                  <div key={foodItem} className="insideTab">
                     <input type="checkbox"
                       name={foodItem}
                       id={foodItem}
@@ -235,6 +244,14 @@ export default class PicnicForm extends Component {
 
               </TabPane>
             </TabContent>
+          </div>
+          <div>
+            {this.props.friendsList.map(friend =>
+              <Checkbox id={friend.friendId} key={friend.friendId}
+                displayName={friend.nickName} checked={false}
+                onChange={this.handleCheckBoxChangeFriends}
+              />
+            )}
           </div>
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"

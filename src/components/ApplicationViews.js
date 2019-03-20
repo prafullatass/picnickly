@@ -12,6 +12,10 @@ import EditPicnic from "./picnic/EditPicnic";
 import Pack from "./picnic/Pack";
 import "./picnic/picnic.css"
 import HistoryPicnic from "./picnic/History";
+import Friends from "./friends/friends";
+import FriendsManager from "../ResourceManager/FriendsManager";
+import UserManager from "../ResourceManager/userManager";
+import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -19,7 +23,9 @@ class ApplicationViews extends Component {
         foodItems: [],
         items: [],
         itemList: [],
-        myGames: []
+        myGames: [],
+        friendsList: [],
+        users: []
     }
 
     componentDidMount() {
@@ -35,6 +41,11 @@ class ApplicationViews extends Component {
             MyGamesManger.GETALL().then(myGames =>
                 new_state.myGames = myGames
             ))
+        promises.push(FriendsManager.GETALL()
+            .then(list => new_state.friendsList = this.makeFriendsList(list)))
+        promises.push(UserManager.GETALL().then(
+            users => new_state.users = users))
+
         //Object.assign addes two objects
         promises.push(this.setStateOfAll("yes").then(restObj =>
             Object.assign(new_state, restObj)))
@@ -78,6 +89,11 @@ class ApplicationViews extends Component {
             })
     }
 
+    makeFriendsList = (list) => {
+        const uid = parseInt(sessionStorage.getItem("credentials"))
+        return (list.filter(friend => friend.userId === uid))
+    }
+
     createPicnic = (picObj) => {
         return PicnicManager.POST(picObj)
             .then(res => sessionStorage.setItem("picnic", res.id))
@@ -90,6 +106,9 @@ class ApplicationViews extends Component {
     }
     createFoodItems = (foodObj) => {
         return FoodItemsManager.POST(foodObj)
+    }
+    createPicnicFriend = (frndObj) => {
+        return PicnicFriendsManager.POST(frndObj)
     }
 
     updatePicnic = (picObj) => {
@@ -183,6 +202,9 @@ class ApplicationViews extends Component {
                         setStateOfAll={this.setStateOfAll}
                         createMyGame={this.createMyGame}
                         createItemsList={this.createItemsList}
+                        friendsList={this.state.friendsList}
+                        users={this.state.users}
+                        createPicnicFriend={this.createPicnicFriend}
                         {...props}
                     />
                 }} />
@@ -216,6 +238,13 @@ class ApplicationViews extends Component {
                         patchGames={this.patchGames}
                         patchItems={this.patchItems}
                         patchFoodItems={this.patchFoodItems}
+                        setStateOfAll={this.setStateOfAll}
+                    />
+                }} />
+
+                <Route exact path="/friends/New" render={(props) => {
+                    return <Friends friendsList={this.state.friendsList}
+                        users={this.state.users}
                     />
                 }} />
             </div>
