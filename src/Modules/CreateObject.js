@@ -52,6 +52,15 @@ const CreateObject = Object.create(null,
                     packed: packed
                 }
             }
+        },
+        picnicFriendObj:{
+            value: function (picId, friendId, confirmed) {
+                return {
+                    picnicId: picId,
+                    friendId: friendId,
+                    confirmed: confirmed
+                }
+            }
         }
     }
 )

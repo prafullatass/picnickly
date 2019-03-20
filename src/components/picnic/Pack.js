@@ -131,7 +131,10 @@ class Pack extends Component {
                 }
             ))
         ))
-        Promise.all(promises).then(this.props.setStateOfAll)
+        Promise.all(promises).then(() => {
+            this.props.setStateOfAll()
+            this.props.history.push("/")
+        })
     }
 
 

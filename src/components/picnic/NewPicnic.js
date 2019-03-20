@@ -71,8 +71,8 @@ export default class PicnicForm extends Component {
     let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
     this.setState({ selectedFoodItems: NewArray })
   }
-  handleCheckBoxChangeFriends = (event) => {
-    let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFriends)
+  handleCheckBoxChangeFriends = (id) => {
+    let NewArray = UpdateArray.Update(id, this.state.selectedFriends)
     this.setState({ selectedFriends: NewArray })
   }
   onKeyPressEvent = (event) => {
@@ -111,6 +111,10 @@ export default class PicnicForm extends Component {
           this.state.selectedFoodItems.forEach(foodItem => {
             promises.push(this.props.createFoodItems(
               CreateObject.FoodItemsObj(parseInt(sessionStorage.getItem("picnic")), foodItem, false)))
+          });
+          this.state.selectedFriends.forEach(friend => {
+            promises.push(this.props.createPicnicFriend(
+              CreateObject.picnicFriendObj(parseInt(sessionStorage.getItem("picnic")), parseInt(friend), false)))
           });
           Promise.all(promises).then(() => {
             this.props.setStateOfAll()

@@ -15,6 +15,7 @@ import HistoryPicnic from "./picnic/History";
 import Friends from "./friends/friends";
 import FriendsManager from "../ResourceManager/FriendsManager";
 import UserManager from "../ResourceManager/userManager";
+import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -105,6 +106,9 @@ class ApplicationViews extends Component {
     }
     createFoodItems = (foodObj) => {
         return FoodItemsManager.POST(foodObj)
+    }
+    createPicnicFriend = (frndObj) => {
+        return PicnicFriendsManager.POST(frndObj)
     }
 
     updatePicnic = (picObj) => {
@@ -200,6 +204,7 @@ class ApplicationViews extends Component {
                         createItemsList={this.createItemsList}
                         friendsList={this.state.friendsList}
                         users={this.state.users}
+                        createPicnicFriend={this.createPicnicFriend}
                         {...props}
                     />
                 }} />
@@ -233,6 +238,7 @@ class ApplicationViews extends Component {
                         patchGames={this.patchGames}
                         patchItems={this.patchItems}
                         patchFoodItems={this.patchFoodItems}
+                        setStateOfAll={this.setStateOfAll}
                     />
                 }} />
 

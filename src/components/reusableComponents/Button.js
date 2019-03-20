@@ -5,6 +5,7 @@ export default class Button extends Component {
         return (
             <button
                 type="submit"
+                id={this.props.id}
                 className={this.props.className}
                 onClick={this.props.onClickFunction}
             >
