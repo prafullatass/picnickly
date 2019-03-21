@@ -10,7 +10,7 @@ import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
 import { TabContent, TabPane, Nav, NavItem, NavLink, Spinner, Row, Col, Badge } from 'reactstrap';
 import classnames from 'classnames';
-//import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
+
 
 class Pack extends Component {
     state = {
@@ -38,7 +38,7 @@ class Pack extends Component {
 
 
     componentDidMount() {
-        console.log("componentDidMount -- EditPicnic")
+        console.log("componentDidMount -- pack")
         let fetchedObj = {}
         sessionStorage.setItem("picnic", this.props.match.params.picnicId)
         const promises = []
@@ -57,7 +57,6 @@ class Pack extends Component {
             promises.push(this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName"))
             Promise.all(promises).then(() => {
                 this.setState(fetchedObj)
-                console.log(this.state)
             })
         })
     }
@@ -105,7 +104,6 @@ class Pack extends Component {
     }
 
     DoneForm = (evt) => {
-        console.log("update")
         evt.preventDefault();
         let promises = []
         this.state.selectedGames.map(game => (
@@ -145,7 +143,6 @@ class Pack extends Component {
                 return true
         }
         return false
-        //<Spinner color="warning" />
     }
 
 
@@ -165,6 +162,7 @@ class Pack extends Component {
                     <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
                         type="date"
                         label="Picnic Date :"
+                        divClass="date"
                         value={this.state.picnicDate}
                         disabled="disabled"  />
 
@@ -184,7 +182,7 @@ class Pack extends Component {
                                     className={classnames({ active: this.state.activeTab === '2' })}
                                     onClick={() => { this.toggle('2'); }}
                                 >
-                                    Necessity Items {this.addspinner(this.state.selectedItems) ?
+                                    Necessary Items {this.addspinner(this.state.selectedItems) ?
                                         <Spinner size="sm" color="warning" /> : "😃"}
                                 </NavLink>
                             </NavItem>
@@ -237,7 +235,7 @@ class Pack extends Component {
 
                                 <div className="form-group">
                                     <Row>
-                                        <Col> Necessity Items to be Packed </Col>
+                                        <Col> Necessary Items to be Packed </Col>
                                         <Col> Packed ?</Col>
                                     </Row>
                                     <hr />

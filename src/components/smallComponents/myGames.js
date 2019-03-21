@@ -2,11 +2,12 @@ import React, { Component } from "react"
 import ModelNewObj from "../picnic/ModelNewObj";
 import CreateObject from "../../Modules/CreateObject";
 import DetailCard from "./DetailCard";
+import { Table } from 'reactstrap';
 class MyGames extends Component {
 
     confirmDel = (evt) => {
         if (window.confirm("Delete this Game?"))
-            this.props.deleteMyGamesList(parseInt(evt.target.id))
+            this.props.deleteMyGame(parseInt(evt.target.id))
     }
 
     render() {
@@ -14,7 +15,7 @@ class MyGames extends Component {
             <div className="Container">
                 <div className="inlineAll">
                     <label htmlFor="myGames">New Game - </label>
-                    <ModelNewObj createNewObject={this.props.createMyGames}
+                    <ModelNewObj createNewObject={this.props.createMyGame}
                         buttonLabel=" New Game"
                         label="Name of Game: "
                         createObjFn={CreateObject.MyGamesObj}
@@ -23,6 +24,8 @@ class MyGames extends Component {
                             .map(game => game.gameName)}
                     />
                 </div>
+                <Table hover size="sm" style={{backgroundColor :"white"}}>
+                <tbody>
                 {this.props.myGames
                     .filter(game => game.userId === parseInt(sessionStorage.getItem("credentials")))
                     .map(myGame =>
@@ -30,6 +33,8 @@ class MyGames extends Component {
                             name={myGame.gameName}
                             confirmDel={this.confirmDel} />
                     )}
+                    </tbody>
+                    </Table>
             </div>
         )
     }

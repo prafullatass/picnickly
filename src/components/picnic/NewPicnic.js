@@ -23,7 +23,7 @@ export default class PicnicForm extends Component {
     parkName: "",
     address: "",
     parkDetails: "",
-    picnicDate:new Date().toISOString().slice(0, 10),
+    picnicDate: new Date().toISOString().slice(0, 10),
     parks: [],
     dropdownOpen: false,
     selectedGames: [],
@@ -139,6 +139,7 @@ export default class PicnicForm extends Component {
 
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
             type="date"
+            divClass="date"
             defaultValue={new Date().toISOString().slice(0, 10)}
             label="Picnic Date :" />
           <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
@@ -226,6 +227,7 @@ export default class PicnicForm extends Component {
 
                 <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                   type="text"
+                  placeholder="Press Enter to add New "
                   label="Food Items " />
 
                 {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
@@ -245,14 +247,14 @@ export default class PicnicForm extends Component {
               </TabPane>
             </TabContent>
           </div>
-          <div>
+          {/* <div>
             {this.props.friendsList.map(friend =>
               <Checkbox id={friend.friendId} key={friend.friendId}
                 displayName={friend.nickName} checked={false}
                 onChange={this.handleCheckBoxChangeFriends}
               />
             )}
-          </div>
+          </div> */}
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"
               onClickFunction={this.SubmitForm} />

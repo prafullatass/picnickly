@@ -15,8 +15,9 @@ import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import classnames from 'classnames';
-//import { InputGroup, InputGroupAddon, InputGroupText, Input as InputReact } from 'reactstrap';
+
 import "./picnic.css"
+
 class EditPicnic extends Component {
     state = {
         userId: "",
@@ -199,6 +200,7 @@ class EditPicnic extends Component {
 
                     <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
                         type="date"
+                        divClass="date"
                         label="Picnic Date :"
                         value={this.state.picnicDate} />
 
@@ -307,6 +309,7 @@ class EditPicnic extends Component {
 
                                 <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                                     type="text"
+                                    placeholder="Press Enter to add New "
                                     label="Food carrying :" />
 
                                 {this.state.selectedFoodItems.map(foodItem =>

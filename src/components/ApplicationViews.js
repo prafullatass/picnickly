@@ -191,94 +191,95 @@ class ApplicationViews extends Component {
 
         return (
             <div className="coverImage">
-                <Route exact path="/" render={(props) => {
-                    return <Picnic picnics={this.state.picnic}
-                        cancelPicnic={this.cancelPicnic}
-                        {...props}
-                    />
-                }} />
-                <Route exact path="/past" render={(props) => {
-                    return <HistoryPicnic picnics={this.state.picnic}
-                        cancelPicnic={this.cancelPicnic}
-                        {...props}
-                    />
-                }} />
-                <Route exact path="/new" render={(props) => {
-                    return <PicnicForm picnicData={this.state.picnic}
-                        myGames={this.state.myGames}
-                        games={this.state.games}
-                        itemList={this.state.itemList}
-                        items={this.state.items}
-                        createPicnic={this.createPicnic}
-                        createItems={this.createItems}
-                        createFoodItems={this.createFoodItems}
-                        createGames={this.createGames}
-                        setStateOfAll={this.setStateOfAll}
-                        createMyGame={this.createMyGame}
-                        createItemsList={this.createItemsList}
-                        friendsList={this.state.friendsList}
-                        users={this.state.users}
-                        createPicnicFriend={this.createPicnicFriend}
-                        {...props}
-                    />
-                }} />
+                
+                    <Route exact path="/" render={(props) => {
+                        return <Picnic picnics={this.state.picnic}
+                            cancelPicnic={this.cancelPicnic}
+                            {...props}
+                        />
+                    }} />
+                    <Route exact path="/past" render={(props) => {
+                        return <HistoryPicnic picnics={this.state.picnic}
+                            cancelPicnic={this.cancelPicnic}
+                            {...props}
+                        />
+                    }} />
+                    <Route exact path="/new" render={(props) => {
+                        return <PicnicForm picnicData={this.state.picnic}
+                            myGames={this.state.myGames}
+                            games={this.state.games}
+                            itemList={this.state.itemList}
+                            items={this.state.items}
+                            createPicnic={this.createPicnic}
+                            createItems={this.createItems}
+                            createFoodItems={this.createFoodItems}
+                            createGames={this.createGames}
+                            setStateOfAll={this.setStateOfAll}
+                            createMyGame={this.createMyGame}
+                            createItemsList={this.createItemsList}
+                            friendsList={this.state.friendsList}
+                            users={this.state.users}
+                            createPicnicFriend={this.createPicnicFriend}
+                            {...props}
+                        />
+                    }} />
 
-                <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
-                    return <EditPicnic {...props}
-                        myGames={this.state.myGames}
-                        games={this.state.games}
-                        itemList={this.state.itemList}
-                        items={this.state.items}
-                        setStateOfAll={this.setStateOfAll}
-                        createMyGame={this.createMyGame}
-                        createItemsList={this.createItemsList}
-                        updatePicnic={this.updatePicnic}
-                        deleteItems={this.deleteItems}
-                        deleteFoodItems={this.deleteFoodItems}
-                        deleteGames={this.deleteGames}
-                        createItems={this.createItems}
-                        createFoodItems={this.createFoodItems}
-                        createGames={this.createGames}
-                        foodItems={this.state.foodItems} />
-                }} />
+                    <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
+                        return <EditPicnic {...props}
+                            myGames={this.state.myGames}
+                            games={this.state.games}
+                            itemList={this.state.itemList}
+                            items={this.state.items}
+                            setStateOfAll={this.setStateOfAll}
+                            createMyGame={this.createMyGame}
+                            createItemsList={this.createItemsList}
+                            updatePicnic={this.updatePicnic}
+                            deleteItems={this.deleteItems}
+                            deleteFoodItems={this.deleteFoodItems}
+                            deleteGames={this.deleteGames}
+                            createItems={this.createItems}
+                            createFoodItems={this.createFoodItems}
+                            createGames={this.createGames}
+                            foodItems={this.state.foodItems} />
+                    }} />
 
-                <Route exact path="/picnics/:picnicId(\d+)/pack" render={(props) => {
-                    return <Pack {...props}
-                        myGames={this.state.myGames}
-                        games={this.state.games}
-                        itemList={this.state.itemList}
-                        items={this.state.items}
-                        foodItems={this.state.foodItems}
-                        patchGames={this.patchGames}
-                        patchItems={this.patchItems}
-                        patchFoodItems={this.patchFoodItems}
-                        setStateOfAll={this.setStateOfAll}
-                    />
-                }} />
+                    <Route exact path="/picnics/:picnicId(\d+)/pack" render={(props) => {
+                        return <Pack {...props}
+                            myGames={this.state.myGames}
+                            games={this.state.games}
+                            itemList={this.state.itemList}
+                            items={this.state.items}
+                            foodItems={this.state.foodItems}
+                            patchGames={this.patchGames}
+                            patchItems={this.patchItems}
+                            patchFoodItems={this.patchFoodItems}
+                            setStateOfAll={this.setStateOfAll}
+                        />
+                    }} />
 
-                <Route exact path="/friends/New" render={(props) => {
-                    return <Friends friendsList={this.state.friendsList}
-                        users={this.state.users}
-                    />
+                    <Route exact path="/friends/New" render={(props) => {
+                        return <Friends friendsList={this.state.friendsList}
+                            users={this.state.users}
+                        />
 
-                }} />
-                <Route exact path="/items" render={(props) => {
-                    return <Items itemList={this.state.itemList}
-                        deleteItemList={this.deleteItemList}
-                        createItemsList={this.createItemsList}
-                        {...props}
-                    />
-                }} />
-                <Route exact path="/mygames" render={(props) => {
-                    return <MyGames myGames={this.state.myGames}
-                        deleteMyGame={this.deleteMyGame}
-                        createMyGame={this.createMyGame}
-                        {...props}
-                    />
-                }} />
+                    }} />
+                    <Route exact path="/items" render={(props) => {
+                        return <Items itemList={this.state.itemList}
+                            deleteItemList={this.deleteItemList}
+                            createItemsList={this.createItemsList}
+                            {...props}
+                        />
+                    }} />
+                    <Route exact path="/mygames" render={(props) => {
+                        return <MyGames myGames={this.state.myGames}
+                            deleteMyGame={this.deleteMyGame}
+                            createMyGame={this.createMyGame}
+                            {...props}
+                        />
+                    }} />
             </div>
-        )
-    }
-}
+                )
+            }
+        }
 
 export default ApplicationViews

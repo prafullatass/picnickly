@@ -6,20 +6,6 @@
       "address": "2572 Bethwood Drive, Nashville TN",
       "picnicDate": "2019-03-23",
       "id": 5
-    },
-    {
-      "userId": 2,
-      "parkName": "Cleveland Park",
-      "address": "925 N 6th St, Nashville TN",
-      "picnicDate": "2019-03-20",
-      "id": 12
-    },
-    {
-      "userId": 2,
-      "parkName": "Centennial Park",
-      "address": "2500 West End Ave, Nashville TN",
-      "picnicDate": "2019-03-20",
-      "id": 13
     }
   ],
   "users": [
@@ -156,18 +142,6 @@
       "myGameId": 5,
       "packed": false,
       "id": 17
-    },
-    {
-      "picnicId": 13,
-      "myGameId": 4,
-      "packed": false,
-      "id": 18
-    },
-    {
-      "picnicId": 13,
-      "myGameId": 6,
-      "packed": false,
-      "id": 19
     }
   ],
   "myGames": [
@@ -195,11 +169,6 @@
       "gameName": "Chess",
       "userId": 2,
       "id": 5
-    },
-    {
-      "gameName": "Forks",
-      "userId": 2,
-      "id": 6
     },
     {
       "gameName": "Basketball",
@@ -246,30 +215,6 @@
       "itemListId": 2,
       "packed": false,
       "id": 6
-    },
-    {
-      "picnicId": 13,
-      "itemListId": 3,
-      "packed": false,
-      "id": 7
-    },
-    {
-      "picnicId": 13,
-      "itemListId": 2,
-      "packed": false,
-      "id": 8
-    },
-    {
-      "picnicId": 13,
-      "itemListId": 1,
-      "packed": false,
-      "id": 9
-    },
-    {
-      "picnicId": 13,
-      "itemListId": 4,
-      "packed": false,
-      "id": 10
     }
   ],
   "itemsList": [
@@ -280,6 +225,18 @@
     {
       "itemName": "Plates",
       "id": 2
+    },
+    {
+      "itemName": "Spoons",
+      "id": 3
+    },
+    {
+      "itemName": "Napkins",
+      "id": 4
+    },
+    {
+      "itemName": "Knife",
+      "id": 5
     }
   ],
   "fooditems": [
@@ -312,18 +269,6 @@
       "foodItemName": "Sandwich",
       "packed": false,
       "id": 15
-    },
-    {
-      "picnicId": 13,
-      "foodItemName": "Sandwich",
-      "packed": false,
-      "id": 16
-    },
-    {
-      "picnicId": 13,
-      "foodItemName": "Coca",
-      "packed": false,
-      "id": 17
     }
   ]
 }

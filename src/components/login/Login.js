@@ -5,7 +5,7 @@ import {
     FormGroup, Label
   } from 'reactstrap';
 import "./login.css"
-import Register from "./Register";
+
 
 export default class Login extends Component {
     // Set initial state
