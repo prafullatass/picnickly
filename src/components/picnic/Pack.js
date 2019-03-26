@@ -38,6 +38,7 @@ class Pack extends Component {
 
 
     componentDidMount() {
+        sessionStorage.setItem("inv", 1)
         console.log("componentDidMount -- pack")
         let fetchedObj = {}
         sessionStorage.setItem("picnic", this.props.match.params.picnicId)
@@ -152,7 +153,6 @@ class Pack extends Component {
         return (
             <React.Fragment>
                 <form className="picnicForm">
-                    <h3>Let's Pack for Picnic</h3>
                     <SelectPark handleParkNameChange={this.handleParkNameChange}
                         parks={this.state.parks}
                         address={this.state.address}
@@ -166,7 +166,7 @@ class Pack extends Component {
                         value={this.state.picnicDate}
                         disabled="disabled"  />
 
-                    <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
+                    <h5><Badge color="info" pill>Things To Be Packed in Your Picnic Basket</Badge></h5>
                     <div className="TabContainer">
                         <Nav tabs>
                             <NavItem>
@@ -212,14 +212,14 @@ class Pack extends Component {
                                             <div key={game.id}>
                                                 <Row>
                                                     <Col>
-                                                        <Label for={game.FKid}>
+                                                        <Label for={`${game.FKid}`}>
                                                             {this.props.myGames
                                                                 .find(obj => obj.id === game.FKid).gameName}
                                                         </Label>
                                                     </Col>
                                                     <Col>
                                                         <input type="checkbox"
-                                                            name={game.FKid}
+                                                            name={`${game.FKid}`}
                                                             id={game.id}
                                                             checked={this.state.selectedGames[idx].packed}
                                                             onChange={this.handleCheckBoxChangeGames} />
@@ -233,23 +233,23 @@ class Pack extends Component {
                             </TabPane>
                             <TabPane tabId="2">
 
-                                <div className="form-group">
+                                <div className="form-group" key = "2">
                                     <Row>
                                         <Col> Necessary Items to be Packed </Col>
                                         <Col> Packed ?</Col>
                                     </Row>
                                     <hr />
                                     {this.state.selectedItems.map((item, idx) => (
-                                        <div key={item.FKid}>
+                                        <div key={idx}>
                                             <Row>
                                                 <Col>
-                                                    <Label for={item.FKid}>
+                                                    <Label for={`${item.FKid}`}>
                                                         {this.props.itemList.find(obj => obj.id === item.FKid).itemName}
                                                     </Label>
                                                 </Col>
                                                 <Col>
                                                     <input type="checkbox"
-                                                        name={item.FKid}
+                                                        name={`${item.FKid}`}
                                                         id={item.id}
                                                         checked={this.state.selectedItems[idx].packed}
                                                         onChange={this.handleCheckBoxChangeItems} />

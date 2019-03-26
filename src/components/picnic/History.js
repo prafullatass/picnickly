@@ -18,7 +18,7 @@ class HistoryPicnic extends Component {
                     new Date((picnic.picnicDate).replace("-", "/").replace("-", "/")) < dt)
                     .sort((a, b) => new Date(a.picnicDate) < new Date(b.picnicDate) ? 1 : -1)
                     .map(picnic =>
-                        <Card body inverse color="info" className="cardSize"
+                        <Card body inverse color="secondary" className="cardSize"
                             id={picnic.id} key={picnic.id}>
                             <CardTitle>On {picnic.picnicDate} </CardTitle>
                             <CardText> At {picnic.parkName}</CardText>

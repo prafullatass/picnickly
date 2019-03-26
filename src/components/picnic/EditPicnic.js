@@ -258,7 +258,7 @@ class EditPicnic extends Component {
                                                         id={game.id}
                                                         checked={UpdateArray.CheckArray(game.id, this.state.selectedGames)}
                                                         onChange={this.handleCheckBoxChangeGames} />
-                                                    <Label for={game.gameName} onClick={this.handleCheckBoxChangeGames}
+                                                    <Label for={game.gameName}
                                                     >{game.gameName} </Label>
                                                 </div>
                                             )

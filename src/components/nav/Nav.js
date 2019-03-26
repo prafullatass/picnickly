@@ -50,7 +50,8 @@ class NavBar extends Component {
                 <Navbar color="faded" light expand="md" style={{backgroundColor: "lightgreen"}}>
                     <Nav color="light flexContainer" >
                         <NavItem>
-                            <NavLink tag={Link} to="/">Picnics</NavLink>
+                            <NavLink tag={Link} to="/">Picnics
+                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/new">New</NavLink>
