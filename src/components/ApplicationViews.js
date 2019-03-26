@@ -112,6 +112,12 @@ class ApplicationViews extends Component {
     createPicnicFriend = (frndObj) => {
         return PicnicFriendsManager.POST(frndObj)
     }
+    createFriends =(frndObj) => {
+        return FriendsManager.POST(frndObj)
+            .then(() => FriendsManager.GETALL()
+                .then(friendsList => this.setState({ friendsList: friendsList })
+                ))
+        }
 
     updatePicnic = (picObj) => {
         return PicnicManager.PUT(picObj)
@@ -191,7 +197,7 @@ class ApplicationViews extends Component {
 
         return (
             <div className="coverImage">
-                
+
                     <Route exact path="/" render={(props) => {
                         return <Picnic picnics={this.state.picnic}
                             cancelPicnic={this.cancelPicnic}
@@ -260,6 +266,7 @@ class ApplicationViews extends Component {
                     <Route exact path="/friends/New" render={(props) => {
                         return <Friends friendsList={this.state.friendsList}
                             users={this.state.users}
+                            createFriends={this.createFriends}
                         />
 
                     }} />
@@ -277,6 +284,7 @@ class ApplicationViews extends Component {
                             {...props}
                         />
                     }} />
+
             </div>
                 )
             }

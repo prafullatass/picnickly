@@ -247,14 +247,14 @@ export default class PicnicForm extends Component {
               </TabPane>
             </TabContent>
           </div>
-          {/* <div>
+          <div>
             {this.props.friendsList.map(friend =>
               <Checkbox id={friend.friendId} key={friend.friendId}
                 displayName={friend.nickName} checked={false}
                 onChange={this.handleCheckBoxChangeFriends}
               />
             )}
-          </div> */}
+          </div>
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"
               onClickFunction={this.SubmitForm} />
