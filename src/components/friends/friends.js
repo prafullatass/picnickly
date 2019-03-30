@@ -16,7 +16,7 @@ class Friends extends Component {
 
     render() {
         console.log(this.state)
-        const  reader  = new FileReader();
+
         return (
             <div>
                 <ModelNewFriend users = {this.props.users}

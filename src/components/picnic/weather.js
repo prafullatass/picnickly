@@ -1,21 +1,21 @@
 import React, { Component } from "react"
+import {
+    Card, Button, CardImg, CardTitle, CardText,
+    CardSubtitle, CardBody
+} from "../../icons";
 
-
-const getweather = () => {
-    return fetch(`api.openweathermap.org/data/2.5/forecast?zip=37067,us&appid=${apiKey}`)
-        .then(r => r.json())
-        .then(data => {
-            debugger
-            console.log(data)
-        })
-
-}
-const apiKey = "6366b782dabe1c695249056623afcb2a"
-
-class checkweather extends Component {
-    render (){
-        return(
-            <div>{getweather()} hi</div>
+class aa extends Component {
+    render() {
+        return (
+            <Card>
+                <CardImg  src={this.props.weatherObj.icon} alt="Card image cap" />
+                <CardBody>
+                    <CardTitle>Card title</CardTitle>
+                    <CardSubtitle>Card subtitle</CardSubtitle>
+                    <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
+                    <Button>Button</Button>
+                </CardBody>
+            </Card>
 
         )
 
@@ -23,6 +23,6 @@ class checkweather extends Component {
 
 }
 
-export default checkweather
+export default aa
 
 

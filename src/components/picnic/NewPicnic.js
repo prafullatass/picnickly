@@ -14,6 +14,9 @@ import Validation from "../../Modules/Validation";
 import { Label } from "reactstrap"
 import { TabContent, TabPane, Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import classnames from 'classnames';
+import ShowWeather from "./ShowWeather";
+
+
 
 
 export default class PicnicForm extends Component {
@@ -137,6 +140,7 @@ export default class PicnicForm extends Component {
         obj.min = list.weather[0].description
         obj.main = list.weather[0].main
         obj.temp = list.main.temp
+        obj.wind = list.wind.speed
         obj.humidity = list.main.humidity
         obj.time = list.dt_txt.split(" ")[1]
         this.setState({ weatherObj: obj })
@@ -145,15 +149,16 @@ export default class PicnicForm extends Component {
     }
 
   }
+
+
   getWeather = () => {
     const apiKey = "6366b782dabe1c695249056623afcb2a"
 
-    debugger
     return fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=37067&appid=${apiKey}&units=metric`)
       .then(r => r.json())
       .then(data => {
-        debugger
-        this.setState({ weatherdb: data })
+        this.state.weatherdb = data
+        //this.setState({ weatherdb: data })
         console.log(data)
       })
     {/* <div id="openweathermap-widget-15"></div>
@@ -193,6 +198,8 @@ export default class PicnicForm extends Component {
             defaultValue={new Date().toISOString().slice(0, 10)}
             label="Picnic Date :" />
           {/* <div>{this.getWeather()}</div> */}
+
+          <ShowWeather weatherObj={this.state.weatherObj} />
 
           <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
           <div className="TabContainer">
