@@ -6,13 +6,14 @@ import Validation from "../../Modules/Validation";
 import ImageUploader from 'react-images-upload';
 import CreateObject from "../../Modules/CreateObject";
 
+
 class ModelNewFriend extends Component {
 
 
     state = {
         modal: false,
         name: "",
-        pic: "",
+        pic: [],
         friendId: ""
     };
 
@@ -22,9 +23,9 @@ class ModelNewFriend extends Component {
         }));
     }
 
-    pic = evt => {
-        console.log(evt[0].name)
-        this.state.pic = evt[0].name
+    upload = (evt, value, src) => {
+
+        this.setState({ pic: value })
     }
 
     handleFieldChange = (evt) => {
@@ -64,8 +65,8 @@ class ModelNewFriend extends Component {
     render() {
         const _this = this
         const frndList = this.props.friendsList
-        .filter(friend => friend.userId === parseInt(sessionStorage.getItem("credentials")))
-        .map(friend => friend.myFriendId)
+            .filter(friend => friend.userId === parseInt(sessionStorage.getItem("credentials")))
+            .map(friend => friend.myFriendId)
         return (
             <div>
                 <Button color="primary" size="sm" onClick={this.toggle}>New Friend</Button>
@@ -79,11 +80,11 @@ class ModelNewFriend extends Component {
                             onChange={this.handleUsersChange} >
                             <option value="">Select Friends</option>
                             {this.props.users.filter(user => !frndList.includes(user.id))
-                            .map(e => (
-                                <option key={e.id} id={e.id} value={e.id}>
-                                    {e.firstName} {e.lastName}
-                                </option>
-                            ))}
+                                .map(e => (
+                                    <option key={e.id} id={e.id} value={e.id}>
+                                        {e.firstName} {e.lastName}
+                                    </option>
+                                ))}
                         </select>
                         <Input id="new" handleFieldChange={_this.handleFieldChange}
                             type="text"
@@ -93,7 +94,11 @@ class ModelNewFriend extends Component {
                         />
                         <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }}
                             withPreview={true}
-                            onChange={this.pic} />
+                            withIcon={true}
+                            optimisticPreviews
+                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                            maxFileSize={5242880}
+                            onChange={this.upload} />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.addFriend}>Add </Button>

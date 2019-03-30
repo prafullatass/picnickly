@@ -30,8 +30,9 @@ export default class PicnicForm extends Component {
     selectedItems: [],
     selectedFoodItems: [],
     selectedFriends: [],
-    activeTab: '1'
-
+    activeTab: '1',
+    weatherdb: {},
+    weatherObj: {}
   };
 
   toggle(tab) {
@@ -43,6 +44,7 @@ export default class PicnicForm extends Component {
   }
 
   componentDidMount() {
+    this.getWeather()
     GetParkData().then(parks =>
       this.setState({ parks: parks }))
   }
@@ -51,6 +53,7 @@ export default class PicnicForm extends Component {
     const stateToChange = {};
     stateToChange[evt.target.id] = evt.target.value;
     this.setState(stateToChange);
+    this.checkWeather(evt.target.value)
   };
 
   handleParkNameChange = obj => {
@@ -125,10 +128,55 @@ export default class PicnicForm extends Component {
     }
   }
 
+  checkWeather = (dt) => {
+    const obj = {}
+    for (let i = 0; i < this.state.weatherdb.list.length; i++) {
+      const list = this.state.weatherdb.list[i];
+
+      if (dt === list.dt_txt.split(" ")[0]) {
+        obj.min = list.weather[0].description
+        obj.main = list.weather[0].main
+        obj.temp = list.main.temp
+        obj.humidity = list.main.humidity
+        obj.time = list.dt_txt.split(" ")[1]
+        this.setState({ weatherObj: obj })
+        return
+      }
+    }
+
+  }
+  getWeather = () => {
+    const apiKey = "6366b782dabe1c695249056623afcb2a"
+
+    debugger
+    return fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=37067&appid=${apiKey}&units=metric`)
+      .then(r => r.json())
+      .then(data => {
+        debugger
+        this.setState({ weatherdb: data })
+        console.log(data)
+      })
+    {/* <div id="openweathermap-widget-15"></div>
+<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+  window.myWidgetParam.push({id: 15,cityid: '2643743',appid: '6366b782dabe1c695249056623afcb2a',
+  units: 'metric',containerid: 'openweathermap-widget-15',  });
+  (function() {
+    let script = document.createElement('script');
+  script.async = true;script.charset = "utf-8";
+  script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(script, s);  })();
+  </script> */}
+  }
+
+
+
+
   render() {
     console.log(this.state)
     return (
       <React.Fragment>
+
         <form className="picnicForm">
 
           <SelectPark handleParkNameChange={this.handleParkNameChange}
@@ -137,11 +185,15 @@ export default class PicnicForm extends Component {
             parkDetails={this.state.parkDetails}
             parkName={this.state.parkName} />
 
+
+
           <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
             type="date"
             divClass="date"
             defaultValue={new Date().toISOString().slice(0, 10)}
             label="Picnic Date :" />
+          {/* <div>{this.getWeather()}</div> */}
+
           <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
           <div className="TabContainer">
             <Nav tabs>

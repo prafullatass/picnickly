@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import { Card, CardFooter, CardText } from "reactstrap"
+import Avatar from '@material-ui/core/Avatar';
 
 import Button from "../reusableComponents/Button";
 import ModelNewFriend from "./NewFriend";
 
+import "../picnic/picnic.css"
 
 class Friends extends Component {
 
@@ -14,14 +16,16 @@ class Friends extends Component {
 
     render() {
         console.log(this.state)
+        const  reader  = new FileReader();
         return (
             <div>
                 <ModelNewFriend users = {this.props.users}
                 friendsList={this.props.friendsList}
                 createFriends={this.props.createFriends} />
                 {this.props.friendsList.map(friend =>
-                    <Card body className="cardSize"
+                    <Card body className="cardSize inlineAll"
                         id={friend.friendId} key={friend.friendId}>
+                        <Avatar alt="Remy Sharp" src={friend.pic} />
                         <CardText> {friend.nickName}{friend.pics}</CardText>
                         <CardFooter>
                             <Button
