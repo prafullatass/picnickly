@@ -187,10 +187,27 @@ class ApplicationViews extends Component {
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
 
         Promise.all(promises).then(this.setStateOfAll)
-
     }
 
+    editMyGame = (obj) => {
+        return MyGamesManger.PUT(obj).then(() => {
+            MyGamesManger.GETALL().then(myGames =>
+                this.setState({
+                    myGames: myGames
+                })
+            )
+        })
+    }
 
+    editItemsList =(obj) => {
+        return ItemsListManager.PUT(obj).then(() => {
+            ItemsListManager.GETALL().then(itemList =>
+                this.setState({
+                    itemList: itemList
+                })
+            )
+        })
+    }
     render() {
         console.log("render -- ApplicationViews")
         console.log(this.state)
@@ -274,6 +291,7 @@ class ApplicationViews extends Component {
                         return <Items itemList={this.state.itemList}
                             deleteItemList={this.deleteItemList}
                             createItemsList={this.createItemsList}
+                            editItemsList={this.editItemsList}
                             {...props}
                         />
                     }} />
@@ -281,6 +299,7 @@ class ApplicationViews extends Component {
                         return <MyGames myGames={this.state.myGames}
                             deleteMyGame={this.deleteMyGame}
                             createMyGame={this.createMyGame}
+                            editMyGame={this.editMyGame}
                             {...props}
                         />
                     }} />

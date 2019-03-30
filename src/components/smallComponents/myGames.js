@@ -31,7 +31,13 @@ class MyGames extends Component {
                     .map(myGame =>
                         <DetailCard id={myGame.id}
                             name={myGame.gameName}
-                            confirmDel={this.confirmDel} />
+                            confirmDel={this.confirmDel}
+                            createObjFn={CreateObject.MyGamesObj}
+                            edit={this.props.editMyGame}
+                            list={this.props.myGames
+                                .filter(game => game.userId === parseInt(sessionStorage.getItem("credentials")))
+                                .map(game => game.gameName)}
+                                />
                     )}
                     </tbody>
                     </Table>

@@ -31,7 +31,12 @@ class Items extends Component {
                         .map(item =>
                             <DetailCard id={item.id}
                                 name={item.itemName}
-                                confirmDel={this.confirmDel} />
+                                confirmDel={this.confirmDel}
+                                createObjFn={CreateObject.ItemListObj}
+                                list ={this.props.itemList
+                                    .filter(item => item.userId === parseInt(sessionStorage.getItem("credentials")))
+                                    .map(item => item.itemName)}
+                                    edit = {this.props.editItemsList} />
                         )}
                         </tbody>
                         </Table>
