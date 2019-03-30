@@ -1,7 +1,5 @@
 import React, { Component } from "react"
-import {
-    Card, CardImg, CardTitle, CardText, CardBody
-} from 'reactstrap';
+
 import rain from "../../icons/rain.png"
 import sun from "../../icons/sun.png"
 import Pcloudy from "../../icons/partly-cloudy.png"
@@ -10,25 +8,23 @@ import stormy from "../../icons/stormy.png"
 
 import "./weather.css";
 
+let icon = sun
 class ShowWeather extends Component {
-    state = {
-        icon: sun
-    }
 
     geticon = () => {
 
         switch (this.props.weatherObj.main) {
             case "Clouds":
-                this.state.icon = Pcloudy
+                icon = Pcloudy
                 break;
             case "Rain":
-                this.state.icon = rain
+                icon = rain
                 break;
             case "Stormy":
-                this.state.icon = stormy
+                icon = stormy
                 break;
             case "Clear":
-                this.state.icon = sun
+                icon = sun
                 break;
             default:
                 break;
@@ -38,15 +34,15 @@ class ShowWeather extends Component {
         this.geticon()
         return (
             <div className="card weather_card bg-warning">
-                <CardTitle className="title">{this.props.weatherObj.main}</CardTitle>
+                <div className="title">{this.props.weatherObj.main}</div>
                 <hr/>
                 <div className="flexbox">
-                        <CardImg className="weather-img" src={this.state.icon} alt="icons" />
-                        <CardText className="details" >
+                        <img className="weather-img" src={icon} alt="icons" />
+                        <div className="details" >
                             <span className="temp">{this.props.weatherObj.temp}</span> °F
-                        <CardText>Humidity : {this.props.weatherObj.humidity} % </CardText>
-                        <CardText>Wind : {this.props.weatherObj.wind} mph </CardText>
-                        </CardText>
+                        <div>Humidity : {this.props.weatherObj.humidity} % </div>
+                        <div>Wind : {this.props.weatherObj.wind} mph </div>
+                        </div>
                    </div>
 
             </div>

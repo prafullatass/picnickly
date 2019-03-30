@@ -170,17 +170,6 @@ export default class PicnicForm extends Component {
         return data
         //this.setState({ weatherdb: data })
       })
-    {/* <div id="openweathermap-widget-15"></div>
-<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
-  window.myWidgetParam.push({id: 15,cityid: '2643743',appid: '6366b782dabe1c695249056623afcb2a',
-  units: 'metric',containerid: 'openweathermap-widget-15',  });
-  (function() {
-    let script = document.createElement('script');
-  script.async = true;script.charset = "utf-8";
-  script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(script, s);  })();
-  </script> */}
   }
 
 
@@ -317,7 +306,8 @@ export default class PicnicForm extends Component {
               <ShowWeather weatherObj={this.state.weatherObj} />
             </div>
 
-            <div>
+            <div >
+              <h5>Invite Friends</h5>
               {this.props.friendsList.map(friend =>
                 <Checkbox id={friend.friendId} key={friend.friendId}
                   displayName={friend.nickName} checked={false}
