@@ -1,16 +1,17 @@
 .weather-img {
-    max-width: 100px;
-    height: 100px;
-    align-items: center;
+    max-width: 70px;
+    height: 70px;
 }
 .flexbox{
     display:flex;
 }
 .weather_card{
-    background-color: red;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    height: 270px;
-    width: 320px;
+    background-color: yellowgreen;
+    height: 250px;
+    width: 250px;
+    margin-left: 40px;
+    padding: 10px;
 }
 
 .temp {
@@ -25,5 +26,6 @@
 }
 .details{
     float:right;
-    margin-left: 10px;
+    margin-left: 5px;
+    height: 100%;
 }

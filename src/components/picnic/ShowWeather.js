@@ -9,7 +9,6 @@ import stormy from "../../icons/stormy.png"
 
 
 import "./weather.css";
-import { CardHeader } from "@material-ui/core";
 
 class ShowWeather extends Component {
     state = {
@@ -38,19 +37,19 @@ class ShowWeather extends Component {
     render() {
         this.geticon()
         return (
-            <Card className="weather_card" body inverse color="warning">
+            <div className="card weather_card bg-warning">
                 <CardTitle className="title">{this.props.weatherObj.main}</CardTitle>
-                <hr />
-                <CardBody className="flexbox">
+                <hr/>
+                <div className="flexbox">
                         <CardImg className="weather-img" src={this.state.icon} alt="icons" />
                         <CardText className="details" >
                             <span className="temp">{this.props.weatherObj.temp}</span> °F
                         <CardText>Humidity : {this.props.weatherObj.humidity} % </CardText>
                         <CardText>Wind : {this.props.weatherObj.wind} mph </CardText>
                         </CardText>
-                   </CardBody>
+                   </div>
 
-            </Card>
+            </div>
 
         )
 

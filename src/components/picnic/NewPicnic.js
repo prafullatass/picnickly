@@ -48,13 +48,14 @@ export default class PicnicForm extends Component {
 
   componentDidMount() {
 
-    this.getWeather().then(weatherdb =>{
+    this.getWeather().then(weatherdb => {
 
       GetParkData().then(parks => {
-        this.setState({ parks: parks,
-          weatherdb : weatherdb
-         },
-         ()=>this.checkWeather(new Date().toISOString().slice(0, 10)))
+        this.setState({
+          parks: parks,
+          weatherdb: weatherdb
+        },
+          () => this.checkWeather(new Date().toISOString().slice(0, 10)))
       })
     })
   }
@@ -146,7 +147,8 @@ export default class PicnicForm extends Component {
       if (dt === list.dt_txt.split(" ")[0]) {
         obj.min = list.weather[0].description
         obj.main = list.weather[0].main
-        obj.temp = list.main.temp
+
+        obj.temp = (Math.round(((list.main.temp * 9/5) + 32)*100)/100)
         obj.wind = list.wind.speed
         obj.humidity = list.main.humidity
         obj.time = list.dt_txt.split(" ")[1]
@@ -191,135 +193,138 @@ export default class PicnicForm extends Component {
 
         <form className="picnicForm">
 
-          <SelectPark handleParkNameChange={this.handleParkNameChange}
-            parks={this.state.parks}
-            address={this.state.address}
-            parkDetails={this.state.parkDetails}
-            parkName={this.state.parkName} />
+          <div className="flexbox">
+            <div>
+              <SelectPark handleParkNameChange={this.handleParkNameChange}
+                parks={this.state.parks}
+                address={this.state.address}
+                parkDetails={this.state.parkDetails}
+                parkName={this.state.parkName} />
 
-
-
-          <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
-            type="date"
-            divClass="date"
-            defaultValue={new Date().toISOString().slice(0, 10)}
-            label="Picnic Date :" />
-          {/* <div>{this.getWeather()}</div> */}
-
-          <ShowWeather weatherObj={this.state.weatherObj} />
-
-          <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
-          <div className="TabContainer">
-            <Nav tabs>
-              <NavItem>
-                <NavLink
-                  className={classnames({ active: this.state.activeTab === '1' })}
-                  onClick={() => { this.toggle('1'); }}
-                >
-                  Games
+              <h5><Badge color="info" pill>Things To Pack in Your Picnic Basket</Badge></h5>
+              <div className="TabContainer">
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: this.state.activeTab === '1' })}
+                      onClick={() => { this.toggle('1'); }}
+                    >
+                      Games
             </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({ active: this.state.activeTab === '2' })}
-                  onClick={() => { this.toggle('2'); }}
-                >
-                  Necessary Items
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: this.state.activeTab === '2' })}
+                      onClick={() => { this.toggle('2'); }}
+                    >
+                      Necessary Items
             </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({ active: this.state.activeTab === '3' })}
-                  onClick={() => { this.toggle('3'); }}
-                >
-                  Food Items
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({ active: this.state.activeTab === '3' })}
+                      onClick={() => { this.toggle('3'); }}
+                    >
+                      Food Items
             </NavLink>
-              </NavItem>
-            </Nav>
+                  </NavItem>
+                </Nav>
 
-            <TabContent activeTab={this.state.activeTab}>
-              <TabPane tabId="1">
-                <div className="form-group">
-                  <div className="inlineAll">
-                    <label htmlFor="games">Select Games</label>
-                    <ModelNewObj createNewObject={this.props.createMyGame}
-                      buttonLabel="New Game"
-                      label="New Game : "
-                      createObjFn={CreateObject.MyGamesObj}
-                      list={this.props.myGames.filter(game =>
-                        game.userId === parseInt(sessionStorage.getItem("credentials"))
-                      ).map(game => game.gameName)}
-                    />
-                  </div>
-                  <div className="insideTab">
-                    {this.props.myGames
-                      .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
-                      .filter(game =>
-                        game.userId === parseInt(sessionStorage.getItem("credentials"))
-                      ).map(game => (
-                        <Checkbox key={game.id} id={game.id}
-                          displayName={game.gameName}
-                          checked={false}
-                          onChange={this.handleCheckBoxChangeGames} />
-                      ))}
-                  </div>
-                </div>
+                <TabContent activeTab={this.state.activeTab}>
+                  <TabPane tabId="1">
+                    <div className="form-group">
+                      <div className="inlineAll">
+                        <label htmlFor="games">Select Games</label>
+                        <ModelNewObj createNewObject={this.props.createMyGame}
+                          buttonLabel="New Game"
+                          label="New Game : "
+                          createObjFn={CreateObject.MyGamesObj}
+                          list={this.props.myGames.filter(game =>
+                            game.userId === parseInt(sessionStorage.getItem("credentials"))
+                          ).map(game => game.gameName)}
+                        />
+                      </div>
+                      <div className="insideTab">
+                        {this.props.myGames
+                          .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
+                          .filter(game =>
+                            game.userId === parseInt(sessionStorage.getItem("credentials"))
+                          ).map(game => (
+                            <Checkbox key={game.id} id={game.id}
+                              displayName={game.gameName}
+                              checked={false}
+                              onChange={this.handleCheckBoxChangeGames} />
+                          ))}
+                      </div>
+                    </div>
 
-              </TabPane>
-              <TabPane tabId="2">
+                  </TabPane>
+                  <TabPane tabId="2">
 
-                <div className="form-group">
-                  <div className="inlineAll">
-                    <label htmlFor="items">Select items -</label>
-                    <ModelNewObj createNewObject={this.props.createItemsList}
-                      buttonLabel=" New Item"
-                      label="Name of Item : "
-                      createObjFn={CreateObject.ItemListObj}
-                      list={this.props.itemList.map(item => item.itemName)}
-                    />
-                  </div>
-                  <div className="insideTab">
-                    {this.props.itemList
-                      .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
-                      .map(item => (
-                        <Checkbox key={item.id} id={item.id} displayName={item.itemName} checked={false}
-                          onChange={this.handleCheckBoxChangeItems} />
-                      ))}
-                  </div>
-                </div>
+                    <div className="form-group">
+                      <div className="inlineAll">
+                        <label htmlFor="items">Select items -</label>
+                        <ModelNewObj createNewObject={this.props.createItemsList}
+                          buttonLabel=" New Item"
+                          label="Name of Item : "
+                          createObjFn={CreateObject.ItemListObj}
+                          list={this.props.itemList.map(item => item.itemName)}
+                        />
+                      </div>
+                      <div className="insideTab">
+                        {this.props.itemList
+                          .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
+                          .map(item => (
+                            <Checkbox key={item.id} id={item.id} displayName={item.itemName} checked={false}
+                              onChange={this.handleCheckBoxChangeItems} />
+                          ))}
+                      </div>
+                    </div>
 
-              </TabPane>
-              <TabPane tabId="3">
+                  </TabPane>
+                  <TabPane tabId="3">
 
-                <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
-                  type="text"
-                  placeholder="Press Enter to add New "
-                  label="Food Items " />
+                    <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
+                      type="text"
+                      placeholder="Press Enter to add New "
+                      label="Food Items " />
 
-                {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
+                    {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
             value={this.state.selectedFoodItems} /> */}
 
-                {this.state.selectedFoodItems.map(foodItem =>
-                  <div key={foodItem} className="insideTab">
-                    <input type="checkbox"
-                      name={foodItem}
-                      id={foodItem}
-                      checked={true}
-                      onChange={this.handleCheckBoxChangeFoodItem} />
-                    <Label for={foodItem}>{foodItem}</Label>
-                  </div>
-                )}
+                    {this.state.selectedFoodItems.map(foodItem =>
+                      <div key={foodItem} className="insideTab">
+                        <input type="checkbox"
+                          name={foodItem}
+                          id={foodItem}
+                          checked={true}
+                          onChange={this.handleCheckBoxChangeFoodItem} />
+                        <Label for={foodItem}>{foodItem}</Label>
+                      </div>
+                    )}
 
-              </TabPane>
-            </TabContent>
-          </div>
-          <div>
-            {this.props.friendsList.map(friend =>
-              <Checkbox id={friend.friendId} key={friend.friendId}
-                displayName={friend.nickName} checked={false}
-                onChange={this.handleCheckBoxChangeFriends}
-              />
-            )}
+                  </TabPane>
+                </TabContent>
+              </div>
+            </div>
+            <div className="weatherDate splitRight">
+              <Input id="picnicDate" handleFieldChange={this.handleFieldChange}
+                type="date"
+                divClass="date"
+                defaultValue={new Date().toISOString().slice(0, 10)}
+                label=" Date :" />
+
+              <ShowWeather weatherObj={this.state.weatherObj} />
+            </div>
+
+            <div>
+              {this.props.friendsList.map(friend =>
+                <Checkbox id={friend.friendId} key={friend.friendId}
+                  displayName={friend.nickName} checked={false}
+                  onChange={this.handleCheckBoxChangeFriends}
+                />
+              )}
+            </div>
           </div>
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"

@@ -17,6 +17,7 @@
 }
 .titleBar{
     display: flex;
+    height: 40px;
 }
 .userName {
     font-family: "Times New Roman', Times, serif";
@@ -29,4 +30,7 @@
     font-weight: bolder;
     font-size:x-large;
     color:rebeccapurple;
+}
+.height{
+    height: 27px;
 }

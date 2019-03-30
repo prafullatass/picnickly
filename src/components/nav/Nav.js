@@ -28,11 +28,10 @@ class NavBar extends Component {
     render() {
         return (
             <div id="app" className="container">
-                <Nav className="titleBar" >
-                    <NavItem>
-                        <NavLink className="title" >
-                            <img src={logo} alt="" height="42" width="42"></img>
-                            Picknickly</NavLink>
+                <Nav className="titleBar ml-auto" >
+                    <NavItem className="title" >
+                        <img src={logo} alt="" height="42" width="42"></img>
+                        Picknickly
                     </NavItem>
                     <NavItem className="ml-auto userName">
 
@@ -47,7 +46,7 @@ class NavBar extends Component {
                     </button>
                     </NavItem>
                 </Nav>
-                <Navbar color="faded" light expand="md" style={{backgroundColor: "lightgreen"}}>
+                <Navbar color="faded height" light expand="md" style={{ backgroundColor: "lightgreen" }}>
                     <Nav color="light flexContainer" >
                         <NavItem>
                             <NavLink tag={Link} to="/">Picnics
