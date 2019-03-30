@@ -47,9 +47,16 @@ export default class PicnicForm extends Component {
   }
 
   componentDidMount() {
-    this.getWeather()
-    GetParkData().then(parks =>
-      this.setState({ parks: parks }))
+
+    this.getWeather().then(weatherdb =>{
+
+      GetParkData().then(parks => {
+        this.setState({ parks: parks,
+          weatherdb : weatherdb
+         },
+         ()=>this.checkWeather(new Date().toISOString().slice(0, 10)))
+      })
+    })
   }
 
   handleFieldChange = evt => {
@@ -157,9 +164,9 @@ export default class PicnicForm extends Component {
     return fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=37067&appid=${apiKey}&units=metric`)
       .then(r => r.json())
       .then(data => {
-        this.state.weatherdb = data
-        //this.setState({ weatherdb: data })
         console.log(data)
+        return data
+        //this.setState({ weatherdb: data })
       })
     {/* <div id="openweathermap-widget-15"></div>
 <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
