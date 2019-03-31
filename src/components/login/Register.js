@@ -40,6 +40,7 @@ export default class Register extends Component {
                     UserManager.POST(newUser)
                     .then(user => {
                         sessionStorage.setItem("credentials", parseInt(user.id))
+                        sessionStorage.setItem("inv", 0)
                         this.props.setAuth()
                     })
                 }

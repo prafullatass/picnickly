@@ -1,16 +1,15 @@
 import React, { Component } from "react"
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import Button from "../reusableComponents/Button";
 
-class ModelNewObj extends Component {
 
-
+class EditModal extends Component { 
     state = {
         modal: false,
-        new: ""
+        new: this.props.value
     };
 
     toggle = () => {
@@ -30,13 +29,13 @@ class ModelNewObj extends Component {
 
         const _this = this
         const capitalLetterItem = UsefulFn.CapitalizeFirstLetter(_this.state.newGame)
+        let obj = _this.props.createObjFn(
+            capitalLetterItem,
+            parseInt(sessionStorage.getItem("credentials"))
+        )
+        obj.id = this.props.id
         if (Validation.Duplicate(capitalLetterItem, _this.props.list) === false) {
-            _this.props.createNewObject(
-                _this.props.createObjFn(
-                    capitalLetterItem,
-                    parseInt(sessionStorage.getItem("credentials"))
-                )
-            )
+            _this.props.createNewObject(obj)
             _this.toggle()
         }
         _this.setState({
@@ -49,21 +48,24 @@ class ModelNewObj extends Component {
         const _this = this
         return (
             <div>
-                <Button caption={_this.props.buttonLabel} className="newButton CommonButton"
-                 onClick={this.toggle}></Button>
+                <Button caption="Edit" className="submitButton CommonButton"
+                    onClickFunction={this.toggle} />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Make Changes</ModalHeader>
                     <ModalBody>
                         <Input id="new" handleFieldChange={_this.handleFieldChange}
                             type="text"
                             label={_this.props.label}
                             autofocus={true}
+                            defaultValue={this.props.value}
                             ref="modelInput"
                         />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.newGame}>Add </Button>
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button caption="Update" className="submitButton CommonButton"
+                            onClickFunction={this.newGame} />
+                        <Button caption="Cancel" className="cancelButton CommonButton"
+                            onClickFunction={this.toggle} />
                     </ModalFooter>
                 </Modal>
             </div>
@@ -71,5 +73,4 @@ class ModelNewObj extends Component {
     }
 }
 
-
-export default ModelNewObj
+export default EditModal

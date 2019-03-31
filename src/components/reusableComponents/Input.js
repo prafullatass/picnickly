@@ -11,6 +11,7 @@ class Input extends Component {
                     defaultValue={this.props.defaultValue}
                     className = {this.props.className}
                     type={this.props.type}
+                    placeholder={this.props.placeholder}
                     name={this.props.id}
                     id={this.props.id}
                     autoFocus={this.props.autofocus}

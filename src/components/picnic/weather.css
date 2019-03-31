@@ -1,0 +1,30 @@
+.weather-img {
+    max-width: 70px;
+    height: 70px;
+}
+.flexbox{
+    display:flex;
+}
+.weather_card{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 250px;
+    width: 250px;
+    margin-left: 40px;
+    padding: 10px;
+}
+
+.temp {
+    font-weight: bold;
+    font-size: 35px;
+}
+.title{
+    font-weight: bold;
+    font-size: 20px;
+    color: blue;
+    text-align: center;
+}
+.details{
+    float:right;
+    margin-left: 5px;
+    height: 100%;
+}

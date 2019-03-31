@@ -16,6 +16,9 @@ import Friends from "./friends/friends";
 import FriendsManager from "../ResourceManager/FriendsManager";
 import UserManager from "../ResourceManager/userManager";
 import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
+import Items from "./smallComponents/items";
+import MyGames from "./smallComponents/myGames";
+import Invitataions from "./picnic/Invitataions";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -25,7 +28,8 @@ class ApplicationViews extends Component {
         itemList: [],
         myGames: [],
         friendsList: [],
-        users: []
+        users: [],
+        picnicFriends: []
     }
 
     componentDidMount() {
@@ -45,7 +49,8 @@ class ApplicationViews extends Component {
             .then(list => new_state.friendsList = this.makeFriendsList(list)))
         promises.push(UserManager.GETALL().then(
             users => new_state.users = users))
-
+        promises.push(PicnicFriendsManager.GETALL().then(
+            picnicFriends => new_state.picnicFriends = picnicFriends))
         //Object.assign addes two objects
         promises.push(this.setStateOfAll("yes").then(restObj =>
             Object.assign(new_state, restObj)))
@@ -110,6 +115,12 @@ class ApplicationViews extends Component {
     createPicnicFriend = (frndObj) => {
         return PicnicFriendsManager.POST(frndObj)
     }
+    createFriends = (frndObj) => {
+        return FriendsManager.POST(frndObj)
+            .then(() => FriendsManager.GETALL()
+                .then(friendsList => this.setState({ friendsList: friendsList })
+                ))
+    }
 
     updatePicnic = (picObj) => {
         return PicnicManager.PUT(picObj)
@@ -122,6 +133,18 @@ class ApplicationViews extends Component {
     }
     deleteFoodItems = (id) => {
         return FoodItemsManager.DELETE(id)
+    }
+    deleteItemList = (id) => {
+        return ItemsListManager.DELETE(id)
+            .then(() => ItemsListManager.GETALL()
+                .then(itemList => this.setState({ itemList: itemList })
+                ))
+    }
+    deleteMyGame = (id) => {
+        return MyGamesManger.DELETE(id)
+            .then(() => MyGamesManger.GETALL()
+                .then(myGames => this.setState({ myGames: myGames })
+                ))
     }
     patchGames = (obj) => {
         return GamesManager.PATCH(obj)
@@ -167,16 +190,58 @@ class ApplicationViews extends Component {
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
 
         Promise.all(promises).then(this.setStateOfAll)
-
     }
 
+    editMyGame = (obj) => {
+        return MyGamesManger.PUT(obj).then(() => {
+            MyGamesManger.GETALL().then(myGames =>
+                this.setState({
+                    myGames: myGames
+                })
+            )
+        })
+    }
 
+    editItemsList = (obj) => {
+        return ItemsListManager.PUT(obj).then(() => {
+            ItemsListManager.GETALL().then(itemList =>
+                this.setState({
+                    itemList: itemList
+                })
+            )
+        })
+    }
+
+    confirmFriendsPicnic = (id, picnicId) => {
+        PicnicManager.GET(parseInt(picnicId)).then(picnic => {
+            picnic.userId = parseInt(sessionStorage.getItem("credentials"))
+            delete picnic.id
+            PicnicManager.POST(picnic).then(() => {
+                PicnicFriendsManager.PATCH({
+                    id: parseInt(id),
+                    confirmed: true
+                }).then(() => {
+                    PicnicManager.GETALL().then(picnic =>
+                        PicnicFriendsManager.GETALL().then(picnicFriends =>
+                            {
+                                this.setState({
+                                    picnic: picnic,
+                                    picnicFriends: picnicFriends
+                                })
+                                this.props.CheckSpinner()
+                            })
+                    )
+                })
+            })
+        })
+    }
     render() {
         console.log("render -- ApplicationViews")
         console.log(this.state)
 
         return (
             <div className="coverImage">
+
                 <Route exact path="/" render={(props) => {
                     return <Picnic picnics={this.state.picnic}
                         cancelPicnic={this.cancelPicnic}
@@ -245,6 +310,35 @@ class ApplicationViews extends Component {
                 <Route exact path="/friends/New" render={(props) => {
                     return <Friends friendsList={this.state.friendsList}
                         users={this.state.users}
+                        createFriends={this.createFriends}
+                    />
+
+                }} />
+                <Route exact path="/items" render={(props) => {
+                    return <Items itemList={this.state.itemList}
+                        deleteItemList={this.deleteItemList}
+                        createItemsList={this.createItemsList}
+                        editItemsList={this.editItemsList}
+                        {...props}
+                    />
+                }} />
+                <Route exact path="/mygames" render={(props) => {
+                    return <MyGames myGames={this.state.myGames}
+                        deleteMyGame={this.deleteMyGame}
+                        createMyGame={this.createMyGame}
+                        editMyGame={this.editMyGame}
+                        {...props}
+                    />
+                }} />
+
+                <Route exact path="/invitations" render={(props) => {
+                    return <Invitataions picnicFriends={this.state.picnicFriends}
+                        users={this.state.users}
+                        picnic={this.state.picnic}
+                        confirmFriendsPicnic={this.confirmFriendsPicnic}
+                        createMyGame={this.createMyGame}
+                        editMyGame={this.editMyGame}
+                        {...props}
                     />
                 }} />
             </div>

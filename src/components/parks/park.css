@@ -10,15 +10,10 @@
 }
 
 .details {
-    height: 200px;
-    width : 200px;
+    height: 500px;
+    width : 400px;
     overflow: auto;
-    padding-left: 3px;
-    margin-right: 10px;
 }
-
-.rightFloat{
-    float : right;
-    display: flex;
-    flex-direction: column;
+.details_div{
+    margin-left: 47px;
 }

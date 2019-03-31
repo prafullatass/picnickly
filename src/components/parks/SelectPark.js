@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Row, Col } from 'reactstrap';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import TextArea from "../reusableComponents/TextArea";
 import "./park.css"
@@ -65,13 +65,14 @@ class SelectPark extends Component {
                     <Input id="parkName" type="text" value={this.props.parkName}
                         label="" className="name" disabled="disabled" />
                 </div>
-                <TextArea id="parkDetails" label="Park Details" value={this.props.parkDetails}
-                    className="details" divClass="rightFloat" disabled="disabled" />
 
 
                 <Input id="address" type="text" value={this.props.address}
                     label="Address : " divClass="address" disabled="disabled"
                     className = "addr" />
+
+                <TextArea id="parkDetails" label="Park Details :" value={this.props.parkDetails}
+                    className="details" divClass="details_div inlineAll"  disabled="disabled" />
 
             </div>
         )

@@ -5,7 +5,7 @@ class FriendList extends Component {
             <div>
                 <ul>
                     {this.props.friendsList.map(friend =>
-                        <li>{friend.nickName}{friend.pics}
+                        <li>{friend.pics} {friend.nickName}
                         </li>
                     )
                     }</ul>

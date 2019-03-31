@@ -61,6 +61,16 @@ const CreateObject = Object.create(null,
                     confirmed: confirmed
                 }
             }
+        },
+        friendsObj : {
+            value : function (userId, FriendId, nickName, pic) {
+                return {
+                    "userId": userId,
+                    "myFriendId": FriendId,
+                    "nickName": nickName,
+                    "pic": pic
+                }
+            }
         }
     }
 )
