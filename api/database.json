@@ -54,24 +54,6 @@
   ],
   "picnicFriends": [
     {
-      "id": 1,
-      "picnicId": 1,
-      "friendId": 1,
-      "confirmed": false
-    },
-    {
-      "picnicId": 13,
-      "friendId": 1,
-      "confirmed": false,
-      "id": 2
-    },
-    {
-      "picnicId": 4,
-      "friendId": 1,
-      "confirmed": false,
-      "id": 3
-    },
-    {
       "picnicId": 4,
       "friendId": 3,
       "confirmed": true,
@@ -88,16 +70,39 @@
       "friendId": 3,
       "confirmed": true,
       "id": 6
-    }
-  ],
-  "games": [
+    },
     {
       "picnicId": 2,
-      "myGameId": 12,
-      "packed": false,
-      "id": 4
+      "friendId": 3,
+      "confirmed": true,
+      "id": 7
+    },
+    {
+      "picnicId": 4,
+      "friendId": 3,
+      "confirmed": true,
+      "id": 8
+    },
+    {
+      "picnicId": 2,
+      "friendId": 3,
+      "confirmed": true,
+      "id": 9
+    },
+    {
+      "picnicId": 4,
+      "friendId": 3,
+      "confirmed": true,
+      "id": 10
+    },
+    {
+      "picnicId": 6,
+      "friendId": 3,
+      "confirmed": true,
+      "id": 11
     }
   ],
+  "games": [],
   "myGames": [
     {
       "id": 1,
@@ -170,102 +175,6 @@
       "id": 3
     },
     {
-      "picnicId": 2,
-      "itemListId": 1,
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 2,
-      "itemListId": 4,
-      "packed": false,
-      "id": 5
-    },
-    {
-      "picnicId": 2,
-      "itemListId": 6,
-      "packed": false,
-      "id": 6
-    },
-    {
-      "picnicId": 2,
-      "itemListId": 2,
-      "packed": false,
-      "id": 7
-    },
-    {
-      "picnicId": 2,
-      "itemListId": 3,
-      "packed": false,
-      "id": 8
-    },
-    {
-      "picnicId": 3,
-      "itemListId": 1,
-      "packed": true,
-      "id": 9
-    },
-    {
-      "picnicId": 3,
-      "itemListId": 5,
-      "packed": false,
-      "id": 10
-    },
-    {
-      "picnicId": 3,
-      "itemListId": 4,
-      "packed": false,
-      "id": 11
-    },
-    {
-      "picnicId": 3,
-      "itemListId": 2,
-      "packed": false,
-      "id": 12
-    },
-    {
-      "picnicId": 3,
-      "itemListId": 6,
-      "packed": false,
-      "id": 13
-    },
-    {
-      "picnicId": 4,
-      "itemListId": 1,
-      "packed": false,
-      "id": 14
-    },
-    {
-      "picnicId": 4,
-      "itemListId": 5,
-      "packed": false,
-      "id": 15
-    },
-    {
-      "picnicId": 4,
-      "itemListId": 4,
-      "packed": false,
-      "id": 16
-    },
-    {
-      "picnicId": 4,
-      "itemListId": 6,
-      "packed": false,
-      "id": 17
-    },
-    {
-      "picnicId": 5,
-      "itemListId": 4,
-      "packed": true,
-      "id": 18
-    },
-    {
-      "picnicId": 5,
-      "itemListId": 6,
-      "packed": true,
-      "id": 19
-    },
-    {
       "picnicId": 13,
       "itemListId": 5,
       "packed": false,
@@ -326,66 +235,6 @@
       "foodItemName": "Dounuts",
       "packed": false,
       "id": 2
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Sandwich",
-      "packed": false,
-      "id": 3
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Apples",
-      "packed": false,
-      "id": 4
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Coke",
-      "packed": false,
-      "id": 5
-    },
-    {
-      "picnicId": 2,
-      "foodItemName": "Chips",
-      "packed": false,
-      "id": 6
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "Sandwich",
-      "packed": false,
-      "id": 8
-    },
-    {
-      "picnicId": 3,
-      "foodItemName": "Chips",
-      "packed": false,
-      "id": 9
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Apple",
-      "packed": false,
-      "id": 10
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Chips",
-      "packed": false,
-      "id": 11
-    },
-    {
-      "picnicId": 4,
-      "foodItemName": "Sandwich",
-      "packed": false,
-      "id": 12
-    },
-    {
-      "picnicId": 5,
-      "foodItemName": "Test",
-      "packed": true,
-      "id": 13
     },
     {
       "picnicId": 13,

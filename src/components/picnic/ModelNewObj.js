@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
+import Button from "../reusableComponents/Button";
 
 class ModelNewObj extends Component {
 
@@ -48,7 +49,8 @@ class ModelNewObj extends Component {
         const _this = this
         return (
             <div>
-                <Button color="primary" size="sm" onClick={this.toggle}>{_this.props.buttonLabel}</Button>
+                <Button caption={_this.props.buttonLabel} className="newButton CommonButton"
+                 onClick={this.toggle}></Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>

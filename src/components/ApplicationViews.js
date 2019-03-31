@@ -223,10 +223,13 @@ class ApplicationViews extends Component {
                 }).then(() => {
                     PicnicManager.GETALL().then(picnic =>
                         PicnicFriendsManager.GETALL().then(picnicFriends =>
-                            this.setState({
-                                picnic: picnic,
-                                picnicFriends: picnicFriends
-                            }))
+                            {
+                                this.setState({
+                                    picnic: picnic,
+                                    picnicFriends: picnicFriends
+                                })
+                                this.props.CheckSpinner()
+                            })
                     )
                 })
             })

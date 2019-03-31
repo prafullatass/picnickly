@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Card, CardFooter, CardText } from "reactstrap"
+import { Table } from 'reactstrap';
 import Avatar from '@material-ui/core/Avatar';
 
 import Button from "../reusableComponents/Button";
@@ -15,32 +15,43 @@ class Friends extends Component {
     // }
 
     render() {
-        console.log(this.state)
-
         return (
             <div>
-                <ModelNewFriend users = {this.props.users}
-                friendsList={this.props.friendsList}
-                createFriends={this.props.createFriends} />
-                {this.props.friendsList.map(friend =>
-                    <Card body className="cardSize inlineAll"
-                        id={friend.friendId} key={friend.friendId}>
-                        <Avatar alt="Remy Sharp" src={friend.pic} />
-                        <CardText> {friend.nickName}{friend.pics}</CardText>
-                        <CardFooter>
-                            <Button
-                                className="footerButton CommonButton submitButton"
-                                onClickFunction={() => this.props.history.push(`/friends/${friend.friendId}/edit`)}
-                                caption="Edit"
-                            />
-                            <Button
-                                id={friend.friendId}
-                                className="footerButton CommonButton delButton"
-                                onClickFunction={this.deleteFriend}
-                                caption="Delete" />
-                        </CardFooter>
-                    </Card>
-                )}
+                <div className="Container">
+                    <div className="inlineAll center">
+                        <label htmlFor="items">Add new Friend </label>
+                        <ModelNewFriend users={this.props.users}
+                            friendsList={this.props.friendsList}
+                            createFriends={this.props.createFriends} />
+                    </div>
+                    <Table hover size="sm" style={{ backgroundColor: "white" }}>
+                        <tbody>
+                            {this.props.friendsList.map(friend =>
+                                <tr id={friend.friendId} key={friend.friendId}>
+                                    <td className="inlineAll">
+                                        <Avatar alt="My Friend" src={friend.pic} />
+                                        {friend.nickName}
+                                    </td>
+                                    <td>
+
+                                        <Button
+                                            className="footerButton CommonButton submitButton"
+                                            onClickFunction={() => this.props.history.push(`/friends/${friend.friendId}/edit`)}
+                                            caption="Edit"
+                                        />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            id={friend.friendId}
+                                            className="footerButton CommonButton delButton"
+                                            onClickFunction={this.deleteFriend}
+                                            caption="Delete" />
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </Table>
+                </div>
             </div >
         )
     }

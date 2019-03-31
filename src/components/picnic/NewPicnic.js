@@ -221,7 +221,7 @@ export default class PicnicForm extends Component {
                   <TabPane tabId="1">
                     <div className="form-group">
                       <div className="inlineAll">
-                        <label htmlFor="games">Select Games</label>
+
                         <ModelNewObj createNewObject={this.props.createMyGame}
                           buttonLabel="New Game"
                           label="New Game : "
@@ -250,7 +250,7 @@ export default class PicnicForm extends Component {
 
                     <div className="form-group">
                       <div className="inlineAll">
-                        <label htmlFor="items">Select items -</label>
+
                         <ModelNewObj createNewObject={this.props.createItemsList}
                           buttonLabel=" New Item"
                           label="Name of Item : "

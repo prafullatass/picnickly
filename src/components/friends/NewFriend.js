@@ -1,10 +1,11 @@
 import React, { Component } from "react"
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import ImageUploader from 'react-images-upload';
 import CreateObject from "../../Modules/CreateObject";
+import Button from "../reusableComponents/Button";
 
 
 class ModelNewFriend extends Component {
@@ -23,16 +24,16 @@ class ModelNewFriend extends Component {
         }));
     }
 
-    upload = (evt, value, src) => {
+    upload = (evt, value) => {
         this.setState({ pic: value })
     }
 
     handleFieldChange = (evt) => {
-        this.state.name = evt.target.value
+        this.setState({name : evt.target.value})
     }
 
     handleUsersChange = evt => {
-        this.state.friendId = evt.target.value
+        this.setState({friendId : evt.target.value})
     }
 
     addFriend = (evt) => {
@@ -67,7 +68,8 @@ class ModelNewFriend extends Component {
             .map(friend => friend.myFriendId)
         return (
             <div>
-                <Button color="primary" size="sm" onClick={this.toggle}>New Friend</Button>
+                <Button caption="New Friend" className="newButton CommonButton"
+                 onClick={this.toggle} />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>

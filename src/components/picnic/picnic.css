@@ -51,6 +51,9 @@
 .delButton{
     background-color: red;
 }
+.newButton{
+    background-color: darkgreen;
+}
 .footerButton{
     float :right;
     margin-left:  10px;
