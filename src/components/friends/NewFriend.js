@@ -24,7 +24,6 @@ class ModelNewFriend extends Component {
     }
 
     upload = (evt, value, src) => {
-
         this.setState({ pic: value })
     }
 
@@ -37,7 +36,6 @@ class ModelNewFriend extends Component {
     }
 
     addFriend = (evt) => {
-        debugger
         const _this = this
         console.log(_this.state)
         const capitalLetterItem = UsefulFn.CapitalizeFirstLetter(_this.state.name)

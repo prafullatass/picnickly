@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 import { Nav, NavItem, NavLink, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, Navbar } from 'reactstrap';
 import "./Nav.css"
 import logo from '../../picnic.jpg';
+import PicnicFriendsManager from "../../ResourceManager/PicnicFriendsManager";
+import { Spinner } from 'reactstrap';
+
+let inv = false
 class NavBar extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +16,16 @@ class NavBar extends Component {
             dropdownOpen: false
         };
     }
-
+componentDidMount () {
+    PicnicFriendsManager.GETALL()
+    .then(invitataions =>{
+      const anyinv = invitataions.find(inv => inv.friendId === parseInt(sessionStorage.getItem("credentials"))
+      && inv.confirmed === false)
+      if (anyinv !== undefined)
+        inv = true
+    }
+    )
+}
 
     toggle() {
         this.setState({
@@ -70,6 +83,11 @@ class NavBar extends Component {
                                 <DropdownItem tag={Link} to="/friends/New">Friends</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
+                        <NavItem>
+                            <NavLink tag={Link} to="/invitations">Invitations
+                                {inv ? <Spinner type="grow" color="light" /> : ""}
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Navbar>
             </div>

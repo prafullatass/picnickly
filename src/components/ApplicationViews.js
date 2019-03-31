@@ -18,6 +18,7 @@ import UserManager from "../ResourceManager/userManager";
 import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 import Items from "./smallComponents/items";
 import MyGames from "./smallComponents/myGames";
+import Invitataions from "./picnic/Invitataions";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -27,7 +28,8 @@ class ApplicationViews extends Component {
         itemList: [],
         myGames: [],
         friendsList: [],
-        users: []
+        users: [],
+        picnicFriends: []
     }
 
     componentDidMount() {
@@ -47,7 +49,8 @@ class ApplicationViews extends Component {
             .then(list => new_state.friendsList = this.makeFriendsList(list)))
         promises.push(UserManager.GETALL().then(
             users => new_state.users = users))
-
+        promises.push(PicnicFriendsManager.GETALL().then(
+            picnicFriends => new_state.picnicFriends = picnicFriends))
         //Object.assign addes two objects
         promises.push(this.setStateOfAll("yes").then(restObj =>
             Object.assign(new_state, restObj)))
@@ -112,12 +115,12 @@ class ApplicationViews extends Component {
     createPicnicFriend = (frndObj) => {
         return PicnicFriendsManager.POST(frndObj)
     }
-    createFriends =(frndObj) => {
+    createFriends = (frndObj) => {
         return FriendsManager.POST(frndObj)
             .then(() => FriendsManager.GETALL()
                 .then(friendsList => this.setState({ friendsList: friendsList })
                 ))
-        }
+    }
 
     updatePicnic = (picObj) => {
         return PicnicManager.PUT(picObj)
@@ -199,13 +202,34 @@ class ApplicationViews extends Component {
         })
     }
 
-    editItemsList =(obj) => {
+    editItemsList = (obj) => {
         return ItemsListManager.PUT(obj).then(() => {
             ItemsListManager.GETALL().then(itemList =>
                 this.setState({
                     itemList: itemList
                 })
             )
+        })
+    }
+
+    confirmFriendsPicnic = (id, picnicId) => {
+        PicnicManager.GET(parseInt(picnicId)).then(picnic => {
+            picnic.userId = parseInt(sessionStorage.getItem("credentials"))
+            delete picnic.id
+            PicnicManager.POST(picnic).then(() => {
+                PicnicFriendsManager.PATCH({
+                    id: parseInt(id),
+                    confirmed: true
+                }).then(() => {
+                    PicnicManager.GETALL().then(picnic =>
+                        PicnicFriendsManager.GETALL().then(picnicFriends =>
+                            this.setState({
+                                picnic: picnic,
+                                picnicFriends: picnicFriends
+                            }))
+                    )
+                })
+            })
         })
     }
     render() {
@@ -215,98 +239,108 @@ class ApplicationViews extends Component {
         return (
             <div className="coverImage">
 
-                    <Route exact path="/" render={(props) => {
-                        return <Picnic picnics={this.state.picnic}
-                            cancelPicnic={this.cancelPicnic}
-                            {...props}
-                        />
-                    }} />
-                    <Route exact path="/past" render={(props) => {
-                        return <HistoryPicnic picnics={this.state.picnic}
-                            cancelPicnic={this.cancelPicnic}
-                            {...props}
-                        />
-                    }} />
-                    <Route exact path="/new" render={(props) => {
-                        return <PicnicForm picnicData={this.state.picnic}
-                            myGames={this.state.myGames}
-                            games={this.state.games}
-                            itemList={this.state.itemList}
-                            items={this.state.items}
-                            createPicnic={this.createPicnic}
-                            createItems={this.createItems}
-                            createFoodItems={this.createFoodItems}
-                            createGames={this.createGames}
-                            setStateOfAll={this.setStateOfAll}
-                            createMyGame={this.createMyGame}
-                            createItemsList={this.createItemsList}
-                            friendsList={this.state.friendsList}
-                            users={this.state.users}
-                            createPicnicFriend={this.createPicnicFriend}
-                            {...props}
-                        />
-                    }} />
+                <Route exact path="/" render={(props) => {
+                    return <Picnic picnics={this.state.picnic}
+                        cancelPicnic={this.cancelPicnic}
+                        {...props}
+                    />
+                }} />
+                <Route exact path="/past" render={(props) => {
+                    return <HistoryPicnic picnics={this.state.picnic}
+                        cancelPicnic={this.cancelPicnic}
+                        {...props}
+                    />
+                }} />
+                <Route exact path="/new" render={(props) => {
+                    return <PicnicForm picnicData={this.state.picnic}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        createPicnic={this.createPicnic}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}
+                        setStateOfAll={this.setStateOfAll}
+                        createMyGame={this.createMyGame}
+                        createItemsList={this.createItemsList}
+                        friendsList={this.state.friendsList}
+                        users={this.state.users}
+                        createPicnicFriend={this.createPicnicFriend}
+                        {...props}
+                    />
+                }} />
 
-                    <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
-                        return <EditPicnic {...props}
-                            myGames={this.state.myGames}
-                            games={this.state.games}
-                            itemList={this.state.itemList}
-                            items={this.state.items}
-                            setStateOfAll={this.setStateOfAll}
-                            createMyGame={this.createMyGame}
-                            createItemsList={this.createItemsList}
-                            updatePicnic={this.updatePicnic}
-                            deleteItems={this.deleteItems}
-                            deleteFoodItems={this.deleteFoodItems}
-                            deleteGames={this.deleteGames}
-                            createItems={this.createItems}
-                            createFoodItems={this.createFoodItems}
-                            createGames={this.createGames}
-                            foodItems={this.state.foodItems} />
-                    }} />
+                <Route exact path="/picnics/:picnicId(\d+)/edit" render={(props) => {
+                    return <EditPicnic {...props}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        setStateOfAll={this.setStateOfAll}
+                        createMyGame={this.createMyGame}
+                        createItemsList={this.createItemsList}
+                        updatePicnic={this.updatePicnic}
+                        deleteItems={this.deleteItems}
+                        deleteFoodItems={this.deleteFoodItems}
+                        deleteGames={this.deleteGames}
+                        createItems={this.createItems}
+                        createFoodItems={this.createFoodItems}
+                        createGames={this.createGames}
+                        foodItems={this.state.foodItems} />
+                }} />
 
-                    <Route exact path="/picnics/:picnicId(\d+)/pack" render={(props) => {
-                        return <Pack {...props}
-                            myGames={this.state.myGames}
-                            games={this.state.games}
-                            itemList={this.state.itemList}
-                            items={this.state.items}
-                            foodItems={this.state.foodItems}
-                            patchGames={this.patchGames}
-                            patchItems={this.patchItems}
-                            patchFoodItems={this.patchFoodItems}
-                            setStateOfAll={this.setStateOfAll}
-                        />
-                    }} />
+                <Route exact path="/picnics/:picnicId(\d+)/pack" render={(props) => {
+                    return <Pack {...props}
+                        myGames={this.state.myGames}
+                        games={this.state.games}
+                        itemList={this.state.itemList}
+                        items={this.state.items}
+                        foodItems={this.state.foodItems}
+                        patchGames={this.patchGames}
+                        patchItems={this.patchItems}
+                        patchFoodItems={this.patchFoodItems}
+                        setStateOfAll={this.setStateOfAll}
+                    />
+                }} />
 
-                    <Route exact path="/friends/New" render={(props) => {
-                        return <Friends friendsList={this.state.friendsList}
-                            users={this.state.users}
-                            createFriends={this.createFriends}
-                        />
+                <Route exact path="/friends/New" render={(props) => {
+                    return <Friends friendsList={this.state.friendsList}
+                        users={this.state.users}
+                        createFriends={this.createFriends}
+                    />
 
-                    }} />
-                    <Route exact path="/items" render={(props) => {
-                        return <Items itemList={this.state.itemList}
-                            deleteItemList={this.deleteItemList}
-                            createItemsList={this.createItemsList}
-                            editItemsList={this.editItemsList}
-                            {...props}
-                        />
-                    }} />
-                    <Route exact path="/mygames" render={(props) => {
-                        return <MyGames myGames={this.state.myGames}
-                            deleteMyGame={this.deleteMyGame}
-                            createMyGame={this.createMyGame}
-                            editMyGame={this.editMyGame}
-                            {...props}
-                        />
-                    }} />
+                }} />
+                <Route exact path="/items" render={(props) => {
+                    return <Items itemList={this.state.itemList}
+                        deleteItemList={this.deleteItemList}
+                        createItemsList={this.createItemsList}
+                        editItemsList={this.editItemsList}
+                        {...props}
+                    />
+                }} />
+                <Route exact path="/mygames" render={(props) => {
+                    return <MyGames myGames={this.state.myGames}
+                        deleteMyGame={this.deleteMyGame}
+                        createMyGame={this.createMyGame}
+                        editMyGame={this.editMyGame}
+                        {...props}
+                    />
+                }} />
 
+                <Route exact path="/invitations" render={(props) => {
+                    return <Invitataions picnicFriends={this.state.picnicFriends}
+                        users={this.state.users}
+                        picnic={this.state.picnic}
+                        confirmFriendsPicnic={this.confirmFriendsPicnic}
+                        createMyGame={this.createMyGame}
+                        editMyGame={this.editMyGame}
+                        {...props}
+                    />
+                }} />
             </div>
-                )
-            }
-        }
+        )
+    }
+}
 
 export default ApplicationViews

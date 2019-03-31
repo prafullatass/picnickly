@@ -17,7 +17,7 @@ import classnames from 'classnames';
 import ShowWeather from "./ShowWeather";
 
 
-
+import Avatar from '@material-ui/core/Avatar';
 
 export default class PicnicForm extends Component {
   // Set initial state
@@ -47,9 +47,7 @@ export default class PicnicForm extends Component {
   }
 
   componentDidMount() {
-
     this.getWeather().then(weatherdb => {
-
       GetParkData().then(parks => {
         this.setState({
           parks: parks,
@@ -85,8 +83,8 @@ export default class PicnicForm extends Component {
     let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFoodItems, "yes")
     this.setState({ selectedFoodItems: NewArray })
   }
-  handleCheckBoxChangeFriends = (id) => {
-    let NewArray = UpdateArray.Update(id, this.state.selectedFriends)
+  handleCheckBoxChangeFriends = (event) => {
+    let NewArray = UpdateArray.Update(event.target.id, this.state.selectedFriends)
     this.setState({ selectedFriends: NewArray })
   }
   onKeyPressEvent = (event) => {
@@ -148,7 +146,7 @@ export default class PicnicForm extends Component {
         obj.min = list.weather[0].description
         obj.main = list.weather[0].main
 
-        obj.temp = (Math.round(((list.main.temp * 9/5) + 32)*100)/100)
+        obj.temp = (Math.round(((list.main.temp * 9 / 5) + 32) * 100) / 100)
         obj.wind = list.wind.speed
         obj.humidity = list.main.humidity
         obj.time = list.dt_txt.split(" ")[1]
@@ -308,14 +306,21 @@ export default class PicnicForm extends Component {
 
             <div >
               <h5>Invite Friends</h5>
-              {this.props.friendsList.map(friend =>
-                <Checkbox id={friend.friendId} key={friend.friendId}
-                  displayName={friend.nickName} checked={false}
-                  onChange={this.handleCheckBoxChangeFriends}
-                />
+              {this.props.friendsList.map((friend, idx) =>
+                <div key={idx} >
+                  <input type="checkbox"
+                    name={friend.nickName}
+                    id={friend.myFriendId}
+                    checked={this.state.checked}
+                    onChange={this.handleCheckBoxChangeFriends} />
+                  <Label for={friend.nickName} className="inlineAll" >
+                    <Avatar src={friend.pic} alt="friend pic" /> {}
+                    {friend.nickName}</Label>
+                </div>
               )}
             </div>
           </div>
+
           <div className="btnContainer">
             <Button caption="Submit" className="submitButton CommonButton"
               onClickFunction={this.SubmitForm} />

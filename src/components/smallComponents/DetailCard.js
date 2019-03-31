@@ -1,7 +1,7 @@
 import React from "react"
 import Button from "../reusableComponents/Button";
 import EditModal from "./EditModal";
-import CreateObject from "../../Modules/CreateObject";
+
 
 const DetailCard = ({ id, name, confirmDel, list, createObjFn, edit}) => {
     return (
