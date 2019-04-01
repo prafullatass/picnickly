@@ -270,7 +270,7 @@ class EditPicnic extends Component {
                                 </Nav>
 
                                 <TabContent activeTab={this.state.activeTab}>
-                                    <TabPane tabId="1">
+                                    <TabPane tabId="1"  className="insideTab">
 
                                         <div className="form-group">
                                             <div className="inlineAll">
@@ -284,7 +284,7 @@ class EditPicnic extends Component {
                                                     ).map(game => game.gameName)}
                                                 />
                                             </div>
-                                            <div className="insideTab">
+                                            <div>
                                                 {this.props.myGames.filter(game =>
                                                     game.userId === parseInt(sessionStorage.getItem("credentials")))
                                                     .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
@@ -303,7 +303,7 @@ class EditPicnic extends Component {
                                             </div>
                                         </div>
                                     </TabPane>
-                                    <TabPane tabId="2">
+                                    <TabPane tabId="2"  className="insideTab">
 
                                         <div className="form-group">
                                             <div className="inlineAll">
@@ -315,7 +315,6 @@ class EditPicnic extends Component {
                                                     list={this.props.itemList.map(item => item.itemName)}
                                                 />
                                             </div>
-                                            <div className="insideTab">
                                                 {this.props.itemList
                                                     .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
                                                     .map(item => (
@@ -328,11 +327,10 @@ class EditPicnic extends Component {
                                                             <Label for={item.itemName}>{item.itemName}</Label>
                                                         </div>
                                                     ))}
-                                            </div>
                                         </div>
 
                                     </TabPane>
-                                    <TabPane tabId="3">
+                                    <TabPane tabId="3"  className="insideTab">
 
                                         <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                                             type="text"
@@ -340,7 +338,7 @@ class EditPicnic extends Component {
                                             label="Food carrying :" />
 
                                         {this.state.selectedFoodItems.map(foodItem =>
-                                            <div key={foodItem} className="insideTab">
+                                            <div key={foodItem}>
                                                 <input type="checkbox"
                                                     name={foodItem}
                                                     id={foodItem}

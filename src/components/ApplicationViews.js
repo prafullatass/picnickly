@@ -279,6 +279,7 @@ class ApplicationViews extends Component {
                         friendsList={this.state.friendsList}
                         users={this.state.users}
                         createPicnicFriend={this.createPicnicFriend}
+                        createFriends={this.createFriends}
                         {...props}
                     />
                 }} />

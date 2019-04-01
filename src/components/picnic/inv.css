@@ -1,0 +1,17 @@
+.InvCard{
+    height: 300px;
+    width:600px;
+}
+.topAlign{
+    margin-top: 10px;
+}
+.invText {
+    color :black;
+    margin-left: 350px;
+    font-weight: bold;
+    background-color: skyblue;
+    text-align: center;
+}
+.title{
+    color :yellow;
+}

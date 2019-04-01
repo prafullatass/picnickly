@@ -1,7 +1,8 @@
 import React, { Component } from "react"
-import { Card, CardTitle, CardText, CardFooter } from "reactstrap"
+import { Card, CardTitle,  CardFooter, CardImg,CardImgOverlay } from "reactstrap"
 import Button from "../reusableComponents/Button";
 
+import "./inv.css"
 class Invitataions extends Component {
     getpicnic = (id) => {
         return this.props.picnic.find(picnic =>
@@ -17,6 +18,7 @@ class Invitataions extends Component {
         this.props.confirmFriendsPicnic(id, picnic.picnicId)
     }
 
+
     render() {
         return (
             <div className="Container">
@@ -24,12 +26,20 @@ class Invitataions extends Component {
                     picnicFriend.friendId === parseInt(sessionStorage.getItem("credentials"))
                     && picnicFriend.confirmed === false)
                     .map(picnicFriend =>
-                        <Card body inverse color="info" className="cardSize"
+                        <Card  inverse className="InvCard topAlign"
                             id={picnicFriend.id} key={picnicFriend.id}>
-                            <CardTitle> {this.props.users.find(user =>
-                                user.id === this.getpicnic(picnicFriend.picnicId).userId).firstName} calling for picnic </CardTitle>
-                            <CardText> At {this.getpicnic(picnicFriend.picnicId).parkName}</CardText>
-                            <CardText>On : {this.getpicnic(picnicFriend.picnicId).picnicDate}</CardText>
+                            <CardImg className="InvCard"
+                            src ="http://static.yoovite.com/images/events/thumb/picnic2_thumb.jpg"></CardImg>
+                            <CardImgOverlay>
+                            <CardTitle className = "invText"> <span className = "title"> Picnic in Park </span><br/>
+                            Host <br/>
+                                 {this.props.users.find(user =>
+                                user.id === this.getpicnic(picnicFriend.picnicId).userId).firstName}
+                            <br/>Where <br/>At {this.getpicnic(picnicFriend.picnicId).parkName}
+                                    <br/> {this.getpicnic(picnicFriend.picnicId).address}
+                            <br/>When <br/>{this.getpicnic(picnicFriend.picnicId).picnicDate}
+                            </CardTitle>
+                            </CardImgOverlay>
                             <CardFooter>
                                 <Button
                                     className="footerButton CommonButton submitButton"
