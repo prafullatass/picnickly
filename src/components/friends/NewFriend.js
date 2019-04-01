@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
@@ -18,7 +18,8 @@ class ModelNewFriend extends Component {
         friendId: ""
     };
 
-    toggle = () => {
+    toggle = (e) => {
+        e.preventDefault()
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
@@ -29,11 +30,16 @@ class ModelNewFriend extends Component {
     }
 
     handleFieldChange = (evt) => {
-        this.setState({name : evt.target.value})
+        this.setState({ name: evt.target.value })
     }
 
     handleUsersChange = evt => {
-        this.setState({friendId : evt.target.value})
+        //console.log(evt.target.selectedOptions[0].text.split(" ")[0])
+
+        this.setState({
+            friendId: evt.target.value,
+            name: evt.target.selectedOptions[0].text.split(" ")[0]
+        })
     }
 
     addFriend = (evt) => {
@@ -53,7 +59,7 @@ class ModelNewFriend extends Component {
                 )
             )
 
-            _this.toggle()
+            _this.toggle(evt)
         }
         _this.setState({
             name: ""
@@ -63,13 +69,14 @@ class ModelNewFriend extends Component {
 
     render() {
         const _this = this
-        const frndList = this.props.friendsList
+        let frndList = this.props.friendsList
             .filter(friend => friend.userId === parseInt(sessionStorage.getItem("credentials")))
             .map(friend => friend.myFriendId)
+
         return (
             <div>
                 <Button caption="New Friend" className="newButton CommonButton"
-                 onClick={this.toggle} />
+                    onClickFunction={this.toggle} />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>
@@ -80,6 +87,7 @@ class ModelNewFriend extends Component {
                             onChange={this.handleUsersChange} >
                             <option value="">Select Friends</option>
                             {this.props.users.filter(user => !frndList.includes(user.id))
+                                .filter(user => user.id !== parseInt(sessionStorage.getItem("credentials")))
                                 .map(e => (
                                     <option key={e.id} id={e.id} value={e.id}>
                                         {e.firstName} {e.lastName}
@@ -91,6 +99,7 @@ class ModelNewFriend extends Component {
                             label="Nick Name"
                             autofocus={true}
                             ref="modelInput"
+                            value={this.state.name}
                         />
                         <ImageUploader style={{ maxWidth: '500px', margin: "20px auto" }}
                             withPreview={true}
@@ -101,8 +110,10 @@ class ModelNewFriend extends Component {
                             onChange={this.upload} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.addFriend}>Add </Button>
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button caption="Add" className="submitButton CommonButton"
+                            onClickFunction={this.addFriend}> </Button>
+                        <Button caption="Cancel" className="cancelButton CommonButton"
+                            onClickFunction={this.toggle}></Button>
                     </ModalFooter>
                 </Modal>
             </div>

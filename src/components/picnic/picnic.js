@@ -1,12 +1,12 @@
 import React, { Component } from "react"
-import { Card,  CardTitle, CardText, CardFooter } from "reactstrap"
+import { Card, CardTitle, CardText, CardFooter } from "reactstrap"
 import "./picnic.css"
 import Button from "../reusableComponents/Button";
 
 class Picnic extends Component {
     confirmCancelPicnic = (evt) => {
-        window.confirm("Cancel the Picnic ? ")
-        this.props.cancelPicnic(parseInt(evt.target.id))
+        if (window.confirm("Cancel the Picnic ? "))
+            this.props.cancelPicnic(parseInt(evt.target.id))
     }
 
     render() {
@@ -15,9 +15,9 @@ class Picnic extends Component {
         return (
             <div className="Container">
                 {this.props.picnics.filter(picnic =>
-                picnic.userId === parseInt(sessionStorage.getItem("credentials")))
-                .filter(picnic =>
-                    new Date((picnic.picnicDate).replace("-", "/").replace("-", "/")) >= dt)
+                    picnic.userId === parseInt(sessionStorage.getItem("credentials")))
+                    .filter(picnic =>
+                        new Date((picnic.picnicDate).replace("-", "/").replace("-", "/")) >= dt)
                     .sort((a, b) => new Date(a.picnicDate) < new Date(b.picnicDate) ? -1 : 1)
                     .map(picnic =>
                         <Card body inverse color="info" className="cardSize"
@@ -34,11 +34,11 @@ class Picnic extends Component {
                                     id={picnic.id}
                                     className="footerButton CommonButton delButton"
                                     onClickFunction={this.confirmCancelPicnic}
-                                    caption = "Cancel" />
+                                    caption="Cancel" />
                                 <Button
                                     className="footerButton CommonButton packButton"
                                     onClickFunction={() => this.props.history.push(`/picnics/${picnic.id}/pack`)}
-                                    caption = "Start Packing" />
+                                    caption="Start Packing" />
                             </CardFooter>
                         </Card>
                     )}

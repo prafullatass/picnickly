@@ -146,6 +146,12 @@ class ApplicationViews extends Component {
                 .then(myGames => this.setState({ myGames: myGames })
                 ))
     }
+    deleteFriend = (id) => {
+        return FriendsManager.DELETE(id)
+            .then(() => FriendsManager.GETALL()
+                .then(friendsList => this.setState({ friendsList: friendsList })
+                ))
+    }
     patchGames = (obj) => {
         return GamesManager.PATCH(obj)
     }
@@ -235,6 +241,9 @@ class ApplicationViews extends Component {
             })
         })
     }
+
+
+
     render() {
         console.log("render -- ApplicationViews")
         console.log(this.state)
@@ -270,6 +279,7 @@ class ApplicationViews extends Component {
                         friendsList={this.state.friendsList}
                         users={this.state.users}
                         createPicnicFriend={this.createPicnicFriend}
+                        createFriends={this.createFriends}
                         {...props}
                     />
                 }} />
@@ -311,6 +321,7 @@ class ApplicationViews extends Component {
                     return <Friends friendsList={this.state.friendsList}
                         users={this.state.users}
                         createFriends={this.createFriends}
+                        deleteFriend={this.deleteFriend}
                     />
 
                 }} />

@@ -9,10 +9,10 @@ import "../picnic/picnic.css"
 
 class Friends extends Component {
 
-    // deleteFriend=()=>{
-    //     if(window.confirm("No more friend Now ?"))
-    //         this.props.deleteFriend()
-    // }
+    deleteFriend=(evt)=>{
+        if(window.confirm("No more friend Now ?"))
+            this.props.deleteFriend(evt.target.id)
+    }
 
     render() {
         return (
@@ -33,7 +33,6 @@ class Friends extends Component {
                                         {friend.nickName}
                                     </td>
                                     <td>
-
                                         <Button
                                             className="footerButton CommonButton submitButton"
                                             onClickFunction={() => this.props.history.push(`/friends/${friend.friendId}/edit`)}
@@ -42,7 +41,7 @@ class Friends extends Component {
                                     </td>
                                     <td>
                                         <Button
-                                            id={friend.friendId}
+                                            id={friend.id}
                                             className="footerButton CommonButton delButton"
                                             onClickFunction={this.deleteFriend}
                                             caption="Delete" />

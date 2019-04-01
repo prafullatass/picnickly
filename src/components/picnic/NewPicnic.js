@@ -18,6 +18,7 @@ import ShowWeather from "./ShowWeather";
 
 
 import Avatar from '@material-ui/core/Avatar';
+import ModelNewFriend from "../friends/NewFriend";
 
 export default class PicnicForm extends Component {
   // Set initial state
@@ -161,7 +162,7 @@ export default class PicnicForm extends Component {
   getWeather = () => {
     const apiKey = "6366b782dabe1c695249056623afcb2a"
 
-    return fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=37067&appid=${apiKey}&units=metric`)
+    return fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=37201&appid=${apiKey}&units=metric`)
       .then(r => r.json())
       .then(data => {
         console.log(data)
@@ -218,7 +219,7 @@ export default class PicnicForm extends Component {
                 </Nav>
 
                 <TabContent activeTab={this.state.activeTab}>
-                  <TabPane tabId="1">
+                  <TabPane tabId="1"  className="insideTab">
                     <div className="form-group">
                       <div className="inlineAll">
 
@@ -231,7 +232,7 @@ export default class PicnicForm extends Component {
                           ).map(game => game.gameName)}
                         />
                       </div>
-                      <div className="insideTab">
+                      <div>
                         {this.props.myGames
                           .sort((a, b) => (a.gameName < b.gameName) ? -1 : 1)
                           .filter(game =>
@@ -246,19 +247,19 @@ export default class PicnicForm extends Component {
                     </div>
 
                   </TabPane>
-                  <TabPane tabId="2">
+                  <TabPane tabId="2"  className="insideTab">
 
                     <div className="form-group">
                       <div className="inlineAll">
 
                         <ModelNewObj createNewObject={this.props.createItemsList}
-                          buttonLabel=" New Item"
+                          buttonLabel=" New Item "
                           label="Name of Item : "
                           createObjFn={CreateObject.ItemListObj}
                           list={this.props.itemList.map(item => item.itemName)}
                         />
                       </div>
-                      <div className="insideTab">
+                      <div>
                         {this.props.itemList
                           .sort((a, b) => (a.itemName < b.itemName) ? -1 : 1)
                           .map(item => (
@@ -269,18 +270,18 @@ export default class PicnicForm extends Component {
                     </div>
 
                   </TabPane>
-                  <TabPane tabId="3">
+                  <TabPane tabId="3"  className="insideTab">
 
                     <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                       type="text"
-                      placeholder="Press Enter to add New "
+                      placeholder="Press Enter to add "
                       label="Food Items " />
 
                     {/* <Input id="selectedFoodItems" type="text" label="List of Food :"
             value={this.state.selectedFoodItems} /> */}
 
                     {this.state.selectedFoodItems.map(foodItem =>
-                      <div key={foodItem} className="insideTab">
+                      <div key={foodItem}>
                         <input type="checkbox"
                           name={foodItem}
                           id={foodItem}
@@ -304,9 +305,16 @@ export default class PicnicForm extends Component {
               <ShowWeather weatherObj={this.state.weatherObj} />
             </div>
 
-            <div >
-              <h5>Invite Friends</h5>
-              {this.props.friendsList.map((friend, idx) =>
+            <div className="friendsDiv">
+              <h5 className="centerText">Invite Friends</h5>
+              <div className="centerText">
+                <ModelNewFriend users={this.props.users}
+                  friendsList={this.props.friendsList}
+                  createFriends={this.props.createFriends} />
+              </div>
+              {this.props.friendsList.filter(friend =>
+              friend.userId === parseInt(sessionStorage.getItem("credentials")))
+              .map((friend, idx) =>
                 <div key={idx} >
                   <input type="checkbox"
                     name={friend.nickName}

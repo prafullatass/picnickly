@@ -1,33 +1,31 @@
 import React, { Component } from "react"
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Input from "../reusableComponents/Input";
 import UsefulFn from "../../Modules/UsalfulFn";
 import Validation from "../../Modules/Validation";
 import Button from "../reusableComponents/Button";
 
 class ModelNewObj extends Component {
-
-
     state = {
         modal: false,
         new: ""
     };
 
-    toggle = () => {
+    toggle = (e) => {
+        e.preventDefault();
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
     }
     handleFieldChange = (evt) => {
         const _this = this
-
         _this.setState({
             newGame: evt.target.value
         })
     }
 
-    newGame = (evt) => {
-
+    newGame = (e) => {
+        e.preventDefault();
         const _this = this
         const capitalLetterItem = UsefulFn.CapitalizeFirstLetter(_this.state.newGame)
         if (Validation.Duplicate(capitalLetterItem, _this.props.list) === false) {
@@ -37,7 +35,7 @@ class ModelNewObj extends Component {
                     parseInt(sessionStorage.getItem("credentials"))
                 )
             )
-            _this.toggle()
+            _this.toggle(e)
         }
         _this.setState({
             newGame: ""
@@ -50,7 +48,7 @@ class ModelNewObj extends Component {
         return (
             <div>
                 <Button caption={_this.props.buttonLabel} className="newButton CommonButton"
-                 onClick={this.toggle}></Button>
+                    onClickFunction={this.toggle} />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>
@@ -62,8 +60,10 @@ class ModelNewObj extends Component {
                         />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.newGame}>Add </Button>
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button caption="Add" className="submitButton CommonButton"
+                         onClickFunction={this.newGame} />
+                        <Button caption="Cancel" className="cancelButton CommonButton"
+                         onClickFunction={this.toggle} />
                     </ModalFooter>
                 </Modal>
             </div>
