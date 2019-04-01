@@ -252,7 +252,7 @@ export default class PicnicForm extends Component {
                       <div className="inlineAll">
 
                         <ModelNewObj createNewObject={this.props.createItemsList}
-                          buttonLabel=" New Item"
+                          buttonLabel=" New Item "
                           label="Name of Item : "
                           createObjFn={CreateObject.ItemListObj}
                           list={this.props.itemList.map(item => item.itemName)}

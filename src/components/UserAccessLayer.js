@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-//import Nav from "./nav/Nav"
 import ApplicationViews from "./ApplicationViews"
 import UserManager from "../ResourceManager/userManager";
 import NavBar from "./nav/Nav";

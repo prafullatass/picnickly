@@ -69,7 +69,7 @@ class ModelNewFriend extends Component {
         return (
             <div>
                 <Button caption="New Friend" className="newButton CommonButton"
-                 onClick={this.toggle} />
+                 onClickFunction={this.toggle} />
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>{this.props.label}</ModalHeader>
                     <ModalBody>
@@ -101,8 +101,10 @@ class ModelNewFriend extends Component {
                             onChange={this.upload} />
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.addFriend}>Add </Button>
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button caption="Add" className="submitButton CommonButton"
+                         onClickFunction={this.addFriend}> </Button>
+                        <Button caption="Cancel" className="cancelButton CommonButton"
+                         onClickFunction={this.toggle}></Button>
                     </ModalFooter>
                 </Modal>
             </div>
