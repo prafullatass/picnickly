@@ -29,7 +29,7 @@ class Items extends Component {
                 <tbody>
                     {this.props.itemList
                         .map(item =>
-                            <DetailCard id={item.id}
+                            <DetailCard id={item.id} key={item.id}
                                 name={item.itemName}
                                 confirmDel={this.confirmDel}
                                 createObjFn={CreateObject.ItemListObj}

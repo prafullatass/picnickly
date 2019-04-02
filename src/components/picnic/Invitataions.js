@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Card, CardTitle,  CardFooter, CardImg,CardImgOverlay } from "reactstrap"
+import { Card, CardTitle, CardImg, CardImgOverlay } from "reactstrap"
 import Button from "../reusableComponents/Button";
 
 import "./inv.css"
@@ -18,7 +18,6 @@ class Invitataions extends Component {
         this.props.confirmFriendsPicnic(id, picnic.picnicId)
     }
 
-
     render() {
         return (
             <div className="Container">
@@ -26,24 +25,23 @@ class Invitataions extends Component {
                     picnicFriend.friendId === parseInt(sessionStorage.getItem("credentials"))
                     && picnicFriend.confirmed === false)
                     .map(picnicFriend =>
-                        <Card  inverse className="InvCard topAlign"
+                        <Card inverse className="InvCard topAlign"
                             id={picnicFriend.id} key={picnicFriend.id}>
                             <CardImg className="InvCard"
-                            src ="http://static.yoovite.com/images/events/thumb/picnic2_thumb.jpg"></CardImg>
+                                src="http://static.yoovite.com/images/events/thumb/picnic2_thumb.jpg"></CardImg>
                             <CardImgOverlay>
-                            <CardTitle className = "invText"> <span className = "title"> Picnic in Park </span><br/>
-                            Host <br/>
-                                 {this.props.users.find(user =>
-                                user.id === this.getpicnic(picnicFriend.picnicId).userId).firstName}
-                            <br/>Where <br/>At {this.getpicnic(picnicFriend.picnicId).parkName}
-                                    <br/> {this.getpicnic(picnicFriend.picnicId).address}
-                            <br/>When <br/>{this.getpicnic(picnicFriend.picnicId).picnicDate}
-                            </CardTitle>
-                            </CardImgOverlay>
-                            <CardFooter>
+                                <CardTitle className="invText"> <span className="title"> Picnic in the Park </span><br />
+                                    From <br />
+                                    {this.props.users.find(user =>
+                                        user.id === this.getpicnic(picnicFriend.picnicId).userId).firstName}
+                                    <br />Where <br />At {this.getpicnic(picnicFriend.picnicId).parkName}
+                                    <br /> {this.getpicnic(picnicFriend.picnicId).address}
+                                    <br />When <br />{this.getpicnic(picnicFriend.picnicId).picnicDate}
+                                </CardTitle>
+
                                 <Button
                                     className="footerButton CommonButton submitButton"
-                                    caption="Confirmed"
+                                    caption="Confirm"
                                     id={picnicFriend.id}
                                     onClickFunction={this.getid}
                                 />
@@ -53,7 +51,7 @@ class Invitataions extends Component {
                                     onClickFunction={this.props.confirmCancelPicnic}
                                     caption="Cancel" />
 
-                            </CardFooter>
+                            </CardImgOverlay>
                         </Card>
                     )}
             </div>

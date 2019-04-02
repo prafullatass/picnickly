@@ -59,14 +59,12 @@ export default class Register extends Component {
         <Col>
             <FormGroup>
               <Label>First Name</Label>
-
                 <input
                     onChange={this.handleFieldChange}
                     type="firstName"
                     id="firstName"
                     placeholder={` First Name `}
                     required=""
-                    autoFocus="true"
                 />
             {/* <label htmlFor="inputPassword">Password</label> */}
             </FormGroup>

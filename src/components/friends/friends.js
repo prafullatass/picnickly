@@ -26,16 +26,16 @@ class Friends extends Component {
                     </div>
                     <Table hover size="sm" style={{ backgroundColor: "white" }}>
                         <tbody>
-                            {this.props.friendsList.map(friend =>
-                                <tr id={friend.friendId} key={friend.friendId}>
+                            {this.props.friendsList.map((friend,idx) =>
+                                <tr id={friend.friendId} key={idx}>
                                     <td className="inlineAll">
-                                        <Avatar alt="My Friend" src={friend.pic} />
+                                        <Avatar alt="My Friend" src={friend.pic[0]} />
                                         {friend.nickName}
                                     </td>
                                     <td>
                                         <Button
                                             className="footerButton CommonButton submitButton"
-                                            onClickFunction={() => this.props.history.push(`/friends/${friend.friendId}/edit`)}
+                                            //onClickFunction={() => this.props.history.push(`/friends/${friend.friendId}/edit`)}
                                             caption="Edit"
                                         />
                                     </td>

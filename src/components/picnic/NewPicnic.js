@@ -219,7 +219,7 @@ export default class PicnicForm extends Component {
                 </Nav>
 
                 <TabContent activeTab={this.state.activeTab}>
-                  <TabPane tabId="1"  className="insideTab">
+                  <TabPane tabId="1" className="insideTab">
                     <div className="form-group">
                       <div className="inlineAll">
 
@@ -247,7 +247,7 @@ export default class PicnicForm extends Component {
                     </div>
 
                   </TabPane>
-                  <TabPane tabId="2"  className="insideTab">
+                  <TabPane tabId="2" className="insideTab">
 
                     <div className="form-group">
                       <div className="inlineAll">
@@ -270,7 +270,7 @@ export default class PicnicForm extends Component {
                     </div>
 
                   </TabPane>
-                  <TabPane tabId="3"  className="insideTab">
+                  <TabPane tabId="3" className="insideTab">
 
                     <Input id="foodItem" onKeyPressEvent={this.onKeyPressEvent}
                       type="text"
@@ -307,25 +307,26 @@ export default class PicnicForm extends Component {
 
             <div className="friendsDiv">
               <h5 className="centerText">Invite Friends</h5>
+              <hr/>
               <div className="centerText">
                 <ModelNewFriend users={this.props.users}
                   friendsList={this.props.friendsList}
                   createFriends={this.props.createFriends} />
               </div>
               {this.props.friendsList.filter(friend =>
-              friend.userId === parseInt(sessionStorage.getItem("credentials")))
-              .map((friend, idx) =>
-                <div key={idx} >
-                  <input type="checkbox"
-                    name={friend.nickName}
-                    id={friend.myFriendId}
-                    checked={this.state.checked}
-                    onChange={this.handleCheckBoxChangeFriends} />
-                  <Label for={friend.nickName} className="inlineAll" >
-                    <Avatar src={friend.pic} alt="friend pic" /> {}
-                    {friend.nickName}</Label>
-                </div>
-              )}
+                friend.userId === parseInt(sessionStorage.getItem("credentials")))
+                .map((friend, idx) =>
+                  <div key={idx}>
+                    <input type="checkbox"
+                      name={friend.nickName}
+                      id={friend.myFriendId}
+                      checked={this.state.checked}
+                      onChange={this.handleCheckBoxChangeFriends} />
+                    <Label for={friend.nickName}  className="inlineAll" >
+                    <Avatar src={friend.pic[0]} alt="friend pic" />
+                      {friend.nickName}</Label>
+                  </div>
+                )}
             </div>
           </div>
 

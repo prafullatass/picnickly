@@ -29,7 +29,7 @@ class MyGames extends Component {
                 {this.props.myGames
                     .filter(game => game.userId === parseInt(sessionStorage.getItem("credentials")))
                     .map(myGame =>
-                        <DetailCard id={myGame.id}
+                        <DetailCard id={myGame.id} key={myGame.id}
                             name={myGame.gameName}
                             confirmDel={this.confirmDel}
                             createObjFn={CreateObject.MyGamesObj}
