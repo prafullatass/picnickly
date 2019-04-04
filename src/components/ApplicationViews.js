@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import Picnic from "./picnic/picnic";
-import GamesManager from "../ResourceManager/GamesManager";
 import FoodItemsManager from "../ResourceManager/FoodItemsManager";
+import GamesManager from "../ResourceManager/GamesManager";
 import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
