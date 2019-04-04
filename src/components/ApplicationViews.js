@@ -3,7 +3,6 @@ import { Route } from "react-router-dom"
 import Picnic from "./picnic/picnic";
 import PicnicsManager from "../ResourceManager/PicnicsManager";
 import FoodItemsManager from "../ResourceManager/FoodItemsManager";
-import GamesManager from "../ResourceManager/GamesManager";
 import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
@@ -19,6 +18,7 @@ import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 import Items from "./smallComponents/items";
 import MyGames from "./smallComponents/myGames";
 import Invitataions from "./picnic/Invitataions";
+import GamesManager from "../ResourceManager/GamesManager";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
