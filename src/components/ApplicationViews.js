@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import Picnic from "./picnic/picnic";
+import PicnicsManager from "../ResourceManager/PicnicsManager";
 import FoodItemsManager from "../ResourceManager/FoodItemsManager";
 import GamesManager from "../ResourceManager/GamesManager";
 import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
-import PicnicsManager from "../ResourceManager/PicnicsManager";
 import PicnicForm from "./picnic/NewPicnic";
 import EditPicnic from "./picnic/EditPicnic";
 import Pack from "./picnic/Pack";
