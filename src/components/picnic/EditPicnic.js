@@ -5,7 +5,7 @@ import Input from "../reusableComponents/Input";
 import ModelNewObj from "./ModelNewObj";
 import CreateObject from "../../Modules/CreateObject";
 import Button from "../reusableComponents/Button";
-import PicnicManager from "../../ResourceManager/PicnicManager";
+import PicnicsManager from "../../ResourceManager/PicnicsManager";
 import GamesManager from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
@@ -55,7 +55,7 @@ class EditPicnic extends Component {
             fetchedObj.weatherdb = weatherdb
             GetParkData().then(parks => {
                 fetchedObj.parks = parks
-                promises.push(PicnicManager.GET(this.props.match.params.picnicId)
+                promises.push(PicnicsManager.GET(this.props.match.params.picnicId)
                     .then(picnicData => {
                         fetchedObj.parkName = picnicData.parkName
                         fetchedObj.address = picnicData.address

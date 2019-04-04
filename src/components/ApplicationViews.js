@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
-import PicnicManager from "../ResourceManager/PicnicManager";
 import Picnic from "./picnic/picnic";
 import GamesManager from "../ResourceManager/GamesManager";
 import FoodItemsManager from "../ResourceManager/FoodItemsManager";
 import ItemsManager from "../ResourceManager/ItemsManager";
 import MyGamesManger from "../ResourceManager/MyGamesManager";
 import ItemsListManager from "../ResourceManager/ItemListManager";
+import PicnicsManager from "../ResourceManager/PicnicsManager";
 import PicnicForm from "./picnic/NewPicnic";
 import EditPicnic from "./picnic/EditPicnic";
 import Pack from "./picnic/Pack";
@@ -66,7 +66,7 @@ class ApplicationViews extends Component {
         let new_state = {}
 
         promises.push(
-            PicnicManager.GETALL().then(picnicData =>
+            PicnicsManager.GETALL().then(picnicData =>
                 new_state.picnic = picnicData
             )
         )
@@ -100,7 +100,7 @@ class ApplicationViews extends Component {
     }
 
     createPicnic = (picObj) => {
-        return PicnicManager.POST(picObj)
+        return PicnicsManager.POST(picObj)
             .then(res => sessionStorage.setItem("picnic", res.id))
     }
     createGames = (gamesObj) => {
@@ -123,7 +123,7 @@ class ApplicationViews extends Component {
     }
 
     updatePicnic = (picObj) => {
-        return PicnicManager.PUT(picObj)
+        return PicnicsManager.PUT(picObj)
     }
     deleteGames = (id) => {
         return GamesManager.DELETE(id)
@@ -190,7 +190,7 @@ class ApplicationViews extends Component {
     cancelPicnic = (id) => {
         let promises = []
 
-        promises.push(PicnicManager.DELETE(id))
+        promises.push(PicnicsManager.DELETE(id))
         promises.push(this.multipleDel(id, "games", GamesManager))
         promises.push(this.multipleDel(id, "items", ItemsManager))
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
@@ -219,15 +219,15 @@ class ApplicationViews extends Component {
     }
 
     confirmFriendsPicnic = (id, picnicId) => {
-        PicnicManager.GET(parseInt(picnicId)).then(picnic => {
+        PicnicsManager.GET(parseInt(picnicId)).then(picnic => {
             picnic.userId = parseInt(sessionStorage.getItem("credentials"))
             delete picnic.id
-            PicnicManager.POST(picnic).then(() => {
+            PicnicsManager.POST(picnic).then(() => {
                 PicnicFriendsManager.PATCH({
                     id: parseInt(id),
                     confirmed: true
                 }).then(() => {
-                    PicnicManager.GETALL().then(picnic =>
+                    PicnicsManager.GETALL().then(picnic =>
                         PicnicFriendsManager.GETALL().then(picnicFriends =>
                             {
                                 this.setState({

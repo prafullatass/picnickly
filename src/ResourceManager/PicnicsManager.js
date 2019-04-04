@@ -1,9 +1,9 @@
 import APIManager from "../utilities/APIManager";
 
-const PicnicManager = Object.create(APIManager, {
+const PicnicsManager = Object.create(APIManager, {
     DBname: {
         value: "picnic"
     }
 })
 
-export default PicnicManager
+export default PicnicsManager

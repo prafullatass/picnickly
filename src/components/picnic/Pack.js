@@ -3,7 +3,7 @@ import GetParkData from "../../Modules/GetParkData";
 import SelectPark from "../parks/SelectPark";
 import Input from "../reusableComponents/Input";
 import Button from "../reusableComponents/Button";
-import PicnicManager from "../../ResourceManager/PicnicManager";
+import PicnicsManager from "../../ResourceManager/PicnicsManager";
 import GamesManager from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
@@ -45,7 +45,7 @@ class Pack extends Component {
         const promises = []
         GetParkData().then(parks => {
             fetchedObj.parks = parks
-            promises.push(PicnicManager.GET(this.props.match.params.picnicId)
+            promises.push(PicnicsManager.GET(this.props.match.params.picnicId)
                 .then(picnicData => {
                     fetchedObj.parkName = picnicData.parkName
                     fetchedObj.address = picnicData.address
