@@ -4,7 +4,7 @@ import SelectPark from "../parks/SelectPark";
 import Input from "../reusableComponents/Input";
 import Button from "../reusableComponents/Button";
 import PicnicsManager from "../../ResourceManager/PicnicsManager";
-import GamesManager from "../../ResourceManager/GamesManager";
+import GamesManagers from "../../ResourceManager/GamesManager";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"
@@ -53,7 +53,7 @@ class Pack extends Component {
                     fetchedObj.userId = picnicData.userId
                     fetchedObj.parkDetails = parks.find(park => park.parkName === picnicData.parkName).features
                 }))
-            promises.push(this.getDataForArray(GamesManager, "selectedGames", "myGameId"))
+            promises.push(this.getDataForArray(GamesManagers, "selectedGames", "myGameId"))
             promises.push(this.getDataForArray(ItemsManager, "selectedItems", "itemListId"))
             promises.push(this.getDataForArray(FoodItemsManager, "selectedFoodItems", "foodItemName"))
             Promise.all(promises).then(() => {

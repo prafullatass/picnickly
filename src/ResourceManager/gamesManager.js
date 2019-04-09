@@ -1,9 +1,9 @@
 import APIManager from "../utilities/APIManager";
 
-const GamesManager = Object.create(APIManager, {
+const GamesManagers = Object.create(APIManager, {
     DBname: {
         value: "games"
     }
 })
 
-export default GamesManager
+export default GamesManagers
