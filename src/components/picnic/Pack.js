@@ -4,7 +4,7 @@ import SelectPark from "../parks/SelectPark";
 import Input from "../reusableComponents/Input";
 import Button from "../reusableComponents/Button";
 import PicnicsManager from "../../ResourceManager/PicnicsManager";
-import GamesManagers from "../../ResourceManager/GamesManager";
+import GamesManagers from "../../ResourceManager/GamesManagers";
 import ItemsManager from "../../ResourceManager/ItemsManager";
 import FoodItemsManager from "../../ResourceManager/FoodItemsManager";
 import { Label } from "reactstrap"

@@ -18,7 +18,7 @@ import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 import Items from "./smallComponents/items";
 import MyGames from "./smallComponents/myGames";
 import Invitataions from "./picnic/Invitataions";
-import GamesManagers from "../ResourceManager/GamesManager";
+import GamesManagers from "../ResourceManager/GamesManagers";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
