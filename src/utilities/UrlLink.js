@@ -1,3 +1,3 @@
 export default {
-    url: "http://localhost:3003"
+    url: "https://picnicklyapi.herokuapp.com/"
 }
