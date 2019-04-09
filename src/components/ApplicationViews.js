@@ -104,7 +104,7 @@ class ApplicationViews extends Component {
             .then(res => sessionStorage.setItem("picnic", res.id))
     }
     createGames = (gamesObj) => {
-        return GamesManagerss.POST(gamesObj)
+        return GamesManagers.POST(gamesObj)
     }
     createItems = (itemsObj) => {
         return ItemsManager.POST(itemsObj)
