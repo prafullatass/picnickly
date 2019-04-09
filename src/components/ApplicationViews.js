@@ -18,7 +18,7 @@ import PicnicFriendsManager from "../ResourceManager/PicnicFriendsManager";
 import Items from "./smallComponents/items";
 import MyGames from "./smallComponents/myGames";
 import Invitataions from "./picnic/Invitataions";
-import GamesManager from "../ResourceManager/GamesManager";
+import GamesManagers from "../ResourceManager/GamesManager";
 class ApplicationViews extends Component {
     state = {
         picnic: [],
@@ -71,7 +71,7 @@ class ApplicationViews extends Component {
             )
         )
         promises.push(
-            GamesManager.GETALL().then(games =>
+            GamesManagers.GETALL().then(games =>
                 new_state.games = games
             )
         )
@@ -104,7 +104,7 @@ class ApplicationViews extends Component {
             .then(res => sessionStorage.setItem("picnic", res.id))
     }
     createGames = (gamesObj) => {
-        return GamesManager.POST(gamesObj)
+        return GamesManagerss.POST(gamesObj)
     }
     createItems = (itemsObj) => {
         return ItemsManager.POST(itemsObj)
@@ -126,7 +126,7 @@ class ApplicationViews extends Component {
         return PicnicsManager.PUT(picObj)
     }
     deleteGames = (id) => {
-        return GamesManager.DELETE(id)
+        return GamesManagers.DELETE(id)
     }
     deleteItems = (id) => {
         return ItemsManager.DELETE(id)
@@ -153,7 +153,7 @@ class ApplicationViews extends Component {
                 ))
     }
     patchGames = (obj) => {
-        return GamesManager.PATCH(obj)
+        return GamesManagers.PATCH(obj)
     }
     patchItems = (obj) => {
         return ItemsManager.PATCH(obj)
@@ -191,7 +191,7 @@ class ApplicationViews extends Component {
         let promises = []
 
         promises.push(PicnicsManager.DELETE(id))
-        promises.push(this.multipleDel(id, "games", GamesManager))
+        promises.push(this.multipleDel(id, "games", GamesManagers))
         promises.push(this.multipleDel(id, "items", ItemsManager))
         promises.push(this.multipleDel(id, "foodItems", FoodItemsManager))
 
